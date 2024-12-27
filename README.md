@@ -11,3 +11,5 @@ Permission is given to make copies
 on some other site, *but* I would request that you contact me to inform me
 so that I can add the information about where Reeborg is used and so that
 I can keep you abreast of any new development.
+
+CMS for this site: https://mde.tw/reeborg/docs/
