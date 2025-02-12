@@ -50,3 +50,9 @@ When using the offline version, you might want to use easylaunch.py,
 found here in the root directory.  Make sure you read it (as it contains
 important information about its use) and possibly read the content of 
 reeborg_menu.txt as well.
+
+
+2016.02.03 version
+==================
+
+https://github.com/mdecycu/reeborg/tree/e5742fbbfb915cecb9c078bc45f44d722d6a118d
