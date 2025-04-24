@@ -2102,47 +2102,68 @@ function set_editor() {
 
 function set_editor() {
     "use strict";
-
-    // Helper function to fetch content from URL
-    function fetchFromUrl(url, callback) {
-        fetch(url)
-            .then(response =&gt; {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(data =&gt; callback(data))
-            .catch(error =&gt; console.error("Error fetching from URL:", error));
-    }
-
-    // Priority 1: Fetch content from Gist URL (if provided)
     const urlParams = new URLSearchParams(window.location.search);
-    const gistUrl = urlParams.get("editor");
-    if (gistUrl) {
-        fetchFromUrl(gistUrl, content =&gt; {
-            editor.setValue(content);
-        });
-        return;
+    const editorFilePath = urlParams.get("editor");
+
+    if (editorFilePath) {
+        // Check if the URL is a Gist URL
+        if (editorFilePath.includes('gist.github.com')) {
+            // Extract Gist ID from the URL
+            const gistId = editorFilePath.split('/')[4]; // Gist URL is like "https://gist.github.com/user/gistId"
+            const gistApiUrl = `https://api.github.com/gists/${gistId}`;
+
+            // Fetch content from Gist
+            fetch(gistApiUrl)
+                .then(response =&gt; {
+                    if (!response.ok) {
+                        throw new Error("Failed to load Gist: " + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(gistData =&gt; {
+                    const fileName = Object.keys(gistData.files)[0]; // Get the first file in the Gist
+                    const fileContent = gistData.files[fileName].content;
+
+                    // Set the content into the editor
+                    editor.setValue(fileContent);
+
+                    // Set the Gist URL into fm_m4 input field
+                    document.getElementById('fm_m4').value = `Gist URL: ${gistData.html_url}`;
+                })
+                .catch(error =&gt; {
+                    console.error(error);
+                    loadFromLocalStorageOrDefault();
+                });
+        } else {
+            // If it's not a Gist, treat it as a file URL
+            fetch(editorFilePath)
+                .then(response =&gt; {
+                    if (!response.ok) {
+                        throw new Error("Failed to load file: " + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(fileContent =&gt; {
+                    editor.setValue(fileContent);
+                })
+                .catch(error =&gt; {
+                    console.error(error);
+                    loadFromLocalStorageOrDefault();
+                });
+        }
+    } else {
+        // Fallback to loading from localStorage or default value
+        loadFromLocalStorageOrDefault();
     }
 
-    // Priority 2: Fetch content from local relative directory
-    const localFilePath = "./default.py"; // Replace with actual local file path if known
-    fetchFromUrl(localFilePath, content =&gt; {
-        editor.setValue(content);
-    });
-
-    // Priority 3: Fetch content from localStorage if "editor" exists
-    const localEditorContent = localStorage.getItem("editor");
-    if (localEditorContent) {
-        editor.setValue(localEditorContent);
-        return;
+    function loadFromLocalStorageOrDefault() {
+        if (localStorage.getItem("editor")) {
+            editor.setValue(localStorage.getItem("editor"));
+        } else {
+            editor.setValue(RUR.translate("move") + "()");
+        }
     }
-
-    // Priority 4: Fallback to default value
-    editor.setValue(RUR.translate("move") + "()");
 }
-
 </t>
 <t tx="leo.20250219181834.134">function set_library() {
     if (localStorage.getItem("library")){
