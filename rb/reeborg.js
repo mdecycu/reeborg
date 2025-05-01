@@ -184,7 +184,6 @@ _add_object_type = function (name) {
     url_goal = RUR.BASE_URL + '/src/images/' + name + '_goal.png';
     RUR.add_new_thing({"name": name, "url": url, "goal": {"url": url_goal}});
 };
-
 _add_object_type("token");
 RUR.THINGS.token.info = "tokens are Reeborg's favourite thing.";
 _add_object_type("star");
@@ -314,7 +313,6 @@ add_fence = function (name) {
     obj.url = RUR.BASE_URL + '/src/images/' + name + '.png';
     RUR.add_new_thing(obj);
 };
-
 add_fence("fence_right");
 add_fence("fence_left");
 add_fence("fence_double");
@@ -366,7 +364,6 @@ function set_nb_object () {
     dialog_add_object.dialog("close");
     return true;
 }
-
 add_object_form = dialog_add_object.find("form").on("submit", function( event ) {
     event.preventDefault();
     set_nb_object();
@@ -413,7 +410,6 @@ RUR.create_and_activate_dialogs = function(button, element, add_options, special
         update_titles();
     });
 };
-
 $(document).ready( function () {
     RUR.create_and_activate_dialogs($("#more-menus-button"), $("#more-menus"), {height:700});
     RUR.create_and_activate_dialogs($("#special-keyboard-button"), $("#special-keyboard"),
@@ -528,7 +524,6 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
         RUR.show_feedback("#Reeborg-failure", nb + RUR.translate(" is not a valid value!"));
     }
 };
-
 },{"./../../lang/msg.js":95,"./../drawing/visible_world.js":10,"./../programming_api/exceptions.js":28,"./../rur.js":44,"./../translator.js":46,"./../utils/key_exist.js":66,"./../utils/supplant.js":71,"./../utils/validator.js":72}],5:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 require("./../world_api/objects.js");
@@ -615,7 +610,6 @@ select_colour = function () {
     RUR._CALLBACK_FN(colour);
     RUR.vis_world.draw_all();
 };
-
 },{"./../../lang/msg.js":95,"./../drawing/visible_world.js":10}],7:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
@@ -653,7 +647,6 @@ set_background_image = function () {
     RUR.BACKGROUND_IMAGE.onload = RUR.vis_world.draw_all;
     dialog.dialog("close");
 };
-
 },{"./../../lang/msg.js":95,"./../drawing/visible_world.js":10}],8:[function(require,module,exports){
 require("./../rur.js");
 require("./../drawing/visible_world.js"); // for RUR.set_world_size
@@ -687,7 +680,6 @@ function trim_world (new_max_x, new_max_y, old_max_x, old_max_y) {
         }
     }
 }
-
 function remove_all_at_location (coords) {
     var world = RUR.get_current_world();
     // trading efficiency for clarity
@@ -739,7 +731,6 @@ function remove_all_at_location (coords) {
         }
     }
 }
-
 msg.record_id("dialog-set-dimensions");
 msg.record_title("ui-dialog-title-dialog-set-dimensions", "Set the world's dimensions");
 msg.record_id("set-dimensions-explain", "set-dimensions-explain");
@@ -851,7 +842,6 @@ function set_images(images) {
         RUR.state.reset_default_robot_images_needed = true;
     }
 }
-
 RUR.reset_default_robot_images = function () {
     "use strict"
     var saved_model;
@@ -922,7 +912,6 @@ RUR.reset_default_robot_images = function () {
     });
     RUR.state.reset_default_robot_images_needed = false;
 };
-
 RUR.select_default_robot_model = function (model) {
     "use strict";
     var robot;
@@ -1012,7 +1001,6 @@ RUR.animate_robot = function (models, robot_body) {
     RUR.record_frame("animate robot", robot_body.__id);
     RUR.state.animated_robots = true;
 };
-
 function update_model(robot) { // robot == robot.body
     var default_robot, nb_models = robot.models_cycle.length;
 
@@ -1035,8 +1023,6 @@ function update_model(robot) { // robot == robot.body
     robot.model_index %= nb_models;
     return;
 };
-
-
 RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image, default_robot;
@@ -1107,8 +1093,6 @@ RUR.vis_robot.draw = function (robot) {
     }
     RUR.vis_robot.draw_trace_history(robot);
 };
-
-
 // drawing random orientation robot
 RUR.vis_robot.draw_random = function (robot) {
     "use strict";
@@ -1171,15 +1155,12 @@ RUR.vis_robot.draw_random = function (robot) {
     RUR.ROBOT_ANIM_CTX.drawImage(image, x, y, width, height);
     RUR.state.random_robot = true;
 };
-
-
 RUR.vis_robot.draw_trace_history  = function(robot) {
     var segment;
     for (segment of robot._trace_history) { //jshint ignore:line
         RUR.vis_robot.draw_trace_segment(segment);
     }
 };
-
 RUR.vis_robot.draw_trace_segment = function (segment) {
     "use strict";
     var ctx = RUR.TRACE_CTX;
@@ -1192,7 +1173,6 @@ RUR.vis_robot.draw_trace_segment = function (segment) {
     ctx.lineTo(segment["x"], segment["y"]);
     ctx.stroke();
 };
-
 /** @function new_robot_images
  * @memberof RUR
  * @instance
@@ -1234,7 +1214,6 @@ RUR.new_robot_images = function (images) {
     }
     set_images(images);
 };
-
 /** @function show_all_robots
  * @memberof RUR
  * @instance
@@ -1269,8 +1248,6 @@ RUR.show_all_robots = function () {
     RUR._print_html_(info, true); // true will replace existing content
     return null; // for the python repl
 };
-
-
 },{"./../../lang/msg.js":95,"./../rur.js":44,"./../utils/validator.js":72}],10:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
@@ -1284,7 +1261,6 @@ RUR.vis_world.refresh_world_edited = function () {
     RUR.vis_world.draw_all();
     RUR.world_get.world_info();
 };
-
 /** @function set_world_size
  * @memberof RUR
  * @instance
@@ -1327,7 +1303,6 @@ RUR.set_world_size = function (max_x, max_y) {
 
     RUR.vis_world.draw_all();
 };
-
 function set_scale () {
     if (RUR.get_current_world().small_tiles) {
         RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH/2;
@@ -1341,7 +1316,6 @@ function set_scale () {
         RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
 }
-
 // retaining compatibility with some of Vincent Maille's worlds.
 RUR.vis_world.compute_world_geometry = RUR.set_world_size;
 
@@ -1373,16 +1347,12 @@ RUR.vis_world.draw_all = function () {
     RUR.animated_images = false;
     RUR.vis_world.refresh();
 };
-
-
 RUR.vis_world.clear_all_ctx = function () {
     // useful for graphics.py
     for (var ctx of RUR.ALL_CTX) {
         ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
 };
-
-
 RUR.vis_world.refresh = function () {
     "use strict";
     var canvas, canvases, goal, world = RUR.get_current_world();
@@ -1450,7 +1420,6 @@ RUR.vis_world.refresh = function () {
     }
 
 };
-
 function draw_coordinates () {
     "use strict";
     var x, y, ctx = RUR.BACKGROUND_CTX, grid_size=RUR.WALL_LENGTH;
@@ -1479,7 +1448,6 @@ function draw_coordinates () {
     ctx.fillText("x", RUR.WIDTH/2, RUR.HEIGHT - 10);
     ctx.fillText("y", 5, RUR.HEIGHT/2 );
 }
-
 function draw_grid_walls (ctx, edit){
     "use strict";
     var i, j, image_e, image_n, wall_e, wall_n, draw_only_path, x, y,
@@ -1566,7 +1534,6 @@ function draw_grid_walls (ctx, edit){
         ctx.restore();
     }
 }
-
 function draw_border (ctx) {
     "use strict";
     var j, image, wall, x_offset, y_offset;
@@ -1594,8 +1561,6 @@ function draw_border (ctx) {
         draw_single_object(image, j, RUR.MAX_Y, ctx, x_offset, y_offset);
     }
 }
-
-
 function draw_robots () {
     "use strict";
     var body, robot, robots = RUR.get_current_world().robots;
@@ -1619,7 +1584,6 @@ function draw_robots () {
             RUR.ROBOT_ANIMATION_TIME);
     }
 }
-
 function draw_random_robots (robots) {
     "use strict";
     var body, robot;
@@ -1638,8 +1602,6 @@ function draw_random_robots (robots) {
         }
     }
 }
-
-
 function draw_robot_clones (robot, random){
     "use strict";
     var i, clone;
@@ -1669,9 +1631,6 @@ function draw_robot_clones (robot, random){
         RUR.ROBOT_CTX.restore();
     }
 }
-
-
-
 function draw_goal_position (goal) {
     "use strict";
     var image, i, coord, x_offset, y_offset, ctx;
@@ -1702,8 +1661,6 @@ function draw_goal_position (goal) {
         draw_single_object(image, goal.position.x, goal.position.y, ctx, x_offset, y_offset);
     }
 }
-
-
 function draw_tiles (tiles, ctx, goal){
     "use strict";
     var i, j, coords, keys, key, image, tile, colour, t, tile_array;
@@ -1750,7 +1707,6 @@ function draw_tiles (tiles, ctx, goal){
         }
     }
 }
-
 function draw_animated_images (){
     "use strict";
     var i, flag, anims, canvas, canvases, obj, ctx, world = RUR.get_current_world();
@@ -1796,7 +1752,6 @@ function draw_animated_images (){
     // animated images
     RUR.animated_images = flag;
 }
-
 function draw_anim (objects, ctx) {
     "use strict";
     var i, j, i_j, coords, flag, k, n, obj, obj_here,
@@ -1846,7 +1801,6 @@ function draw_anim (objects, ctx) {
     RUR.state.do_not_record = recording_state;
     return flag;
 }
-
 function __remove_animated_object(args) {
     var x, y, name, ctx;
     x = args[0];
@@ -1865,7 +1819,6 @@ function __remove_animated_object(args) {
             console.warn("unknown ctx in __remove_animated_object.");
     }
 }
-
 function _draw_single_animated (obj, coords, i, j, ctx, x_offset, y_offset){
     var image, id = coords + ctx.canvas.id + obj.name;
     // each image is uniquely identified by its "id".
@@ -1879,7 +1832,6 @@ function _draw_single_animated (obj, coords, i, j, ctx, x_offset, y_offset){
     draw_single_object(image, i, j, ctx, x_offset, y_offset);
     return false;
 }
-
 function draw_coloured_tile (colour, i, j, ctx) {
     var thick = RUR.WALL_THICKNESS, grid_size = RUR.WALL_LENGTH;
     var x, y;
@@ -1891,7 +1843,6 @@ function draw_coloured_tile (colour, i, j, ctx) {
     ctx.fillStyle = colour;
     ctx.fillRect(x, y, grid_size, grid_size);
 }
-
 function draw_single_object (image, i, j, ctx, x_offset, y_offset) {
     var x, y, offset=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH;
     if (x_offset === undefined) {
@@ -1914,8 +1865,6 @@ function draw_single_object (image, i, j, ctx, x_offset, y_offset) {
         console.warn("problem in draw_single_object", image, ctx, e);
     }
 }
-
-
 function draw_background_image (image) {
     // we draw the image so that it fills the entire world
     var thick=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH,
@@ -1945,7 +1894,6 @@ function draw_background_image (image) {
         console.warn("problem in draw_background_image", image, ctx, e);
     }
 }
-
 function compile_info () {
     // compiles the information about objects and goal found at each
     // grid location, so that we can determine what should be
@@ -1964,7 +1912,6 @@ function compile_info () {
         compile_partial_info(world.objects, RUR.vis_world.information, 'objects');
     }
 }
-
 function compile_partial_info (objects, information, type){
     "use strict";
     var coords, obj, quantity, color, goal_information;
@@ -2012,7 +1959,6 @@ function compile_partial_info (objects, information, type){
         }
     }
 }
-
 function draw_info () {
     var i, j, coords, keys, key, info, ctx;
     var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
@@ -2060,8 +2006,6 @@ function draw_info () {
         }
     }
 }
-
-
 function draw_correct_path (path, color) {
     "use strict";
     var i, x, y, arrow_offset, offset, prev_x, prev_y, ctx = RUR.OBJECTS_CTX; // below RUR.TRACE_CTX
@@ -2134,8 +2078,6 @@ function draw_correct_path (path, color) {
         draw_arrow(x, y, prev_x, prev_y, ctx, arrow_offset);
     }
 }
-
-
 function draw_arrow(x, y, prev_x, prev_y, ctx, arrow_offset) {
     var len = ctx.lineWidth * 4;
     ctx.beginPath();
@@ -2209,7 +2151,6 @@ function draw_arrow(x, y, prev_x, prev_y, ctx, arrow_offset) {
         }
     }
 }
-
 },{"./../rur.js":44,"./../translator.js":46,"./../world_api/things.js":84}],11:[function(require,module,exports){
 function betterTab(cm) {
   if (cm.somethingSelected()) {
@@ -2219,11 +2160,9 @@ function betterTab(cm) {
       Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
   }
 }
-
 function shiftTab(cm) {
   cm.execCommand("indentLess");
 }
-
 window.editor = CodeMirror.fromTextArea(document.getElementById('code'), {
   mode: {
     name: "python",
@@ -2344,7 +2283,6 @@ function _update_from_editor(world, name, _editor) {
         world[name] = _editor.getValue();
     }
 }
-
 RUR.update_world_from_editors = function (world) {
     _update_from_editor(world, "blockly",RUR.blockly);
     _update_from_editor(world, "editor", editor);
@@ -2355,13 +2293,11 @@ RUR.update_world_from_editors = function (world) {
     _update_from_editor(world, "onload", onload_editor);
     return world;
 };
-
 function show_update_editor_dialog(world, editor_name, _editor) {
     if (world[editor_name] != _editor.getValue()) {
         dialog_update_editors_from_world.dialog("open");
     }
 }
-
 function set_button (name, content_present) {
     if (content_present &&
         $("#add-" + name + "-to-world-btn").hasClass("blue-gradient")) {
@@ -2377,7 +2313,6 @@ function set_button (name, content_present) {
         $("#add-" + name + "-to-world-btn").removeClass("active-element");
     }
 }
-
 function _update_user_editor (world, name, ed) {
     try {
         if (test_utils !== undefined) return;
@@ -2395,7 +2330,6 @@ function _update_user_editor (world, name, ed) {
         $("#update-"+name+"-content").hide();
     }
 }
-
 function _update_world_editor (world, name, ed) {
     // For editors defining the world: pre, post, description, onload.
     content = world[name];
@@ -2410,7 +2344,6 @@ function _update_world_editor (world, name, ed) {
         ed.setValue('\n');
     }
 }
-
 RUR.update_editors = function (world) {
     _update_user_editor(world, "blockly", RUR.blockly);
     _update_world_editor (world, "pre", pre_code_editor);
@@ -2418,7 +2351,6 @@ RUR.update_editors = function (world) {
     _update_world_editor (world, "description", description_editor);
     _update_world_editor (world, "onload", onload_editor);
 };
-
 msg.record_id("update-blockly-content");
 msg.record_id("update-blockly-content-text", "UPDATE BLOCKLY CONTENT");
 msg.record_id("update-blockly-content-btn", "UPDATE BLOCKLY BUTTON");
@@ -2508,7 +2440,6 @@ RUR._load_world_from_program = function (url, shortname) {
         throw new RUR.ReeborgOK(RUR.translate("World selected").supplant({world: shortname}));
     }
 };
-
 RUR._last_url_loaded = undefined;
 RUR._last_shortname_loaded = undefined;
 
@@ -2568,7 +2499,6 @@ RUR.load_world_file = function (url, shortname) {
         });
     }
 };
-
 },{"./../editors/update.js":12,"./../permalink/permalink.js":21,"./../programming_api/exceptions.js":28,"./../recorder/recorder.js":39,"./../rur.js":44,"./../translator.js":46,"./../ui/stop.js":59,"./../ui/world_select.js":63,"./../utils/supplant.js":71,"./../world_utils/import_world.js":88}],14:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
@@ -2607,7 +2537,6 @@ RUR.kbd.set_programming_language = function (lang) {
     }
     RUR.kbd.select();
 };
-
 RUR.kbd.insert_statement = function (txt){
     if (RUR.state.programming_language == "javascript") {
         RUR.kbd.insert(txt + ";");
@@ -2616,13 +2545,11 @@ RUR.kbd.insert_statement = function (txt){
     }
     RUR.kbd.enter();
 };
-
 RUR.kbd.insert_in_console = function (txt) {
     var console = $("#py-console");
     console.val(console.val() + txt);
     console.focus();
 };
-
 RUR.kbd.insert = function (txt){
     "use strict";
     var doc, cursor, pos;
@@ -2644,7 +2571,6 @@ RUR.kbd.insert = function (txt){
     doc.replaceRange(txt, pos); // adds a new line
     doc.focus();
 };
-
 RUR.kbd.undo = function () {
     "use strict";
     var doc;
@@ -2656,7 +2582,6 @@ RUR.kbd.undo = function () {
     doc.undo();
     doc.focus();
 };
-
 RUR.kbd.redo = function () {
     "use strict";
     var doc;
@@ -2668,7 +2593,6 @@ RUR.kbd.redo = function () {
     doc.redo();
     doc.focus();
 };
-
 RUR.kbd.enter = function () {
     "use strict";
     var doc, ev;
@@ -2687,7 +2611,6 @@ RUR.kbd.enter = function () {
     doc.execCommand("newlineAndIndent");
     doc.focus();
 };
-
 RUR.kbd.tab = function () {
     "use strict";
     var doc;
@@ -2704,7 +2627,6 @@ RUR.kbd.tab = function () {
     doc.execCommand("indentMore");
     doc.focus();
 };
-
 RUR.kbd.shift_tab = function () {
     "use strict";
     var doc;
@@ -2716,7 +2638,6 @@ RUR.kbd.shift_tab = function () {
     doc.execCommand("indentLess");
     doc.focus();
 };
-
 RUR.kbd.select = function (choice) {
     "use strict";
     $(".kbd-command").hide();
@@ -2816,7 +2737,6 @@ RUR.kbd.select = function (choice) {
         $(".only_py").hide();
     }
 };
-
 function add_onclick_select(arg) {
     var id = arg + "-btn";
     $("#"+id).on("click", function (evt) {
@@ -2855,11 +2775,9 @@ function add_onclick_insert_function(id, arg) {
     });
     msg.record_fn(id, arg);
 }
-
 function decodeLtGtEntities(text) {
     return text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 }
-
 function add_onclick_insert_untranslated(id, arg) {
     var decodedArg = decodeLtGtEntities(arg);
     $("#"+id).on("click", function (evt) {
@@ -2874,7 +2792,6 @@ function add_onclick_insert_object(id, arg) {
     });
     msg.record_id(id);
 }
-
 $(document).ready(function () {
     init();
 });
@@ -3149,7 +3066,6 @@ RUR.we.edit_world = function  () {
     }
     RUR.vis_world.refresh_world_edited();
 };
-
 function toggle_decorative_object(value) {
     "use strict";
     var x, y, position = RUR.calculate_grid_position();
@@ -3161,15 +3077,12 @@ function toggle_decorative_object(value) {
         RUR.add_decorative_object(value, x, y);
     }
 }
-
 function alert_1 (txt) {
     $("#cmd-result").html(RUR.translate(txt)).effect("highlight", {color: "gold"}, 1500);
 }
-
 function alert_2 (txt, value) {
     $("#cmd-result").html(RUR.translate(txt).supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
 }
-
 RUR.we.select = function (choice) {
     "use strict";
     var value, split, root;
@@ -3288,7 +3201,6 @@ RUR.we.select = function (choice) {
             break;
     }
 };
-
 RUR.we.toggle_editing_mode = function () {
     if (RUR.state.editing_world) {  // done editing
         $("#pre-code-tab").parent().hide();
@@ -3324,7 +3236,6 @@ RUR.we.toggle_editing_mode = function () {
     }
     RUR.vis_world.draw_all();
 };
-
 record_id("edit-world", "EDIT WORLD");
 record_id("edit-world-text", "EDIT WORLD EXPLAIN");
 $(document).ready( function () {
@@ -3385,8 +3296,6 @@ function place_robot () {
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
 }
-
-
 function give_objects_to_robot (specific_object){
     "use strict";
 
@@ -3394,14 +3303,11 @@ function give_objects_to_robot (specific_object){
     $("#give-object-name").html(RUR.translate(specific_object));
     dialog_give_object.dialog("open");
 }
-
-
 RUR.we.turn_robot = function (orientation) { // function used on reeborg.html
     RUR.get_current_world().robots[0]._orientation = orientation;
     RUR.get_current_world().robots[0]._prev_orientation = orientation;
     RUR.vis_world.refresh_world_edited();
 };
-
 function calculate_wall_position () {
     var x, y, orientation, remain_x, remain_y, del_x, del_y;
     x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
@@ -3455,7 +3361,6 @@ function calculate_wall_position () {
 
     return [x, y, orientation];
 }
-
 function __toggle_wall (goal) {
     var position, x, y, orientation, options = {};
     position = calculate_wall_position();
@@ -3473,15 +3378,12 @@ function __toggle_wall (goal) {
         RUR.add_wall(RUR.translate(orientation), x, y, options);
     }
 }
-
 function toggle_wall () {
     __toggle_wall(false);
 }
-
 function toggle_goal_wall () {
     __toggle_wall(true);
 }
-
 function set_add_object_position () {
     var position, x, y;
     position = RUR.calculate_grid_position();
@@ -3490,14 +3392,12 @@ function set_add_object_position () {
     RUR.state.x = x;
     RUR.state.y = y;
 }
-
 function add_object (specific_object){
     set_add_object_position();
     RUR.state.specific_object = specific_object;
     $("#add-object-name").html(RUR.translate(specific_object));
     dialog_add_object.dialog("open");
 }
-
 function add_goal_object (specific_object){
     "use strict";
     set_add_object_position();
@@ -3505,7 +3405,6 @@ function add_goal_object (specific_object){
     $("#goal-object-name").html(RUR.translate(specific_object));
     dialog_goal_object.dialog("open");
 }
-
 /* TODO This should probably be rewritten to make use of
  * RUR.add_final_position, but would also require that
  * RUR.is_final_position be written and RUR.remove_final_position as well.
@@ -3566,7 +3465,6 @@ RUR.we.set_goal_position = function (home){
         $("#edit-world-turn").hide();
     }
 };
-
 function toggle_tile (name){
     // will remove the position if clicked again with tile of same type.
     "use strict";
@@ -3590,7 +3488,6 @@ function toggle_tile (name){
         RUR.add_colored_tile(name, x, y);
     }
 }
-
 function fill_with_tile (name) {
     "use strict";
     if (!name) {    // if we cancel the dialog
@@ -3606,8 +3503,6 @@ function fill_with_tile (name) {
     RUR.vis_world.refresh_world_edited();
     $("#cmd-result").html("");
 }
-
-
 function toggle_obstacle (obj){
     // will remove the position if clicked again with object of same type.
     "use strict";
@@ -3623,7 +3518,6 @@ function toggle_obstacle (obj){
         RUR.add_obstacle(obj, x, y);
     }
 }
-
 $(document).ready(function() {
 // mouse clicks also requested in listeners/canvas.js
     $("#robot-anim-canvas").on("click", function (evt) {
@@ -3683,7 +3577,6 @@ brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 function probably_invalid(value) {
     return value === undefined || value === null || value == "null" || value == "undefined";
 }
-
 RUR.state.session_initialized = false;
 
 function start_session () {
@@ -3703,8 +3596,6 @@ function start_session () {
     RUR.permalink.update_URI();
     $("#thought").hide();
 }
-
-
 function confirm_ready_to_start() {
     if (window.translate_python === undefined || !RUR.state.ui_ready) {
         console.log("Not quite ready to initialize session; will try again in 100ms.");
@@ -3713,7 +3604,6 @@ function confirm_ready_to_start() {
         start_session();
     }
 }
-
 confirm_ready_to_start();
 
 
@@ -3787,7 +3677,6 @@ function set_initial_state() {
         set_default_world();
     }
 }
-
 function set_default_world() {
     var world_name, world_url, possible_url;
     world_name = localStorage.getItem("world_name");
@@ -3801,8 +3690,6 @@ function set_default_world() {
         RUR.world_selector.set_default();  // first world of the collection
     }
 }
-
-
 function set_initial_input_method(url_query) {
     var last_mode;
     RUR.state.input_method = decodeURIComponent(url_query.queryKey.mode); 
@@ -3822,8 +3709,6 @@ function set_initial_input_method(url_query) {
         restore_blockly();
     }
 }
-
-
 function set_initial_language(url_query) {
     var last_lang;
     RUR.state.human_language = decodeURIComponent(url_query.queryKey.lang);
@@ -3839,8 +3724,6 @@ function set_initial_language(url_query) {
     document.getElementById('human-language').value = RUR.state.human_language;
     $("#human-language").change(); // triggers the require UI changes
 }
-
-
 function set_initial_menu(url_query) {
     var last_menu;
     var last_lang;
@@ -3870,8 +3753,6 @@ function set_initial_menu(url_query) {
     RUR.state.creating_menu = false;
 
 }
-
-
 function restore_blockly () {
     try {
         _restore_blockly();
@@ -3880,7 +3761,6 @@ function restore_blockly () {
         setTimeout(_restore_blockly, 500);
     }
 }
-
 function _restore_blockly () {
     var xml, xml_text;
     xml_text = localStorage.getItem("blockly");
@@ -3889,8 +3769,6 @@ function _restore_blockly () {
         Blockly.Xml.domToWorkspace(xml, RUR.blockly.workspace);
     }
 }
-
-
 /* original set_editor
 function set_editor() {
     "use strict";
@@ -3971,7 +3849,6 @@ function set_library() {
         library.setValue(localStorage.getItem("library"));
     }
 }
-
 function get_red_green () {
     /* When objects need to be placed at a given location in the world,
        green is used to indicate numbers of objects properly position
@@ -3985,7 +3862,6 @@ function get_red_green () {
         RUR.configure_red_green(red, green);
     }
 }
-
 },{"./file_io/file_io.js":13,"./gui_tools/world_editor.js":15,"./listeners/memorize_world.js":19,"./listeners/onclick.js":20,"./permalink/permalink.js":21,"./rur.js":44,"./storage/storage.js":45,"./ui/add_listeners.js":47,"./ui/keyboard_shortcuts.js":53,"./utils/cors.js":64,"./utils/maze.js":67,"./utils/path_utils.js":68,"./utils/search.js":70,"./world_api/decorative_objects.js":78}],17:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
@@ -4010,1001 +3886,974 @@ function get_red_green () {
  * Modified by André Roberge to remove some IE support which is irrelevant for me.
  */
 (function( $, undefined ) {
-
 var uiDialogClasses =
-		'ui-dialog ' +
-		'ui-widget ' +
-		'ui-widget-content ' +
-		'ui-corner-all ',
-	sizeRelatedOptions = {
-		buttons: true,
-		height: true,
-		maxHeight: true,
-		maxWidth: true,
-		minHeight: true,
-		minWidth: true,
-		width: true
-	},
-	resizableRelatedOptions = {
-		maxHeight: true,
-		maxWidth: true,
-		minHeight: true,
-		minWidth: true
-	},
-	// support for jQuery 1.3.2 - handle common attrFn methods for dialog
-	attrFn = $.attrFn || {
-		val: true,
-		css: true,
-		html: true,
-		text: true,
-		data: true,
-		width: true,
-		height: true,
-		offset: true,
-		click: true
-	};
+        'ui-dialog ' +
+        'ui-widget ' +
+        'ui-widget-content ' +
+        'ui-corner-all ',
+    sizeRelatedOptions = {
+        buttons: true,
+        height: true,
+        maxHeight: true,
+        maxWidth: true,
+        minHeight: true,
+        minWidth: true,
+        width: true
+    },
+    resizableRelatedOptions = {
+        maxHeight: true,
+        maxWidth: true,
+        minHeight: true,
+        minWidth: true
+    },
+    // support for jQuery 1.3.2 - handle common attrFn methods for dialog
+    attrFn = $.attrFn || {
+        val: true,
+        css: true,
+        html: true,
+        text: true,
+        data: true,
+        width: true,
+        height: true,
+        offset: true,
+        click: true
+    };
 
 $.widget("ui.dialog", {
-	options: {
-		autoOpen: true,
-		buttons: {},
-		closeOnEscape: true,
-		closeText: 'close',
-		dialogClass: '',
-		draggable: true,
-		hide: null,
-		height: 'auto',
-		maxHeight: false,
-		maxWidth: false,
-		minHeight: 150,
-		minWidth: 300,
-		minimizeText: 'minimize',
-		maximizeText: 'maximize',
-		minimize: true,
-		maximize: true,
-		modal: false,
-		position: {
-			my: 'center',
-			at: 'center',
-			collision: 'fit',
-			// ensure that the titlebar is never outside the document
-			using: function(pos) {
-				var topOffset = $(this).css(pos).offset().top;
-				if (topOffset < 0) {
-					$(this).css('top', pos.top - topOffset);
-				}
-			}
-		},
-		resizable: true,
-		show: null,
-		stack: true,
-		title: '',
-		width: 300,
-		zIndex: 1000
-	},
-
-	_create: function() {
-        		this.originalTitle = this.element.attr('title');
-        		// #5742 - .attr() might return a DOMElement
-        		if ( typeof this.originalTitle !== "string" ) {
-        			this.originalTitle = "";
-        		}
-
-        		this.options.title = this.options.title || this.originalTitle;
-        		var self = this,
-        			options = self.options,
-
-        			title = options.title || '&#160;',
-        			titleId = $.ui.dialog.getTitleId(self.element),
-
-        			uiDialog = (self.uiDialog = $('<div></div>'))
-        				.appendTo(document.body)
-        				.hide()
-        				.addClass(uiDialogClasses + options.dialogClass)
-        				.css({
-        					zIndex: options.zIndex
-        				})
-        				// setting tabIndex makes the div focusable
-        				// setting outline to 0 prevents a border on focus in Mozilla
-        				.attr('tabIndex', -1).css('outline', 0).keydown(function(event) {
-        					if (options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
-        						event.keyCode === $.ui.keyCode.ESCAPE) {
-
-        						self.close(event);
-        						event.preventDefault();
-        					}
-        				})
-        				.attr({
-        					role: 'dialog',
-        					'aria-labelledby': titleId
-        				})
-        				.mousedown(function(event) {
-        					self.moveToTop(false, event);
-        				}),
-
-        			uiDialogContent = self.element
-        				.show()
-        				.removeAttr('title')
-        				.addClass(
-        					'ui-dialog-content ' +
-        					'ui-widget-content')
-        				.appendTo(uiDialog),
-
-        			uiDialogTitlebar = (self.uiDialogTitlebar = $('<div></div>'))
-        				.addClass(
-        					'ui-dialog-titlebar ' +
-        					'ui-widget-header ' +
-        					'ui-corner-all ' +
-        					'ui-helper-clearfix'
-        				)
-        				.prependTo(uiDialog);
-        			if(options.minimize && !options.modal){ //cannot use this option with modal
-        				var uiDialogTitlebarMinimize = $('<a href="#"></a>')
-        					.addClass(
-        						'ui-dialog-titlebar-minimize ' +
-        						'ui-corner-all'
-        					)
-        					.attr('role', 'button')
-        					.hover(
-        						function() {
-        							uiDialogTitlebarMinimize.addClass('ui-state-hover');
-        						},
-        						function() {
-        							uiDialogTitlebarMinimize.removeClass('ui-state-hover');
-        						}
-        					)
-        					.focus(function() {
-        						uiDialogTitlebarMinimize.addClass('ui-state-focus');
-        					})
-        					.blur(function() {
-        						uiDialogTitlebarMinimize.removeClass('ui-state-focus');
-        					})
-        					.click(function(event) {
-        						self.minimize(event);
-        						return false;
-        					})
-        					.appendTo(uiDialogTitlebar),
-
-        				uiDialogTitlebarMinimizeText = (self.uiDialogTitlebarMinimizeText = $('<span></span>'))
-        					.addClass(
-        						'ui-icon ' +
-        						'ui-icon-minusthick'
-        					)
-        					.text(options.minimizeText)
-        					.appendTo(uiDialogTitlebarMinimize);
-        			}
-        			if(options.maximize && !options.modal){ //cannot use this option with modal
-        				var uiDialogTitlebarMaximize = $('<a href="#"></a>')
-        					.addClass(
-        						'ui-dialog-titlebar-maximize ' +
-        						'ui-corner-all'
-        					)
-        					.attr('role', 'button')
-        					.hover(
-        						function() {
-        							uiDialogTitlebarMaximize.addClass('ui-state-hover');
-        						},
-        						function() {
-        							uiDialogTitlebarMaximize.removeClass('ui-state-hover');
-        						}
-        					)
-        					.focus(function() {
-        						uiDialogTitlebarMaximize.addClass('ui-state-focus');
-        					})
-        					.blur(function() {
-        						uiDialogTitlebarMaximize.removeClass('ui-state-focus');
-        					})
-        					.click(function(event) {
-        						self.maximize(event);
-        						return false;
-        					})
-        					.appendTo(uiDialogTitlebar),
-
-        				uiDialogTitlebarMaximizeText = (self.uiDialogTitlebarMaximizeText = $('<span></span>'))
-        					.addClass(
-        						'ui-icon ' +
-        						'ui-icon-plusthick'
-        					)
-        					.text(options.maximizeText)
-        					.appendTo(uiDialogTitlebarMaximize);
-        					$(uiDialogTitlebar).dblclick(function(event) {
-        						self.maximize(event);
-        						return false;
-        					});
-        			}
-        			if(options.close !== false){
-        				var uiDialogTitlebarClose = $('<a href="#"></a>')
-        					.addClass(
-        						'ui-dialog-titlebar-close ' +
-        						'ui-corner-all'
-        					)
-        					.attr('role', 'button')
-        					.hover(
-        						function() {
-        							uiDialogTitlebarClose.addClass('ui-state-hover');
-        						},
-        						function() {
-        							uiDialogTitlebarClose.removeClass('ui-state-hover');
-        						}
-					)
-					.focus(function() {
-						uiDialogTitlebarClose.addClass('ui-state-focus');
-					})
-					.blur(function() {
-						uiDialogTitlebarClose.removeClass('ui-state-focus');
-					})
-					.click(function(event) {
-						self.close(event);
-						return false;
-					})
-					.appendTo(uiDialogTitlebar),
-
-				uiDialogTitlebarCloseText = (self.uiDialogTitlebarCloseText = $('<span></span>'))
-					.addClass(
-						'ui-icon ' +
-						'ui-icon-closethick'
-					)
-					.text(options.closeText)
-					.appendTo(uiDialogTitlebarClose);
-			}
-
-			uiDialogTitle = $('<span></span>')
-				.addClass('ui-dialog-title')
-				.attr('id', titleId)
-				.html(title)
-				.prependTo(uiDialogTitlebar);
-
-		//handling of deprecated beforeclose (vs beforeClose) option
-		//Ticket #4669 http://dev.jqueryui.com/ticket/4669
-		//TODO: remove in 1.9pre
-		if ($.isFunction(options.beforeclose) && !$.isFunction(options.beforeClose)) {
-			options.beforeClose = options.beforeclose;
-		}
-
-		uiDialogTitlebar.find("*").add(uiDialogTitlebar).disableSelection();
-
-		if (options.draggable && $.fn.draggable) {
-			self._makeDraggable();
-		}
-		if (options.resizable && $.fn.resizable) {
-			self._makeResizable();
-		}
-
-		self._createButtons(options.buttons);
-		self._isOpen = false;
-		self._min = false;
-
-		if ($.fn.bgiframe) {
-			uiDialog.bgiframe();
-		}
-	},
-
-	_init: function() {
-		if ( this.options.autoOpen ) {
-			this.open();
-		}
-	},
-
-	destroy: function() {
-		var self = this;
-
-		if (self.overlay) {
-			self.overlay.destroy();
-		}
-		self.uiDialog.hide();
-		self.element
-			.unbind('.dialog')
-			.removeData('dialog')
-			.removeClass('ui-dialog-content ui-widget-content')
-			.hide().appendTo('body');
-		self.uiDialog.remove();
-
-		if (self.originalTitle) {
-			self.element.attr('title', self.originalTitle);
-		}
-
-		return self;
-	},
-
-	widget: function() {
-		return this.uiDialog;
-	},
-
-	minimize: function(event) {
-		var self = this,
-			ui = self.uiDialog;
-		if(false === self._trigger('beforeMinimize', event)) {
-			return;
-		}
-		if(!ui.data('is-minimized')){
-			if(self.options.minimize && typeof self.options.minimize !== "boolean" && $(self.options.minimize).length > 0){
-				self._min = $('<a>' + (ui.find('span.ui-dialog-title').html().replace(/&nbsp;/, '') || 'Untitled Dialog') + '</a>')
-					.attr('title', 'Click to restore dialog').addClass('ui-corner-all ui-button').click(function(event){self.unminimize(event);});
-				$(self.options.minimize).append(self._min);
-				ui.data('is-minimized', true).hide();
-			} else {
-				if(ui.is( ":data(resizable)" )) {
-					ui.data('was-resizable', true).resizable('destroy');
-				} else {
-					ui.data('was-resizable', false)
-				}
-				ui.data('minimized-height', ui.height());
-				ui.find('.ui-dialog-content').hide();
-				ui.find('.ui-dialog-titlebar-maximize').hide();
-				ui.find('.ui-dialog-titlebar-minimize').css('right', '1.8em').removeClass('ui-icon-minusthick').addClass('ui-icon-arrowthickstop-1-s')
-					.find('span').removeClass('ui-icon-minusthick').addClass('ui-icon-arrowthickstop-1-s').click(function(event){self.unminimize(event); return false;});;
-				ui.data('is-minimized', true).height('auto');
-			}
-		}
-		return self;
-	},
-
-	unminimize: function(event) {
-		var self = this,
-			ui = self.uiDialog;
-		if(false === self._trigger('beforeUnminimize', event)) {
-			return;
-		}
-		if(ui.data('is-minimized')){
-			if(self._min){
-				self._min.unbind().remove();
-				self._min = false;
-				ui.data('is-minimized', false).show();
-				self.moveToTop();
-			} else {
-				ui.height(ui.data('minimized-height')).data('is-minimized', false).removeData('minimized-height').find('.ui-dialog-content').show();
-				ui.find('.ui-dialog-titlebar-maximize').show();
-				ui.find('.ui-dialog-titlebar-minimize').css('right', '3.3em').removeClass('ui-icon-arrowthickstop-1-s').addClass('ui-icon-minusthick')
-					.find('span').removeClass('ui-icon-arrowthickstop-1-s').addClass('ui-icon-minusthick').click(function(event){self.minimize(event); return false;});
-				if(ui.data('was-resizable') == true) {
-					self._makeResizable(true);
-				}
-			}
-		}
-		return self;
-	},
-
-	maximize: function(event) {
-		var self = this,
-			ui = self.uiDialog;
-
-		if(false === self._trigger('beforeMaximize', event)) {
-			return;
-		}
-		if(!ui.data('is-maximized')){
-			if(ui.is( ":data(draggable)" )) {
-				ui.data('was-draggable', true).draggable('destroy');
-			} else {
-				ui.data('was-draggable', false)
-			}
-			if(ui.is( ":data(resizable)" )) {
-				ui.data('was-resizable', true).resizable('destroy');
-			} else {
-				ui.data('was-resizable', false)
-			}
-			ui.data('maximized-height', ui.height()).data('maximized-width', ui.width()).data('maximized-top', ui.css('top')).data('maximized-left', ui.css('left'))
-				.data('is-maximized', true).height($(window).height()-8).width($(window).width()+9).css({"top":0, "left": 0}).find('.ui-dialog-titlebar-minimize').hide();
-			ui.find('.ui-dialog-titlebar-maximize').removeClass('ui-icon-plusthick').addClass('ui-icon-arrowthick-1-sw')
-				.find('span').removeClass('ui-icon-plusthick').addClass('ui-icon-arrowthick-1-sw').click(function(event){self.unmaximize(event); return false;});
-			ui.find('.ui-dialog-titlebar').dblclick(function(event){self.unmaximize(event); return false;});
-		}
-		return self;
-	},
-
-	unmaximize: function(event) {
-		var self = this,
-			ui = self.uiDialog;
-
-		if(false === self._trigger('beforeUnmaximize', event)) {
-			return;
-		}
-		if(ui.data('is-maximized')){
-			ui.height(ui.data('maximized-height')).width(ui.data('maximized-width')).css({"top":ui.data('maximized-top'), "left":ui.data('maximized-left')})
-				.data('is-maximized', false).removeData('maximized-height').removeData('maximized-width').removeData('maximized-top').removeData('maximized-left').find('.ui-dialog-titlebar-minimize').show();
-			ui.find('.ui-dialog-titlebar-maximize').removeClass('ui-icon-arrowthick-1-sw').addClass('ui-icon-plusthick')
-				.find('span').removeClass('ui-icon-arrowthick-1-sw').addClass('ui-icon-plusthick').click(function(){self.maximize(event); return false;});
-			ui.find('.ui-dialog-titlebar').dblclick(function(event){self.maximize(event); return false;});
-			if(ui.data('was-draggable') == true) {
-				self._makeDraggable(true);
-			}
-			if(ui.data('was-resizable') == true) {
-				self._makeResizable(true);
-			}
-		}
-		return self;
-	},
-
-	close: function(event) {
-		var self = this,
-			maxZ, thisZ;
-
-		if (false === self._trigger('beforeClose', event)) {
-			return;
-		}
-		if (self.overlay) {
-			self.overlay.destroy();
-		}
-		self.uiDialog.unbind('keypress.ui-dialog');
-
-		self._isOpen = false;
-
-		if (self.options.hide) {
-			self.uiDialog.hide(self.options.hide, function() {
-				self._trigger('close', event);
-			});
-		} else {
-			self.uiDialog.hide();
-			self._trigger('close', event);
-		}
-
-		$.ui.dialog.overlay.resize();
-
-		// adjust the maxZ to allow other modal dialogs to continue to work (see #4309)
-		if (self.options.modal) {
-			maxZ = 0;
-			$('.ui-dialog').each(function() {
-				if (this !== self.uiDialog[0]) {
-					thisZ = $(this).css('z-index');
-					if(!isNaN(thisZ)) {
-						maxZ = Math.max(maxZ, thisZ);
-					}
-				}
-			});
-			$.ui.dialog.maxZ = maxZ;
-		}
-		return self;
-	},
-
-	isOpen: function() {
-		return this._isOpen;
-	},
-
-	// the force parameter allows us to move modal dialogs to their correct
-	// position on open
-	moveToTop: function(force, event) {
-		var self = this,
-			options = self.options,
-			saveScroll;
-
-		if ((options.modal && !force) ||
-			(!options.stack && !options.modal)) {
-			return self._trigger('focus', event);
-		}
-
-		if (options.zIndex > $.ui.dialog.maxZ) {
-			$.ui.dialog.maxZ = options.zIndex;
-		}
-		if (self.overlay) {
-			$.ui.dialog.maxZ += 1;
-			self.overlay.$el.css('z-index', $.ui.dialog.overlay.maxZ = $.ui.dialog.maxZ);
-		}
-
-		//Save and then restore scroll since Opera 9.5+ resets when parent z-Index is changed.
-		//  http://ui.jquery.com/bugs/ticket/3193
-		saveScroll = { scrollTop: self.element.scrollTop(), scrollLeft: self.element.scrollLeft() };
-		$.ui.dialog.maxZ += 1;
-		self.uiDialog.css('z-index', $.ui.dialog.maxZ);
-		self.element.attr(saveScroll);
-		self._trigger('focus', event);
-
-		return self;
-	},
-
-	open: function() {
-		if (this._isOpen) { return; }
-
-		var self = this,
-			options = self.options,
-			uiDialog = self.uiDialog;
-
-		self.overlay = options.modal ? new $.ui.dialog.overlay(self) : null;
-		self._size();
-		self._position(options.position);
-		uiDialog.show(options.show);
-		self.moveToTop(true);
-
-		// prevent tabbing out of modal dialogs
-		if (options.modal) {
-			uiDialog.bind('keypress.ui-dialog', function(event) {
-				if (event.keyCode !== $.ui.keyCode.TAB) {
-					return;
-				}
-
-				var tabbables = $(':tabbable', this),
-					first = tabbables.filter(':first'),
-					last  = tabbables.filter(':last');
-
-				if (event.target === last[0] && !event.shiftKey) {
-					first.focus(1);
-					return false;
-				} else if (event.target === first[0] && event.shiftKey) {
-					last.focus(1);
-					return false;
-				}
-			});
-		}
-
-		// set focus to the first tabbable element in the content area or the first button
-		// if there are no tabbable elements, set focus on the dialog itself
-		$(self.element.find(':tabbable').get().concat(
-			uiDialog.find('.ui-dialog-buttonpane :tabbable').get().concat(
-				uiDialog.get()))).eq(0).focus();
-
-		self._isOpen = true;
-		self._trigger('open');
-
-		return self;
-	},
-
-	_createButtons: function(buttons) {
-		var self = this,
-			hasButtons = false,
-			uiDialogButtonPane = $('<div></div>')
-				.addClass(
-					'ui-dialog-buttonpane ' +
-					'ui-widget-content ' +
-					'ui-helper-clearfix'
-				),
-			uiButtonSet = $( "<div></div>" )
-				.addClass( "ui-dialog-buttonset" )
-				.appendTo( uiDialogButtonPane );
-
-		// if we already have a button pane, remove it
-		self.uiDialog.find('.ui-dialog-buttonpane').remove();
-
-		if (typeof buttons === 'object' && buttons !== null) {
-			$.each(buttons, function() {
-				return !(hasButtons = true);
-			});
-		}
-		if (hasButtons) {
-			$.each(buttons, function(name, props) {
-				props = $.isFunction( props ) ?
-					{ click: props, text: name } :
-					props;
-				var button = $('<button type="button"></button>')
-					.click(function() {
-						props.click.apply(self.element[0], arguments);
-					})
-					.appendTo(uiButtonSet);
-				// can't use .attr( props, true ) with jQuery 1.3.2.
-				$.each( props, function( key, value ) {
-					if ( key === "click" ) {
-						return;
-					}
-					if ( key in attrFn ) {
-						button[ key ]( value );
-        					} else {
-        						button.attr( key, value );
-        					}
-        				});
-        				if ($.fn.button) {
-        					button.button();
-        				}
-        			});
-        			uiDialogButtonPane.appendTo(self.uiDialog);
-        		}
-        	},
-
-        	_makeDraggable: function() {
-        		var self = this,
-        			options = self.options,
-        			doc = $(document),
-        			heightBeforeDrag;
-
-        		function filteredUi(ui) {
-        			return {
-        				position: ui.position,
-        				offset: ui.offset
-        			};
-        		}
-
-        		self.uiDialog.draggable({
-        			cancel: '.ui-dialog-content, .ui-dialog-titlebar-close',
-        			handle: '.ui-dialog-titlebar',
-        			containment: 'document',
-        			start: function(event, ui) {
-				heightBeforeDrag = options.height === "auto" ? "auto" : $(this).height();
-				$(this).height($(this).height()).addClass("ui-dialog-dragging");
-				self._trigger('dragStart', event, filteredUi(ui));
-        			},
-        			drag: function(event, ui) {
-        				self._trigger('drag', event, filteredUi(ui));
-        			},
-        			stop: function(event, ui) {
-        				options.position = [ui.position.left - doc.scrollLeft(),
-        					ui.position.top - doc.scrollTop()];
-        				$(this).removeClass("ui-dialog-dragging").height(heightBeforeDrag);
-        				self._trigger('dragStop', event, filteredUi(ui));
-        				$.ui.dialog.overlay.resize();
-        			}
-        		});
-        	},
-
-        	_makeResizable: function(handles) {
-        		handles = (handles === undefined ? this.options.resizable : handles);
-        		var self = this,
-        			options = self.options,
-        			// .ui-resizable has position: relative defined in the stylesheet
-        			// but dialogs have to use absolute or fixed positioning
-        			position = self.uiDialog.css('position'),
-        			resizeHandles = (typeof handles === 'string' ?
-        				handles	:
-        				'n,e,s,w,se,sw,ne,nw'
-        			);
-
-        		function filteredUi(ui) {
-        			return {
-        				originalPosition: ui.originalPosition,
-        				originalSize: ui.originalSize,
-        				position: ui.position,
-        				size: ui.size
-        			};
-        		}
-        		self.uiDialog.resizable({
-        			cancel: '.ui-dialog-content',
-        			containment: 'document',
-        			alsoResize: self.element,
-        			maxWidth: options.maxWidth,
-        			maxHeight: options.maxHeight,
-        			minWidth: options.minWidth,
-        			minHeight: self._minHeight(),
-			handles: resizeHandles,
-			start: function(event, ui) {
-				$(this).addClass("ui-dialog-resizing");
-				self._trigger('resizeStart', event, filteredUi(ui));
-			},
-			resize: function(event, ui){
-				self._trigger('resize', event, filteredUi(ui));
-			},
-			stop: function(event, ui) {
-				$(this).removeClass("ui-dialog-resizing");
-				options.height = $(this).height();
-				options.width = $(this).width();
-				self._trigger('resizeStop', event, filteredUi(ui));
-				$.ui.dialog.overlay.resize();
-			}
-		})
-		.css('position', position)
-		.find('.ui-resizable-se').addClass('ui-icon ui-icon-grip-diagonal-se');
-	},
-
-	_minHeight: function() {
-		var options = this.options;
-
-		if (options.height === 'auto') {
-			return options.minHeight;
-		} else {
-			return Math.min(options.minHeight, options.height);
-		}
-	},
-
-	_position: function(position) {
-		var myAt = [],
-			offset = [0, 0],
-			isVisible;
-
-		if (position) {
-			// deep extending converts arrays to objects in jQuery <= 1.3.2 :-(
-	//		if (typeof position == 'string' || $.isArray(position)) {
-	//			myAt = $.isArray(position) ? position : position.split(' ');
-
-			if (typeof position === 'string' || (typeof position === 'object' && '0' in position)) {
-				myAt = position.split ? position.split(' ') : [position[0], position[1]];
-				if (myAt.length === 1) {
-					myAt[1] = myAt[0];
-				}
-
-				$.each(['left', 'top'], function(i, offsetPosition) {
-					if (+myAt[i] === myAt[i]) {
-						offset[i] = myAt[i];
-						myAt[i] = offsetPosition;
-					}
-				});
-
-				position = {
-					my: myAt.join(" "),
-					at: myAt.join(" "),
-					offset: offset.join(" ")
-				};
-			}
-
-			position = $.extend({}, $.ui.dialog.prototype.options.position, position);
-		} else {
-			position = $.ui.dialog.prototype.options.position;
-		}
-
-		// need to show the dialog to get the actual offset in the position plugin
-		isVisible = this.uiDialog.is(':visible');
-		if (!isVisible) {
-			this.uiDialog.show();
-		}
-		this.uiDialog
-			// workaround for jQuery bug #5781 http://dev.jquery.com/ticket/5781
-			//.css({ top: 0, left: 0 })
-			.position($.extend({ of: window }, position));
-		if (!isVisible) {
-			this.uiDialog.hide();
-		}
-	},
-
-	_setOptions: function( options ) {
-		var self = this,
-			resizableOptions = {},
-			resize = false;
-
-		$.each( options, function( key, value ) {
-			self._setOption( key, value );
-
-			if ( key in sizeRelatedOptions ) {
-				resize = true;
-			}
-			if ( key in resizableRelatedOptions ) {
-				resizableOptions[ key ] = value;
-			}
-		});
-
-		if ( resize ) {
-			this._size();
-		}
-		if ( this.uiDialog.is( ":data(resizable)" ) ) {
-			this.uiDialog.resizable( "option", resizableOptions );
-		}
-	},
-
-	_setOption: function(key, value){
-		var self = this,
-			uiDialog = self.uiDialog;
-
-		switch (key) {
-			//handling of deprecated beforeclose (vs beforeClose) option
-			//Ticket #4669 http://dev.jqueryui.com/ticket/4669
-			//TODO: remove in 1.9pre
-			case "beforeclose":
-				key = "beforeClose";
-				break;
-			case "buttons":
-				self._createButtons(value);
-				break;
-			case "closeText":
-				// ensure that we always pass a string
-				self.uiDialogTitlebarCloseText.text("" + value);
-				break;
-			case "dialogClass":
-				uiDialog
-					.removeClass(self.options.dialogClass)
-					.addClass(uiDialogClasses + value);
-				break;
-			case "disabled":
-				if (value) {
-					uiDialog.addClass('ui-dialog-disabled');
-				} else {
-					uiDialog.removeClass('ui-dialog-disabled');
-				}
-				break;
-			case "draggable":
-				var isDraggable = uiDialog.is( ":data(draggable)" );
-				if ( isDraggable && !value ) {
-					uiDialog.draggable( "destroy" );
-				}
-
-				if ( !isDraggable && value ) {
-					self._makeDraggable();
-				}
-				break;
-			case "position":
-				self._position(value);
-				break;
-			case "resizable":
-				// currently resizable, becoming non-resizable
-				var isResizable = uiDialog.is( ":data(resizable)" );
-				if (isResizable && !value) {
-					uiDialog.resizable('destroy');
-				}
-
-				// currently resizable, changing handles
-				if (isResizable && typeof value === 'string') {
-					uiDialog.resizable('option', 'handles', value);
-				}
-
-				// currently non-resizable, becoming resizable
-				if (!isResizable && value !== false) {
-					self._makeResizable(value);
-				}
-				break;
-			case "title":
-				// convert whatever was passed in o a string, for html() to not throw up
-				$(".ui-dialog-title", self.uiDialogTitlebar).html("" + (value || '&#160;'));
-				break;
-		}
-
-		$.Widget.prototype._setOption.apply(self, arguments);
-	},
-
-	_size: function() {
-		/* If the user has resized the dialog, the .ui-dialog and .ui-dialog-content
-		 * divs will both have width and height set, so we need to reset them
-		 */
-		var options = this.options,
-			nonContentHeight,
-			minContentHeight,
-			isVisible = this.uiDialog.is( ":visible" );
-
-		// reset content sizing
-		this.element.show().css({
-			width: 'auto',
-			minHeight: 0,
-			height: 0
-		});
-
-		if (options.minWidth > options.width) {
-			options.width = options.minWidth;
-		}
-
-		// reset wrapper sizing
-		// determine the height of all the non-content elements
-		nonContentHeight = this.uiDialog.css({
-				height: 'auto',
-				width: options.width
-			})
-			.height();
-		minContentHeight = Math.max( 0, options.minHeight - nonContentHeight );
-
-		if ( options.height === "auto" ) {
-			// only needed for IE6 support
-			if ( $.support.minHeight ) {
-				this.element.css({
-					minHeight: minContentHeight,
-					height: "auto"
-				});
-			} else {
-				this.uiDialog.show();
-				var autoHeight = this.element.css( "height", "auto" ).height();
-				if ( !isVisible ) {
-					this.uiDialog.hide();
-				}
-				this.element.height( Math.max( autoHeight, minContentHeight ) );
-			}
-		} else {
-			this.element.height( Math.max( options.height - nonContentHeight, 0 ) );
-		}
-
-		if (this.uiDialog.is(':data(resizable)')) {
-			this.uiDialog.resizable('option', 'minHeight', this._minHeight());
-		}
-	}
+    options: {
+        autoOpen: true,
+        buttons: {},
+        closeOnEscape: true,
+        closeText: 'close',
+        dialogClass: '',
+        draggable: true,
+        hide: null,
+        height: 'auto',
+        maxHeight: false,
+        maxWidth: false,
+        minHeight: 150,
+        minWidth: 300,
+        minimizeText: 'minimize',
+        maximizeText: 'maximize',
+        minimize: true,
+        maximize: true,
+        modal: false,
+        position: {
+            my: 'center',
+            at: 'center',
+            collision: 'fit',
+            // ensure that the titlebar is never outside the document
+            using: function(pos) {
+                var topOffset = $(this).css(pos).offset().top;
+                if (topOffset < 0) {
+                    $(this).css('top', pos.top - topOffset);
+                }
+            }
+        },
+        resizable: true,
+        show: null,
+        stack: true,
+        title: '',
+        width: 300,
+        zIndex: 1000
+    },
+
+    _create: function() {
+                this.originalTitle = this.element.attr('title');
+                // #5742 - .attr() might return a DOMElement
+                if ( typeof this.originalTitle !== "string" ) {
+                    this.originalTitle = "";
+                }
+
+                this.options.title = this.options.title || this.originalTitle;
+                var self = this,
+                    options = self.options,
+
+                    title = options.title || '&#160;',
+                    titleId = $.ui.dialog.getTitleId(self.element),
+
+                    uiDialog = (self.uiDialog = $('<div></div>'))
+                        .appendTo(document.body)
+                        .hide()
+                        .addClass(uiDialogClasses + options.dialogClass)
+                        .css({
+                            zIndex: options.zIndex
+                        })
+                        // setting tabIndex makes the div focusable
+                        // setting outline to 0 prevents a border on focus in Mozilla
+                        .attr('tabIndex', -1).css('outline', 0).keydown(function(event) {
+                            if (options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
+                                event.keyCode === $.ui.keyCode.ESCAPE) {
+
+                                self.close(event);
+                                event.preventDefault();
+                            }
+                        })
+                        .attr({
+                            role: 'dialog',
+                            'aria-labelledby': titleId
+                        })
+                        .mousedown(function(event) {
+                            self.moveToTop(false, event);
+                        }),
+
+                    uiDialogContent = self.element
+                        .show()
+                        .removeAttr('title')
+                        .addClass(
+                            'ui-dialog-content ' +
+                            'ui-widget-content')
+                        .appendTo(uiDialog),
+
+                    uiDialogTitlebar = (self.uiDialogTitlebar = $('<div></div>'))
+                        .addClass(
+                            'ui-dialog-titlebar ' +
+                            'ui-widget-header ' +
+                            'ui-corner-all ' +
+                            'ui-helper-clearfix'
+                        )
+                        .prependTo(uiDialog);
+                    if(options.minimize && !options.modal){ //cannot use this option with modal
+                        var uiDialogTitlebarMinimize = $('<a href="#"></a>')
+                            .addClass(
+                                'ui-dialog-titlebar-minimize ' +
+                                'ui-corner-all'
+                            )
+                            .attr('role', 'button')
+                            .hover(
+                                function() {
+                                    uiDialogTitlebarMinimize.addClass('ui-state-hover');
+                                },
+                                function() {
+                                    uiDialogTitlebarMinimize.removeClass('ui-state-hover');
+                                }
+                            )
+                            .focus(function() {
+                                uiDialogTitlebarMinimize.addClass('ui-state-focus');
+                            })
+                            .blur(function() {
+                                uiDialogTitlebarMinimize.removeClass('ui-state-focus');
+                            })
+                            .click(function(event) {
+                                self.minimize(event);
+                                return false;
+                            })
+                            .appendTo(uiDialogTitlebar),
+
+                        uiDialogTitlebarMinimizeText = (self.uiDialogTitlebarMinimizeText = $('<span></span>'))
+                            .addClass(
+                                'ui-icon ' +
+                                'ui-icon-minusthick'
+                            )
+                            .text(options.minimizeText)
+                            .appendTo(uiDialogTitlebarMinimize);
+                    }
+                    if(options.maximize && !options.modal){ //cannot use this option with modal
+                        var uiDialogTitlebarMaximize = $('<a href="#"></a>')
+                            .addClass(
+                                'ui-dialog-titlebar-maximize ' +
+                                'ui-corner-all'
+                            )
+                            .attr('role', 'button')
+                            .hover(
+                                function() {
+                                    uiDialogTitlebarMaximize.addClass('ui-state-hover');
+                                },
+                                function() {
+                                    uiDialogTitlebarMaximize.removeClass('ui-state-hover');
+                                }
+                            )
+                            .focus(function() {
+                                uiDialogTitlebarMaximize.addClass('ui-state-focus');
+                            })
+                            .blur(function() {
+                                uiDialogTitlebarMaximize.removeClass('ui-state-focus');
+                            })
+                            .click(function(event) {
+                                self.maximize(event);
+                                return false;
+                            })
+                            .appendTo(uiDialogTitlebar),
+
+                        uiDialogTitlebarMaximizeText = (self.uiDialogTitlebarMaximizeText = $('<span></span>'))
+                            .addClass(
+                                'ui-icon ' +
+                                'ui-icon-plusthick'
+                            )
+                            .text(options.maximizeText)
+                            .appendTo(uiDialogTitlebarMaximize);
+                            $(uiDialogTitlebar).dblclick(function(event) {
+                                self.maximize(event);
+                                return false;
+                            });
+                    }
+                    if(options.close !== false){
+                        var uiDialogTitlebarClose = $('<a href="#"></a>')
+                            .addClass(
+                                'ui-dialog-titlebar-close ' +
+                                'ui-corner-all'
+                            )
+                            .attr('role', 'button')
+                            .hover(
+                                function() {
+                                    uiDialogTitlebarClose.addClass('ui-state-hover');
+                                },
+                                function() {
+                                    uiDialogTitlebarClose.removeClass('ui-state-hover');
+                                }
+                    )
+                    .focus(function() {
+                        uiDialogTitlebarClose.addClass('ui-state-focus');
+                    })
+                    .blur(function() {
+                        uiDialogTitlebarClose.removeClass('ui-state-focus');
+                    })
+                    .click(function(event) {
+                        self.close(event);
+                        return false;
+                    })
+                    .appendTo(uiDialogTitlebar),
+
+                uiDialogTitlebarCloseText = (self.uiDialogTitlebarCloseText = $('<span></span>'))
+                    .addClass(
+                        'ui-icon ' +
+                        'ui-icon-closethick'
+                    )
+                    .text(options.closeText)
+                    .appendTo(uiDialogTitlebarClose);
+            }
+
+            uiDialogTitle = $('<span></span>')
+                .addClass('ui-dialog-title')
+                .attr('id', titleId)
+                .html(title)
+                .prependTo(uiDialogTitlebar);
+
+        //handling of deprecated beforeclose (vs beforeClose) option
+        //Ticket #4669 http://dev.jqueryui.com/ticket/4669
+        //TODO: remove in 1.9pre
+        if ($.isFunction(options.beforeclose) && !$.isFunction(options.beforeClose)) {
+            options.beforeClose = options.beforeclose;
+        }
+
+        uiDialogTitlebar.find("*").add(uiDialogTitlebar).disableSelection();
+
+        if (options.draggable && $.fn.draggable) {
+            self._makeDraggable();
+        }
+        if (options.resizable && $.fn.resizable) {
+            self._makeResizable();
+        }
+
+        self._createButtons(options.buttons);
+        self._isOpen = false;
+        self._min = false;
+
+        if ($.fn.bgiframe) {
+            uiDialog.bgiframe();
+        }
+    },
+    _init: function() {
+        if ( this.options.autoOpen ) {
+            this.open();
+        }
+    },
+    destroy: function() {
+        var self = this;
+
+        if (self.overlay) {
+            self.overlay.destroy();
+        }
+        self.uiDialog.hide();
+        self.element
+            .unbind('.dialog')
+            .removeData('dialog')
+            .removeClass('ui-dialog-content ui-widget-content')
+            .hide().appendTo('body');
+        self.uiDialog.remove();
+
+        if (self.originalTitle) {
+            self.element.attr('title', self.originalTitle);
+        }
+
+        return self;
+    },
+    widget: function() {
+        return this.uiDialog;
+    },
+    minimize: function(event) {
+        var self = this,
+            ui = self.uiDialog;
+        if(false === self._trigger('beforeMinimize', event)) {
+            return;
+        }
+        if(!ui.data('is-minimized')){
+            if(self.options.minimize && typeof self.options.minimize !== "boolean" && $(self.options.minimize).length > 0){
+                self._min = $('<a>' + (ui.find('span.ui-dialog-title').html().replace(/&nbsp;/, '') || 'Untitled Dialog') + '</a>')
+                    .attr('title', 'Click to restore dialog').addClass('ui-corner-all ui-button').click(function(event){self.unminimize(event);});
+                $(self.options.minimize).append(self._min);
+                ui.data('is-minimized', true).hide();
+            } else {
+                if(ui.is( ":data(resizable)" )) {
+                    ui.data('was-resizable', true).resizable('destroy');
+                } else {
+                    ui.data('was-resizable', false)
+                }
+                ui.data('minimized-height', ui.height());
+                ui.find('.ui-dialog-content').hide();
+                ui.find('.ui-dialog-titlebar-maximize').hide();
+                ui.find('.ui-dialog-titlebar-minimize').css('right', '1.8em').removeClass('ui-icon-minusthick').addClass('ui-icon-arrowthickstop-1-s')
+                    .find('span').removeClass('ui-icon-minusthick').addClass('ui-icon-arrowthickstop-1-s').click(function(event){self.unminimize(event); return false;});;
+                ui.data('is-minimized', true).height('auto');
+            }
+        }
+        return self;
+    },
+    unminimize: function(event) {
+        var self = this,
+            ui = self.uiDialog;
+        if(false === self._trigger('beforeUnminimize', event)) {
+            return;
+        }
+        if(ui.data('is-minimized')){
+            if(self._min){
+                self._min.unbind().remove();
+                self._min = false;
+                ui.data('is-minimized', false).show();
+                self.moveToTop();
+            } else {
+                ui.height(ui.data('minimized-height')).data('is-minimized', false).removeData('minimized-height').find('.ui-dialog-content').show();
+                ui.find('.ui-dialog-titlebar-maximize').show();
+                ui.find('.ui-dialog-titlebar-minimize').css('right', '3.3em').removeClass('ui-icon-arrowthickstop-1-s').addClass('ui-icon-minusthick')
+                    .find('span').removeClass('ui-icon-arrowthickstop-1-s').addClass('ui-icon-minusthick').click(function(event){self.minimize(event); return false;});
+                if(ui.data('was-resizable') == true) {
+                    self._makeResizable(true);
+                }
+            }
+        }
+        return self;
+    },
+    maximize: function(event) {
+        var self = this,
+            ui = self.uiDialog;
+
+        if(false === self._trigger('beforeMaximize', event)) {
+            return;
+        }
+        if(!ui.data('is-maximized')){
+            if(ui.is( ":data(draggable)" )) {
+                ui.data('was-draggable', true).draggable('destroy');
+            } else {
+                ui.data('was-draggable', false)
+            }
+            if(ui.is( ":data(resizable)" )) {
+                ui.data('was-resizable', true).resizable('destroy');
+            } else {
+                ui.data('was-resizable', false)
+            }
+            ui.data('maximized-height', ui.height()).data('maximized-width', ui.width()).data('maximized-top', ui.css('top')).data('maximized-left', ui.css('left'))
+                .data('is-maximized', true).height($(window).height()-8).width($(window).width()+9).css({"top":0, "left": 0}).find('.ui-dialog-titlebar-minimize').hide();
+            ui.find('.ui-dialog-titlebar-maximize').removeClass('ui-icon-plusthick').addClass('ui-icon-arrowthick-1-sw')
+                .find('span').removeClass('ui-icon-plusthick').addClass('ui-icon-arrowthick-1-sw').click(function(event){self.unmaximize(event); return false;});
+            ui.find('.ui-dialog-titlebar').dblclick(function(event){self.unmaximize(event); return false;});
+        }
+        return self;
+    },
+    unmaximize: function(event) {
+        var self = this,
+            ui = self.uiDialog;
+
+        if(false === self._trigger('beforeUnmaximize', event)) {
+            return;
+        }
+        if(ui.data('is-maximized')){
+            ui.height(ui.data('maximized-height')).width(ui.data('maximized-width')).css({"top":ui.data('maximized-top'), "left":ui.data('maximized-left')})
+                .data('is-maximized', false).removeData('maximized-height').removeData('maximized-width').removeData('maximized-top').removeData('maximized-left').find('.ui-dialog-titlebar-minimize').show();
+            ui.find('.ui-dialog-titlebar-maximize').removeClass('ui-icon-arrowthick-1-sw').addClass('ui-icon-plusthick')
+                .find('span').removeClass('ui-icon-arrowthick-1-sw').addClass('ui-icon-plusthick').click(function(){self.maximize(event); return false;});
+            ui.find('.ui-dialog-titlebar').dblclick(function(event){self.maximize(event); return false;});
+            if(ui.data('was-draggable') == true) {
+                self._makeDraggable(true);
+            }
+            if(ui.data('was-resizable') == true) {
+                self._makeResizable(true);
+            }
+        }
+        return self;
+    },
+    close: function(event) {
+        var self = this,
+            maxZ, thisZ;
+
+        if (false === self._trigger('beforeClose', event)) {
+            return;
+        }
+        if (self.overlay) {
+            self.overlay.destroy();
+        }
+        self.uiDialog.unbind('keypress.ui-dialog');
+
+        self._isOpen = false;
+
+        if (self.options.hide) {
+            self.uiDialog.hide(self.options.hide, function() {
+                self._trigger('close', event);
+            });
+        } else {
+            self.uiDialog.hide();
+            self._trigger('close', event);
+        }
+
+        $.ui.dialog.overlay.resize();
+
+        // adjust the maxZ to allow other modal dialogs to continue to work (see #4309)
+        if (self.options.modal) {
+            maxZ = 0;
+            $('.ui-dialog').each(function() {
+                if (this !== self.uiDialog[0]) {
+                    thisZ = $(this).css('z-index');
+                    if(!isNaN(thisZ)) {
+                        maxZ = Math.max(maxZ, thisZ);
+                    }
+                }
+            });
+            $.ui.dialog.maxZ = maxZ;
+        }
+        return self;
+    },
+    isOpen: function() {
+        return this._isOpen;
+    },
+    // the force parameter allows us to move modal dialogs to their correct
+    // position on open
+    moveToTop: function(force, event) {
+        var self = this,
+            options = self.options,
+            saveScroll;
+
+        if ((options.modal && !force) ||
+            (!options.stack && !options.modal)) {
+            return self._trigger('focus', event);
+        }
+
+        if (options.zIndex > $.ui.dialog.maxZ) {
+            $.ui.dialog.maxZ = options.zIndex;
+        }
+        if (self.overlay) {
+            $.ui.dialog.maxZ += 1;
+            self.overlay.$el.css('z-index', $.ui.dialog.overlay.maxZ = $.ui.dialog.maxZ);
+        }
+
+        //Save and then restore scroll since Opera 9.5+ resets when parent z-Index is changed.
+        //  http://ui.jquery.com/bugs/ticket/3193
+        saveScroll = { scrollTop: self.element.scrollTop(), scrollLeft: self.element.scrollLeft() };
+        $.ui.dialog.maxZ += 1;
+        self.uiDialog.css('z-index', $.ui.dialog.maxZ);
+        self.element.attr(saveScroll);
+        self._trigger('focus', event);
+
+        return self;
+    },
+    open: function() {
+        if (this._isOpen) { return; }
+
+        var self = this,
+            options = self.options,
+            uiDialog = self.uiDialog;
+
+        self.overlay = options.modal ? new $.ui.dialog.overlay(self) : null;
+        self._size();
+        self._position(options.position);
+        uiDialog.show(options.show);
+        self.moveToTop(true);
+
+        // prevent tabbing out of modal dialogs
+        if (options.modal) {
+            uiDialog.bind('keypress.ui-dialog', function(event) {
+                if (event.keyCode !== $.ui.keyCode.TAB) {
+                    return;
+                }
+
+                var tabbables = $(':tabbable', this),
+                    first = tabbables.filter(':first'),
+                    last  = tabbables.filter(':last');
+
+                if (event.target === last[0] && !event.shiftKey) {
+                    first.focus(1);
+                    return false;
+                } else if (event.target === first[0] && event.shiftKey) {
+                    last.focus(1);
+                    return false;
+                }
+            });
+        }
+
+        // set focus to the first tabbable element in the content area or the first button
+        // if there are no tabbable elements, set focus on the dialog itself
+        $(self.element.find(':tabbable').get().concat(
+            uiDialog.find('.ui-dialog-buttonpane :tabbable').get().concat(
+                uiDialog.get()))).eq(0).focus();
+
+        self._isOpen = true;
+        self._trigger('open');
+
+        return self;
+    },
+    _createButtons: function(buttons) {
+        var self = this,
+            hasButtons = false,
+            uiDialogButtonPane = $('<div></div>')
+                .addClass(
+                    'ui-dialog-buttonpane ' +
+                    'ui-widget-content ' +
+                    'ui-helper-clearfix'
+                ),
+            uiButtonSet = $( "<div></div>" )
+                .addClass( "ui-dialog-buttonset" )
+                .appendTo( uiDialogButtonPane );
+
+        // if we already have a button pane, remove it
+        self.uiDialog.find('.ui-dialog-buttonpane').remove();
+
+        if (typeof buttons === 'object' && buttons !== null) {
+            $.each(buttons, function() {
+                return !(hasButtons = true);
+            });
+        }
+        if (hasButtons) {
+            $.each(buttons, function(name, props) {
+                props = $.isFunction( props ) ?
+                    { click: props, text: name } :
+                    props;
+                var button = $('<button type="button"></button>')
+                    .click(function() {
+                        props.click.apply(self.element[0], arguments);
+                    })
+                    .appendTo(uiButtonSet);
+                // can't use .attr( props, true ) with jQuery 1.3.2.
+                $.each( props, function( key, value ) {
+                    if ( key === "click" ) {
+                        return;
+                    }
+                    if ( key in attrFn ) {
+                        button[ key ]( value );
+                            } else {
+                                button.attr( key, value );
+                            }
+                        });
+                        if ($.fn.button) {
+                            button.button();
+                        }
+                    });
+                    uiDialogButtonPane.appendTo(self.uiDialog);
+                }
+            },
+            _makeDraggable: function() {
+                var self = this,
+                    options = self.options,
+                    doc = $(document),
+                    heightBeforeDrag;
+
+                function filteredUi(ui) {
+                    return {
+                        position: ui.position,
+                        offset: ui.offset
+                    };
+                }
+                self.uiDialog.draggable({
+                    cancel: '.ui-dialog-content, .ui-dialog-titlebar-close',
+                    handle: '.ui-dialog-titlebar',
+                    containment: 'document',
+                    start: function(event, ui) {
+                heightBeforeDrag = options.height === "auto" ? "auto" : $(this).height();
+                $(this).height($(this).height()).addClass("ui-dialog-dragging");
+                self._trigger('dragStart', event, filteredUi(ui));
+                    },
+                    drag: function(event, ui) {
+                        self._trigger('drag', event, filteredUi(ui));
+                    },
+                    stop: function(event, ui) {
+                        options.position = [ui.position.left - doc.scrollLeft(),
+                            ui.position.top - doc.scrollTop()];
+                        $(this).removeClass("ui-dialog-dragging").height(heightBeforeDrag);
+                        self._trigger('dragStop', event, filteredUi(ui));
+                        $.ui.dialog.overlay.resize();
+                    }
+                });
+            },
+            _makeResizable: function(handles) {
+                handles = (handles === undefined ? this.options.resizable : handles);
+                var self = this,
+                    options = self.options,
+                    // .ui-resizable has position: relative defined in the stylesheet
+                    // but dialogs have to use absolute or fixed positioning
+                    position = self.uiDialog.css('position'),
+                    resizeHandles = (typeof handles === 'string' ?
+                        handles	:
+                        'n,e,s,w,se,sw,ne,nw'
+                    );
+
+                function filteredUi(ui) {
+                    return {
+                        originalPosition: ui.originalPosition,
+                        originalSize: ui.originalSize,
+                        position: ui.position,
+                        size: ui.size
+                    };
+                }
+                self.uiDialog.resizable({
+                    cancel: '.ui-dialog-content',
+                    containment: 'document',
+                    alsoResize: self.element,
+                    maxWidth: options.maxWidth,
+                    maxHeight: options.maxHeight,
+                    minWidth: options.minWidth,
+                    minHeight: self._minHeight(),
+            handles: resizeHandles,
+            start: function(event, ui) {
+                $(this).addClass("ui-dialog-resizing");
+                self._trigger('resizeStart', event, filteredUi(ui));
+            },
+            resize: function(event, ui){
+                self._trigger('resize', event, filteredUi(ui));
+            },
+            stop: function(event, ui) {
+                $(this).removeClass("ui-dialog-resizing");
+                options.height = $(this).height();
+                options.width = $(this).width();
+                self._trigger('resizeStop', event, filteredUi(ui));
+                $.ui.dialog.overlay.resize();
+            }
+        })
+        .css('position', position)
+        .find('.ui-resizable-se').addClass('ui-icon ui-icon-grip-diagonal-se');
+    },
+    _minHeight: function() {
+        var options = this.options;
+
+        if (options.height === 'auto') {
+            return options.minHeight;
+        } else {
+            return Math.min(options.minHeight, options.height);
+        }
+    },
+    _position: function(position) {
+        var myAt = [],
+            offset = [0, 0],
+            isVisible;
+
+        if (position) {
+            // deep extending converts arrays to objects in jQuery <= 1.3.2 :-(
+    //		if (typeof position == 'string' || $.isArray(position)) {
+    //			myAt = $.isArray(position) ? position : position.split(' ');
+
+            if (typeof position === 'string' || (typeof position === 'object' && '0' in position)) {
+                myAt = position.split ? position.split(' ') : [position[0], position[1]];
+                if (myAt.length === 1) {
+                    myAt[1] = myAt[0];
+                }
+
+                $.each(['left', 'top'], function(i, offsetPosition) {
+                    if (+myAt[i] === myAt[i]) {
+                        offset[i] = myAt[i];
+                        myAt[i] = offsetPosition;
+                    }
+                });
+
+                position = {
+                    my: myAt.join(" "),
+                    at: myAt.join(" "),
+                    offset: offset.join(" ")
+                };
+            }
+
+            position = $.extend({}, $.ui.dialog.prototype.options.position, position);
+        } else {
+            position = $.ui.dialog.prototype.options.position;
+        }
+
+        // need to show the dialog to get the actual offset in the position plugin
+        isVisible = this.uiDialog.is(':visible');
+        if (!isVisible) {
+            this.uiDialog.show();
+        }
+        this.uiDialog
+            // workaround for jQuery bug #5781 http://dev.jquery.com/ticket/5781
+            //.css({ top: 0, left: 0 })
+            .position($.extend({ of: window }, position));
+        if (!isVisible) {
+            this.uiDialog.hide();
+        }
+    },
+    _setOptions: function( options ) {
+        var self = this,
+            resizableOptions = {},
+            resize = false;
+
+        $.each( options, function( key, value ) {
+            self._setOption( key, value );
+
+            if ( key in sizeRelatedOptions ) {
+                resize = true;
+            }
+            if ( key in resizableRelatedOptions ) {
+                resizableOptions[ key ] = value;
+            }
+        });
+
+        if ( resize ) {
+            this._size();
+        }
+        if ( this.uiDialog.is( ":data(resizable)" ) ) {
+            this.uiDialog.resizable( "option", resizableOptions );
+        }
+    },
+    _setOption: function(key, value){
+        var self = this,
+            uiDialog = self.uiDialog;
+
+        switch (key) {
+            //handling of deprecated beforeclose (vs beforeClose) option
+            //Ticket #4669 http://dev.jqueryui.com/ticket/4669
+            //TODO: remove in 1.9pre
+            case "beforeclose":
+                key = "beforeClose";
+                break;
+            case "buttons":
+                self._createButtons(value);
+                break;
+            case "closeText":
+                // ensure that we always pass a string
+                self.uiDialogTitlebarCloseText.text("" + value);
+                break;
+            case "dialogClass":
+                uiDialog
+                    .removeClass(self.options.dialogClass)
+                    .addClass(uiDialogClasses + value);
+                break;
+            case "disabled":
+                if (value) {
+                    uiDialog.addClass('ui-dialog-disabled');
+                } else {
+                    uiDialog.removeClass('ui-dialog-disabled');
+                }
+                break;
+            case "draggable":
+                var isDraggable = uiDialog.is( ":data(draggable)" );
+                if ( isDraggable && !value ) {
+                    uiDialog.draggable( "destroy" );
+                }
+
+                if ( !isDraggable && value ) {
+                    self._makeDraggable();
+                }
+                break;
+            case "position":
+                self._position(value);
+                break;
+            case "resizable":
+                // currently resizable, becoming non-resizable
+                var isResizable = uiDialog.is( ":data(resizable)" );
+                if (isResizable && !value) {
+                    uiDialog.resizable('destroy');
+                }
+
+                // currently resizable, changing handles
+                if (isResizable && typeof value === 'string') {
+                    uiDialog.resizable('option', 'handles', value);
+                }
+
+                // currently non-resizable, becoming resizable
+                if (!isResizable && value !== false) {
+                    self._makeResizable(value);
+                }
+                break;
+            case "title":
+                // convert whatever was passed in o a string, for html() to not throw up
+                $(".ui-dialog-title", self.uiDialogTitlebar).html("" + (value || '&#160;'));
+                break;
+        }
+
+        $.Widget.prototype._setOption.apply(self, arguments);
+    },
+    _size: function() {
+        /* If the user has resized the dialog, the .ui-dialog and .ui-dialog-content
+         * divs will both have width and height set, so we need to reset them
+         */
+        var options = this.options,
+            nonContentHeight,
+            minContentHeight,
+            isVisible = this.uiDialog.is( ":visible" );
+
+        // reset content sizing
+        this.element.show().css({
+            width: 'auto',
+            minHeight: 0,
+            height: 0
+        });
+
+        if (options.minWidth > options.width) {
+            options.width = options.minWidth;
+        }
+
+        // reset wrapper sizing
+        // determine the height of all the non-content elements
+        nonContentHeight = this.uiDialog.css({
+                height: 'auto',
+                width: options.width
+            })
+            .height();
+        minContentHeight = Math.max( 0, options.minHeight - nonContentHeight );
+
+        if ( options.height === "auto" ) {
+            // only needed for IE6 support
+            if ( $.support.minHeight ) {
+                this.element.css({
+                    minHeight: minContentHeight,
+                    height: "auto"
+                });
+            } else {
+                this.uiDialog.show();
+                var autoHeight = this.element.css( "height", "auto" ).height();
+                if ( !isVisible ) {
+                    this.uiDialog.hide();
+                }
+                this.element.height( Math.max( autoHeight, minContentHeight ) );
+            }
+        } else {
+            this.element.height( Math.max( options.height - nonContentHeight, 0 ) );
+        }
+
+        if (this.uiDialog.is(':data(resizable)')) {
+            this.uiDialog.resizable('option', 'minHeight', this._minHeight());
+        }
+    }
 });
 
 $.extend($.ui.dialog, {
-	version: "1.8.16",
+    version: "1.8.16",
 
-	uuid: 0,
-	maxZ: 0,
+    uuid: 0,
+    maxZ: 0,
 
-	getTitleId: function($el) {
-		var id = $el.attr('id');
-		if (!id) {
-			this.uuid += 1;
-			id = this.uuid;
-		}
-		return 'ui-dialog-title-' + id;
-	},
-
-	overlay: function(dialog) {
-		this.$el = $.ui.dialog.overlay.create(dialog);
-	}
+    getTitleId: function($el) {
+        var id = $el.attr('id');
+        if (!id) {
+            this.uuid += 1;
+            id = this.uuid;
+        }
+        return 'ui-dialog-title-' + id;
+    },
+    overlay: function(dialog) {
+        this.$el = $.ui.dialog.overlay.create(dialog);
+    }
 });
 
 $.extend($.ui.dialog.overlay, {
-	instances: [],
-	// reuse old instances due to IE memory leak with alpha transparency (see #5185)
-	oldInstances: [],
-	maxZ: 0,
-	events: $.map('focus,mousedown,mouseup,keydown,keypress,click'.split(','),
-		function(event) { return event + '.dialog-overlay'; }).join(' '),
-    	create: function(dialog) {
-    		if (this.instances.length === 0) {
-    			// prevent use of anchors and inputs
-    			// we use a setTimeout in case the overlay is created from an
-    			// event that we're going to be cancelling (see #2804)
-    			setTimeout(function() {
+    instances: [],
+    // reuse old instances due to IE memory leak with alpha transparency (see #5185)
+    oldInstances: [],
+    maxZ: 0,
+    events: $.map('focus,mousedown,mouseup,keydown,keypress,click'.split(','),
+        function(event) { return event + '.dialog-overlay'; }).join(' '),
+        create: function(dialog) {
+            if (this.instances.length === 0) {
+                // prevent use of anchors and inputs
+                // we use a setTimeout in case the overlay is created from an
+                // event that we're going to be cancelling (see #2804)
+                setTimeout(function() {
     // handle $(el).dialog().dialog('close') (see #4065)
     if ($.ui.dialog.overlay.instances.length) {
-    	$(document).bind($.ui.dialog.overlay.events, function(event) {
-    		// stop events if the z-index of the target is < the z-index of the overlay
-    		// we cannot return true when we don't want to cancel the event (#3523)
-    		if ($(event.target).zIndex() < $.ui.dialog.overlay.maxZ) {
-    			return false;
-    		}
-    	});
+        $(document).bind($.ui.dialog.overlay.events, function(event) {
+            // stop events if the z-index of the target is < the z-index of the overlay
+            // we cannot return true when we don't want to cancel the event (#3523)
+            if ($(event.target).zIndex() < $.ui.dialog.overlay.maxZ) {
+                return false;
+            }
+        });
     }
-    			}, 1);
+                }, 1);
 
-    			// allow closing by pressing the escape key
-    			$(document).bind('keydown.dialog-overlay', function(event) {
+                // allow closing by pressing the escape key
+                $(document).bind('keydown.dialog-overlay', function(event) {
     if (dialog.options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
-    	event.keyCode === $.ui.keyCode.ESCAPE) {
+        event.keyCode === $.ui.keyCode.ESCAPE) {
 
-    	dialog.close(event);
-    	event.preventDefault();
+        dialog.close(event);
+        event.preventDefault();
     }
-    			});
+                });
 
-    			// handle window resize
-    			$(window).bind('resize.dialog-overlay', $.ui.dialog.overlay.resize);
-    		}
+                // handle window resize
+                $(window).bind('resize.dialog-overlay', $.ui.dialog.overlay.resize);
+            }
 
-    		var $el = (this.oldInstances.pop() || $('<div></div>').addClass('ui-widget-overlay'))
-    			.appendTo(document.body)
-    			.css({
+            var $el = (this.oldInstances.pop() || $('<div></div>').addClass('ui-widget-overlay'))
+                .appendTo(document.body)
+                .css({
     width: this.width(),
     height: this.height()
-    			});
+                });
 
-    		if ($.fn.bgiframe) {
-    			$el.bgiframe();
-    		}
+            if ($.fn.bgiframe) {
+                $el.bgiframe();
+            }
 
-    		this.instances.push($el);
-    		return $el;
-    	},
+            this.instances.push($el);
+            return $el;
+        },
+        destroy: function($el) {
+            var indexOf = $.inArray($el, this.instances);
+            if (indexOf != -1){
+                this.oldInstances.push(this.instances.splice(indexOf, 1)[0]);
+            }
 
-    	destroy: function($el) {
-    		var indexOf = $.inArray($el, this.instances);
-    		if (indexOf != -1){
-    			this.oldInstances.push(this.instances.splice(indexOf, 1)[0]);
-    		}
+            if (this.instances.length === 0) {
+                $([document, window]).unbind('.dialog-overlay');
+            }
 
-    		if (this.instances.length === 0) {
-    			$([document, window]).unbind('.dialog-overlay');
-    		}
+            $el.remove();
 
-    		$el.remove();
+            // adjust the maxZ to allow other modal dialogs to continue to work (see #4309)
+            var maxZ = 0;
+            $.each(this.instances, function() {
+                maxZ = Math.max(maxZ, this.css('z-index'));
+            });
+            this.maxZ = maxZ;
+        },
+        height: function() {
+            return $(document).height() + 'px';
+        },
+        width: function() {
+            return $(document).width() + 'px';
+        },
+        resize: function() {
+            /* If the dialog is draggable and the user drags it past the
+             * right edge of the window, the document becomes wider so we
+             * need to stretch the overlay. If the user then drags the
+             * dialog back to the left, the document will become narrower,
+             * so we need to shrink the overlay to the appropriate size.
+             * This is handled by shrinking the overlay before setting it
+             * to the full document size.
+             */
+            var $overlays = $([]);
+            $.each($.ui.dialog.overlay.instances, function() {
+                $overlays = $overlays.add(this);
+            });
 
-    		// adjust the maxZ to allow other modal dialogs to continue to work (see #4309)
-    		var maxZ = 0;
-    		$.each(this.instances, function() {
-    			maxZ = Math.max(maxZ, this.css('z-index'));
-    		});
-    		this.maxZ = maxZ;
-    	},
-
-    	height: function() {
-    		return $(document).height() + 'px';
-    	},
-
-    	width: function() {
-    		return $(document).width() + 'px';
-    	},
-
-    	resize: function() {
-    		/* If the dialog is draggable and the user drags it past the
-    		 * right edge of the window, the document becomes wider so we
-    		 * need to stretch the overlay. If the user then drags the
-    		 * dialog back to the left, the document will become narrower,
-    		 * so we need to shrink the overlay to the appropriate size.
-    		 * This is handled by shrinking the overlay before setting it
-    		 * to the full document size.
-    		 */
-    		var $overlays = $([]);
-    		$.each($.ui.dialog.overlay.instances, function() {
-    			$overlays = $overlays.add(this);
-    		});
-
-    		$overlays.css({
-    			width: 0,
-    			height: 0
-    		}).css({
-    			width: $.ui.dialog.overlay.width(),
-    			height: $.ui.dialog.overlay.height()
-    		});
-    	}
+            $overlays.css({
+                width: 0,
+                height: 0
+            }).css({
+                width: $.ui.dialog.overlay.width(),
+                height: $.ui.dialog.overlay.height()
+            });
+        }
 });
-
 $.extend($.ui.dialog.overlay.prototype, {
-	destroy: function() {
-		$.ui.dialog.overlay.destroy(this.$el);
-	}
+    destroy: function() {
+        $.ui.dialog.overlay.destroy(this.$el);
+    }
 });
 
 }(jQuery));
@@ -5092,7 +4941,6 @@ function handleMouseMove(evt) {
         }
     }
 }
-
 RUR.calculate_grid_position = function () {
     var x, y;
     x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
@@ -5122,7 +4970,6 @@ RUR.calculate_grid_position = function () {
     }
     return [x, y];
 };
-
 },{"./../rur.js":44}],19:[function(require,module,exports){
 
 require("./../rur.js");
@@ -5151,7 +4998,6 @@ memorize_world = function () {
     }
     dialog.dialog("open");
 };
-
 $(document).ready(function() {
     var memorize_button = document.getElementById("memorize-world");
     memorize_button.addEventListener("click", memorize_world, false);
@@ -5186,7 +5032,6 @@ save_world = function () {
     dialog.dialog("close");
     $('#delete-world').show();
 };
-
 },{"./../../lang/msg.js":95,"./../rur.js":44,"./../storage/storage.js":45}],20:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 */
@@ -5369,7 +5214,6 @@ function toggle_content (name, obj) {
         $(this).toggleClass("active-element");
     });
 }
-
 record_id("add-content-to-world", "ADD CONTENT TO WORLD");
 record_id("add-blockly-text", "ADD BLOCKLY TEXT");
 record_id("add-editor-text", "ADD EDITOR TEXT");
@@ -5403,7 +5247,6 @@ function change_editors_font_size() {
     onload_editor.getWrapperElement().style["font-size"] = RUR.state.editors_font_size + "px";
     description_editor.getWrapperElement().style["font-size"] = RUR.state.editors_font_size + "px";
 }
-
 $(document).ready(function() {
     $("#increase-font-size").on("click", function(evt) {
         var index, sizes;
@@ -5464,7 +5307,6 @@ function parseUri (str) {
 
     return uri;
 }
-
 parseUri.options = {
     strictMode: false,
     key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
@@ -5509,7 +5351,6 @@ RUR.permalink.update_URI = function() {
                  "&url=" + encodeURIComponent(RUR.state.world_url);
     window.history.pushState("dummy", "dummy", permalink);
 };
-
 },{"./../rur.js":44}],22:[function(require,module,exports){
 require("../rur.js");
 require("../ui/stop.js");
@@ -5523,7 +5364,6 @@ RUR.play = function () {
     RUR.state.playback = true;
     loop();
 };
-
 function loop () {
     "use strict";
     var frame_info;
@@ -5541,7 +5381,6 @@ function loop () {
     }
     RUR._TIMER = setTimeout(loop, RUR.PLAYBACK_TIME_PER_FRAME);
 }
-
 },{"../rur.js":44,"../ui/stop.js":59}],23:[function(require,module,exports){
 
 RUR._play_sound = function (sound_id) {
@@ -5554,7 +5393,6 @@ RUR._play_sound = function (sound_id) {
     //way to do things. In particular, this might enable the removal of
     //the minimum time limit for the sound.
 };
-
 },{}],24:[function(require,module,exports){
 
 require("./../drawing/visible_world.js");
@@ -5573,7 +5411,6 @@ RUR._show_immediate = function (name, obj) {
         $("#Reeborg-proclaims").dialog("open");
     }
 };
-
 },{"./../drawing/visible_world.js":10}],25:[function(require,module,exports){
 /* jshint -W069 */
 require("./../rur.js");
@@ -5600,7 +5437,6 @@ Blockly.makeColour = function(hue) {
   return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
       Blockly.HSV_VALUE * 255);
 };
-
 Blockly.Python.INDENT = '    ';
 Blockly.JavaScript.INDENT = '    ';
 
@@ -5614,11 +5450,7 @@ Blockly.JavaScript.INDENT = '    ';
         // this.setColour(RUR.color_basic);
     };
 })();
-
-
-
 RUR.blockly.init = function () {
-
     Blockly.Blocks['_sound_'] = {
       init: function() {
         this.appendDummyInput()
@@ -6285,7 +6117,6 @@ RUR.blockly.init = function () {
         }
 
 };
-
 $("#blockly-wrapper").draggable({
     cursor: "move",
     handle: "p",
@@ -6308,7 +6139,6 @@ RUR.blockly.setValue = function (xml_text) {
     RUR.blockly.workspace.clear();
     Blockly.Xml.domToWorkspace(xml, RUR.blockly.workspace);
 };
-
 },{"./../rur.js":44,"./../translator.js":46}],26:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
@@ -6346,7 +6176,6 @@ RUR._inspect_ = function (obj){
     result += "</table>";
     RUR._print_html_(result, true); // true will replace existing content
 };
-
 function user_no_highlight () {
     if (RUR.state.highlight) {
         RUR.state.highlight = false;
@@ -6355,27 +6184,21 @@ function user_no_highlight () {
         throw new RUR.ReeborgOK(RUR.translate("Turning highlighting off!"));
     }
 }
-
-
 RUR._at_goal_ = function () {
     return RUR.control.at_goal(RUR.get_current_world().robots[0]);
 };
-
 RUR._build_wall_ = function() {
     RUR.control.build_wall(RUR.get_current_world().robots[0]);
 };
-
 RUR._carries_object_ = function (arg) {
     return RUR.control.carries_object(RUR.get_current_world().robots[0], arg);
 };
-
 RUR._clear_print_ = RUR.output.clear_print;
 
 RUR._color_here_ = function () {
     var robot = RUR.get_current_world().robots[0];
     return RUR.get_background_tile(robot.x, robot.y);
 };
-
 RUR._default_robot_body_ = function () { // simply returns body
     var body;
     try {
@@ -6385,22 +6208,17 @@ RUR._default_robot_body_ = function () { // simply returns body
     }
     return body;
 };
-
 RUR._done_ = RUR.control.done;
 
 RUR._front_is_clear_ = function() {
     return RUR.control.front_is_clear(RUR.get_current_world().robots[0]);
 };
-
-
 RUR._is_facing_north_ = function () {
     return RUR.control.is_facing_north(RUR.get_current_world().robots[0]);
 };
-
 RUR._move_ = function () {
     RUR.control.move(RUR.get_current_world().robots[0]);
 };
-
 RUR._new_robot_images_ = RUR.new_robot_images; // defined in visible_robot.js
 
 RUR._no_highlight_ = user_no_highlight; // defined above
@@ -6412,70 +6230,56 @@ RUR._object_here_ = function (arg) {
     } 
     return obj;
 };
-
 RUR._paint_square_ = function (color) {
     // note that this can do more than simply setting the color: it can also
     // set the tile type.
     var robot = RUR.get_current_world().robots[0];
     RUR.add_colored_tile(color, robot.x, robot.y);
 };
-
 RUR._pause_ = RUR.control.pause;
 
 RUR._print_html_ = function (html, replace) {
     RUR.output.print_html(html, replace);
 };
-
 RUR._put_ = function(arg) {
     RUR.control.put(RUR.get_current_world().robots[0], arg);
 };
-
 RUR._toss_ = function(arg) {
     RUR.control.toss(RUR.get_current_world().robots[0], arg);
 };
-
 RUR._recording_ = function(bool) {
     var current = !RUR.state.do_not_record;
     RUR.state.do_not_record = !bool;
     return current;
 };
-
 RUR._remove_robots_ = function () {
     RUR.get_current_world().robots = [];
 };
-
 RUR._right_is_clear_ = function() {
     return RUR.control.right_is_clear(RUR.get_current_world().robots[0]);
 };
-
 RUR._set_max_nb_steps_ = function(n){
     RUR.MAX_STEPS = n;
 };
-
 RUR._set_trace_color_ = function(color){
     RUR.control.set_trace_color(RUR.get_current_world().robots[0], color);
 };
-
 RUR._set_trace_style_ = function(style){
     RUR.control.set_trace_style(RUR.get_current_world().robots[0], style);
 };
-
 RUR._sound_ = RUR.control.sound;
 
 RUR._take_ = function(arg) {
     RUR.control.take(RUR.get_current_world().robots[0], arg);
 };
-
 RUR._think_ = RUR.control.think;
 
 RUR._turn_left_ = function () {
     RUR.control.turn_left(RUR.get_current_world().robots[0]);
 };
-
 RUR._wall_in_front_ = function() {
     return RUR.control.wall_in_front(RUR.get_current_world().robots[0]);
 };
-
 RUR._write_ = RUR.output.write;
 
 RUR._write_ln = RUR.output.write_ln;
@@ -6483,7 +6287,6 @@ RUR._write_ln = RUR.output.write_ln;
 RUR._wall_on_right_ = function() {
     return RUR.control.wall_on_right(RUR.get_current_world().robots[0]);
 };
-
 RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
 
 RUR._World_ = RUR._load_world_from_program;
@@ -6495,79 +6298,60 @@ RUR._UR = {};
 RUR._UR.at_goal_ = function (robot) {
     return RUR.control.at_goal(robot);
 };
-
 RUR._UR.build_wall_ = function (robot) {
     return RUR.control.build_wall(robot);
 };
-
 RUR._UR.carries_object_ = function (robot, obj) {
     return RUR.control.carries_object(robot, obj);
 };
-
 RUR._UR.color_here_ = function (robot_body) {
     return RUR.get_background_tile(robot_body.x, robot_body.y);
 };
-
 RUR._UR.front_is_clear_ = function (robot) {
     return RUR.control.front_is_clear(robot);
 };
-
 RUR._UR.is_facing_north_ = function (robot) {
     return RUR.control.is_facing_north(robot);
 };
-
 RUR._UR.move_ = function (robot) {
     RUR.control.move(robot);
 };
-
 RUR._UR.object_here_ = function (robot, obj) {
     return RUR.world_get.object_at_robot_position(robot, obj);
 };
-
 RUR._UR.paint_square_ = function (color, robot_body) {
     RUR.add_colored_tile(color, robot_body.x, robot_body.y);
 };
-
 RUR._UR.put_ = function (robot, obj) {
     RUR.control.put(robot, obj);
 };
-
 RUR._UR.toss_ = function (robot, obj) {
     RUR.control.toss(robot, obj);
 };
-
 RUR._UR.right_is_clear_ = function (robot) {
     return RUR.control.right_is_clear(robot);
 };
-
 RUR._UR.set_model_ = function (robot, model) {
     RUR.control.set_model(robot, model);
 };
-
 RUR._UR.set_trace_color_ = function (robot, color) {
     RUR.control.set_trace_color(robot, color);
 };
-
 RUR._UR.set_trace_style_ = function (robot, style) {
     RUR.control.set_trace_style(robot, style);
 };
-
 RUR._UR.take_ = function (robot, obj) {
     RUR.control.take(robot, obj);
 };
-
 RUR._UR.turn_left_ = function (robot) {
     RUR.control.turn_left(robot);
 };
-
 RUR._UR.wall_in_front_ = function (robot) {
     return RUR.control.wall_in_front(robot);
 };
-
 RUR._UR.wall_on_right_ = function (robot) {
     return RUR.control.wall_on_right(robot);
 };
-
 },{"./../drawing/visible_robot.js":9,"./../editors/update.js":12,"./../file_io/file_io.js":13,"./../rur.js":44,"./../translator.js":46,"./../ui/custom_world_select.js":48,"./../world_api/background_tile.js":75,"./control.js":27,"./output.js":29}],27:[function(require,module,exports){
 
 require("./../rur.js");
@@ -6651,8 +6435,23 @@ RUR.control.move = function (robot) {
 
     RUR.record_frame("move", robot.__id);
 };
+function set_color(x, y, color) {
+    var canvas = document.getElementById('gridCanvas');
+    var ctx = canvas.getContext('2d');
+    var gridSize = 50; // 假設每個格子的大小為 50px
 
+    // 計算格子的位置
+    var posX = x * gridSize;
+    var posY = y * gridSize;
 
+    // 設置顏色並填充該格子
+    ctx.fillStyle = color;  // 顏色，例如 'rgb(255, 0, 0)' 或 'black'
+    ctx.fillRect(posX, posY, gridSize, gridSize);
+}
+RUR.control.set_color = function(x, y, color) {
+    // 通過 JavaScript 設置格子的顏色
+    set_color(x, y, color);  // 調用之前定義的 set_color() 函數
+};
 // leave end of line comments below such as using += 1
 // as I (indirectly) refer to these comments in the programming tutorial
 
@@ -6677,7 +6476,6 @@ RUR.control.turn_left = function(robot){
     }
     RUR.record_frame("turn_left", robot.__id);
 };
-
 RUR.control.__turn_right = function(robot){
     "use strict";
     robot._prev_orientation = (robot._orientation+2)%4; // fix so that oil trace looks right
@@ -6690,16 +6488,13 @@ RUR.control.__turn_right = function(robot){
     }
     RUR.record_frame("__turn_right", robot.__id);
 };
-
 RUR.control.pause = function (ms) {
     RUR.record_frame("pause", {pause_time:ms});
 };
-
 RUR.control.done = function () {
     RUR.state.done_executed = true;
     throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
-
 RUR.control.put = function(robot, arg){
     "use strict";
     var arg_in_english, all_objects;
@@ -6710,7 +6505,6 @@ RUR.control.put = function(robot, arg){
     // no error, we can proceed
     robot_put_or_toss_object(robot, arg_in_english, "put");
 };
-
 RUR.control.toss = function(robot, arg){
     "use strict";
     var arg_in_english, all_objects;
@@ -6720,7 +6514,6 @@ RUR.control.toss = function(robot, arg){
     // no error, we can proceed
     robot_put_or_toss_object(robot, arg_in_english, "throw");
 };
-
 function confirm_object_is_known(arg) {
     var arg_in_english;
     if (arg !== undefined) {
@@ -6731,7 +6524,6 @@ function confirm_object_is_known(arg) {
     }
     return arg_in_english;
 }
-
 function get_names_of_objects_carried(objects_carried) {
     var obj_type, all_objects = [];
     for (obj_type in objects_carried) {
@@ -6741,7 +6533,6 @@ function get_names_of_objects_carried(objects_carried) {
     }
     return all_objects;
 }
-
 function put_check_for_error (arg, arg_in_english, all_objects, carried) {
     "use strict";
     if (arg !== undefined) {
@@ -6759,7 +6550,6 @@ function put_check_for_error (arg, arg_in_english, all_objects, carried) {
         }
     }
 }
-
 robot_put_or_toss_object = function (robot, obj, action) {
     "use strict";
     var objects_carried, coords, obj_type, position, x, y;
@@ -6803,7 +6593,6 @@ robot_put_or_toss_object = function (robot, obj, action) {
     RUR.transform_tile(obj, x, y);
     RUR.record_frame(action, [robot.__id, obj]);
 };
-
 function is_fatal_thing(thing, robot) {
     var protections;
 
@@ -6816,7 +6605,6 @@ function is_fatal_thing(thing, robot) {
     }
     return false;
 }
-
 RUR.control.take = function(robot, arg){
     var translated_arg, objects_here, message;
     RUR.state.sound_id = "#take-sound";
@@ -6854,7 +6642,6 @@ RUR.control.take = function(robot, arg){
         take_object_and_give_to_robot(robot, objects_here[0]);
     }
 };
-
 take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
     obj = RUR.translate_to_english(obj);
@@ -6881,8 +6668,6 @@ take_object_and_give_to_robot = function (robot, obj) {
     }
     RUR.record_frame("take", [robot.__id, obj]);
 };
-
-
 RUR.control.build_wall = function (robot){
     RUR.state.sound_id = "#build-sound";
     switch (robot._orientation){
@@ -6902,8 +6687,6 @@ RUR.control.build_wall = function (robot){
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.build_wall().");
     }
 };
-
-
 RUR.control.wall_in_front = function (robot) {
     switch (robot._orientation){
     case RUR.EAST:
@@ -6920,7 +6703,6 @@ RUR.control.wall_in_front = function (robot) {
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
     }
 };
-
 RUR.control.wall_on_right = function (robot) {
     var result, saved_recording_state;
     saved_recording_state = RUR._recording_(false);
@@ -6930,8 +6712,6 @@ RUR.control.wall_on_right = function (robot) {
     RUR._recording_(saved_recording_state);
     return result;
 };
-
-
 RUR.control.front_is_clear = function(robot){
     var position, next_x, next_y;
     if( RUR.control.wall_in_front(robot)) {
@@ -6948,7 +6728,6 @@ RUR.control.front_is_clear = function(robot){
 
     return true;
 };
-
 RUR.control.right_is_clear = function(robot){
     var result, saved_recording_state;
     saved_recording_state = RUR._recording_(false);
@@ -6958,17 +6737,14 @@ RUR.control.right_is_clear = function(robot){
     RUR._recording_(saved_recording_state);
     return result;
 };
-
 RUR.control.is_facing_north = function (robot) {
     return robot._orientation === RUR.NORTH;
 };
-
 RUR.control.think = function (delay) {
     var old_delay = RUR.PLAYBACK_TIME_PER_FRAME;
     RUR.PLAYBACK_TIME_PER_FRAME = delay;
     return old_delay;
 };
-
 RUR.control.at_goal = function (robot) {
     var goal = RUR.get_current_world().goal;
     if (goal !== undefined){
@@ -6979,8 +6755,6 @@ RUR.control.at_goal = function (robot) {
     }
     throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
 };
-
-
 RUR.control.carries_object = function (robot, obj) {
     var obj_type, all_objects, carried=false;
 
@@ -7012,8 +6786,6 @@ RUR.control.carries_object = function (robot, obj) {
         return 0;
     }
 };
-
-
 RUR.control.set_model = function(robot, model){
     var default_robot;
     robot.model = model;
@@ -7023,7 +6795,6 @@ RUR.control.set_model = function(robot, model){
     }
     RUR.record_frame("set_model", robot.__id);
  };
-
 /** @function set_model
  * @memberof RUR
  * @instance
@@ -7040,16 +6811,12 @@ RUR.set_model = function(model){
     RUR.user_selected_model = undefined;  // overrides the user's choice
     RUR.record_frame("RUR.set_model", robot.__id);
  };
-
-
 RUR.control.set_trace_color = function(robot, color){
     robot._trace_color = color;
  };
-
 RUR.control.set_trace_style = function(robot, style){
     robot._trace_style = style;
  };
-
 if (RUR.state === undefined){
     RUR.state = {};
 }
@@ -7062,7 +6829,6 @@ RUR.control.sound = function(on){
     }
     RUR.state.sound_on = true;
 };
-
 },{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":38,"./../rur.js":44,"./../translator.js":46,"./../utils/key_exist.js":66,"./../utils/supplant.js":71,"./../world_api/background_tile.js":75,"./../world_api/composition.js":77,"./../world_api/is_fatal.js":79,"./../world_api/obstacles.js":81,"./../world_api/pushables.js":82,"./../world_api/robot.js":83,"./../world_api/walls.js":85,"./../world_get/world_get.js":86,"./exceptions.js":28,"./output.js":29}],28:[function(require,module,exports){
 
 require("./../rur.js");
@@ -7092,8 +6858,6 @@ RUR.ReeborgError = function (message) {
     this.message = message;
     this.reeborg_failure = message;
 };
-
-
 RUR.ReeborgOK = function (message) {
     this.name = "ReeborgOK";
     this.reeborg_success = message;
@@ -7132,8 +6896,6 @@ RUR.WallCollisionError = function (message) {
     this.message = message;
     this.reeborg_failure = message;
 };
-
-
 RUR.MissingObjectError = function (message) {
     if (RUR.state.programming_language == "python"){
         if (["en", "fr-en", "ko-en", "cn-en", "pt-en"].indexOf(RUR.state.human_language) != -1) {
@@ -7150,7 +6912,6 @@ RUR.MissingObjectError = function (message) {
     this.message = message;
     this.reeborg_failure = message;
 };
-
 },{"./../rur.js":44}],29:[function(require,module,exports){
 
 require("./../rur.js");
@@ -7173,7 +6934,6 @@ RUR.output.write = function () {
     output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
     RUR.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
-
 RUR.output.write_ln = function () {
     var output_string = '';
     RUR.state.sound_id = "#write-sound";
@@ -7190,11 +6950,9 @@ RUR.output.write_ln = function () {
     output_string += "\n";
     RUR.record_frame("stdout", {"element": "#stdout", "message": output_string});
 };
-
 RUR.output.clear_print = function () {
     RUR.record_frame("stdout", {"element": "#stdout", "clear": true});
 };
-
 RUR.output.print_html = function (arg, replace) {
     if (replace) {
         RUR.record_frame("print_html", {"element": "#print-html", "message": arg});
@@ -7202,12 +6960,9 @@ RUR.output.print_html = function (arg, replace) {
         RUR.record_frame("print_html", {"element": "#print-html", "message": arg, "append": true});
     }
 };
-
 RUR.output.watch_variables = function (arg) {
     RUR.record_frame("watch_variables", {"element": "#watch-variables", "message": arg});
 };
-
-
 /** @function get_print
  * @memberof RUR
  * @instance
@@ -7219,7 +6974,6 @@ RUR.output.watch_variables = function (arg) {
 RUR.get_print = function () {
     return RUR.print_cache;
 };
-
 /** @function show_diff
  * @memberof RUR
  * @instance
@@ -7274,8 +7028,6 @@ RUR.show_diff = function(expected, actual, semantic) {
     }
     return html.join('');
 };
-
-
 /** @function show_detailed_diff
  * @memberof RUR
  * @instance
@@ -7358,7 +7110,6 @@ require("./../world_api/robot.js");
 /* See reeborg_en.js for an explanation about the purpose of this file. */
 
 RUR.reset_definitions_cn = function () {
-
     // The following are for OOP programming in Javascript
     var 机器人 = window.机器人 = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
@@ -7368,43 +7119,33 @@ RUR.reset_definitions_cn = function () {
     机器人.prototype.到达目的地 = function () {
         return RUR._UR.at_goal_(this.body);
     };
-
     机器人.prototype.砌墙 = function () {
         RUR._UR.build_wall_(this.body);
     };
-
     机器人.prototype.携带的物品 = function () {
         return RUR._UR.carries_object_(this.body);
     };
-
     机器人.prototype.此处的颜色 = function() {
         return RUR._UR.color_here_(this.body);
     };
-
     机器人.prototype.前方通畅 = function () {
         return RUR._UR.front_is_clear_(this.body);
     };
-
     机器人.prototype.面向北方 = function () {
         return RUR._UR.is_facing_north_(this.body);
     };
-
     机器人.prototype.前进 = function () {
         RUR._UR.move_(this.body);
     };
-
     机器人.prototype.此处的物品 = function (obj) {
         return RUR._UR.object_here_(this.body, obj);
     };
-
     机器人.prototype.粉刷格子 = function (color) {
         RUR._UR.paint_square_(color, this.body);
     };
-
     机器人.prototype.此处的坐标 = function () {
         return [this.body.x, this.body.y];
     };
-
     机器人.prototype.前方的坐标 = function () {
         pos = RUR.get_position_in_front(this.body);
         if (RUR.is_valid_position(pos["x"], pos["y"])) {
@@ -7414,47 +7155,36 @@ RUR.reset_definitions_cn = function () {
             return undefined;
         }
     };
-
     机器人.prototype.放下 = function () {
         RUR._UR.put_(this.body);
     };
-
     机器人.prototype.抛出 = function () {
         RUR._UR.toss_(this.body);
     };
-
     机器人.prototype.右侧通畅 = function () {
         return RUR._UR.right_is_clear_(this.body);
     };
-
     机器人.prototype.设置模型 = function(model) {
         RUR._UR.set_model_(this.body, model);
     };
-
     机器人.prototype.设置路径颜色 = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
-
     机器人.prototype.设置路径风格 = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
-
     机器人.prototype.拾起 = function () {
         RUR._UR.take_(this.body);
     };
-
     机器人.prototype.左转 = function () {
         RUR._UR.turn_left_(this.body);
     };
-
     机器人.prototype.前方有墙 = function () {
         return RUR._UR.wall_in_front_(this.body);
     };
-
     机器人.prototype.右侧有墙 = function () {
         return RUR._UR.wall_on_right_(this.body);
     };
-
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = 机器人;
 
@@ -7514,7 +7244,6 @@ RUR.reset_definitions_cn = function () {
     return API;
 
 };
-
 },{"./../rur.js":44,"./../world_api/robot.js":83,"./commands.js":26}],31:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
@@ -7523,7 +7252,6 @@ require("./../world_api/robot.js");
 /* See reeborg_en.js for an explanation about the purpose of this file. */
 
 RUR.reset_definitions_de = function () {
-
     var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.add_robot(this.body);
@@ -7532,41 +7260,32 @@ RUR.reset_definitions_de = function () {
     UsedRobot.prototype.ist_am_ziel = function () {
         return RUR._UR.at_goal_(this.body);
     };
-
     UsedRobot.prototype.baue_wand = function () {
         RUR._UR.build_wall_(this.body);
     };
-
     UsedRobot.prototype.traegt_objekt = function () {
         return RUR._UR.carries_object_(this.body);
     };
-
     UsedRobot.prototype.farbe_hier = UsedRobot.prototype.color_here;
 
     UsedRobot.prototype.ist_vorne_frei = function () {
         return RUR._UR.front_is_clear_(this.body);
     };
-
     UsedRobot.prototype.ist_norden = function () {
         return RUR._UR.is_facing_north_(this.body);
     };
-
     UsedRobot.prototype.schritt = function () {
         RUR._UR.move_(this.body);
     };
-
     UsedRobot.prototype.ist_objekt_hier = function (obj) {
         return RUR._UR.object_here_(this.body, obj);
     };
-
     UsedRobot.prototype.male_zelle = function (color) {
         RUR._UR.paint_square_(color, this.body);
     };
-
     UsedRobot.prototype.gib_koordinaten = function () {
         return [this.body.x, this.body.y];
     };
-
     UsedRobot.prototype.gib_koordinaten_vorne = function () {
         pos = RUR.get_position_in_front(this.body);
         if (RUR.is_valid_position(pos["x"], pos["y"])) {
@@ -7576,47 +7295,36 @@ RUR.reset_definitions_de = function () {
             return undefined;
         }
     };
-
     UsedRobot.prototype.hinlegen = function () {
         RUR._UR.put_(this.body);
     };
     UsedRobot.prototype.hinwerfen = function () {
         RUR._UR.toss_(this.body);
     };
-
     UsedRobot.prototype.ist_rechts_frei = function () {
         return RUR._UR.right_is_clear_(this.body);
     };
-
     UsedRobot.prototype.set_modell = function(model) {
         RUR._UR.set_model_(this.body, model);
     };
-
     UsedRobot.prototype.setze_spur_farbe = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
-
     UsedRobot.prototype.setze_spur_stil = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
-
     UsedRobot.prototype.nimm = function () {
         RUR._UR.take_(this.body);
     };
-
-
     UsedRobot.prototype.drehe_links = function () {
         RUR._UR.turn_left_(this.body);
     };
-
     UsedRobot.prototype.ist_wand_vorne = function () {
         return RUR._UR.wall_in_front_(this.body);
     };
-
     UsedRobot.prototype.ist_wand_rechts = function () {
         return RUR._UR.wall_on_right_(this.body);
     };
-
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = UsedRobot;
 
@@ -7677,7 +7385,6 @@ RUR.reset_definitions_de = function () {
 
 
 };
-
 },{"./../rur.js":44,"./../world_api/robot.js":83,"./commands.js":26}],32:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
@@ -7709,7 +7416,6 @@ require("./../world_api/robot.js");
 
 
 RUR.reset_definitions_en = function () {
-
     var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.add_robot(this.body);
@@ -7718,15 +7424,12 @@ RUR.reset_definitions_en = function () {
     UsedRobot.prototype.at_goal = function () {
         return RUR._UR.at_goal_(this.body);
     };
-
     UsedRobot.prototype.build_wall = function () {
         RUR._UR.build_wall_(this.body);
     };
-
     UsedRobot.prototype.carries_object = function () {
         return RUR._UR.carries_object_(this.body);
     };
-
     UsedRobot.prototype.color_here = function() {
         return RUR._UR.color_here_(this.body);
     };
@@ -7735,27 +7438,21 @@ RUR.reset_definitions_en = function () {
     UsedRobot.prototype.front_is_clear = function () {
         return RUR._UR.front_is_clear_(this.body);
     };
-
     UsedRobot.prototype.is_facing_north = function () {
         return RUR._UR.is_facing_north_(this.body);
     };
-
     UsedRobot.prototype.move = function () {
         RUR._UR.move_(this.body);
     };
-
     UsedRobot.prototype.object_here = function (obj) {
         return RUR._UR.object_here_(this.body, obj);
     };
-
     UsedRobot.prototype.paint_square = function (color) {
         RUR._UR.paint_square_(color, this.body);
     };
-
     UsedRobot.prototype.position_here = function () {
         return [this.body.x, this.body.y];
     };
-
     UsedRobot.prototype.position_in_front = function () {
         pos = RUR.get_position_in_front(this.body);
         if (RUR.is_valid_position(pos["x"], pos["y"])) {
@@ -7765,46 +7462,36 @@ RUR.reset_definitions_en = function () {
             return undefined;
         }
     };
-
     UsedRobot.prototype.put = function () {
         RUR._UR.put_(this.body);
     };
     UsedRobot.prototype.toss = function () {
         RUR._UR.toss_(this.body);
     };
-
     UsedRobot.prototype.right_is_clear = function () {
         return RUR._UR.right_is_clear_(this.body);
     };
-
     UsedRobot.prototype.set_model = function(model) {
         RUR._UR.set_model_(this.body, model);
     };
-
     UsedRobot.prototype.set_trace_color = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
-
     UsedRobot.prototype.set_trace_style = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
-
     UsedRobot.prototype.take = function () {
         RUR._UR.take_(this.body);
     };
-
     UsedRobot.prototype.turn_left = function () {
         RUR._UR.turn_left_(this.body);
     };
-
     UsedRobot.prototype.wall_in_front = function () {
         return RUR._UR.wall_in_front_(this.body);
     };
-
     UsedRobot.prototype.wall_on_right = function () {
         return RUR._UR.wall_on_right_(this.body);
     };
-
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = UsedRobot;
 
@@ -7875,7 +7562,6 @@ RUR.reset_definitions_en = function () {
 
     return API;
 };
-
 },{"./../rur.js":44,"./../world_api/robot.js":83,"./commands.js":26}],33:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
@@ -7884,7 +7570,6 @@ require("./../world_api/robot.js");
 /* See reeborg_en.js for an explanation about the purpose of this file. */
 
 RUR.reset_definitions_fr = function () {
-
     // The following are for OOP programming in Javascript
     var RobotUsage = window.RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
@@ -7893,39 +7578,30 @@ RUR.reset_definitions_fr = function () {
     RobotUsage.prototype.au_but = function () {
         return RUR._UR.at_goal_(this.body);
     };
-
     RobotUsage.prototype.construit_un_mur = function () {
         RUR._UR.build_wall_(this.body);
     };
-
     RobotUsage.prototype.transporte = function () {
         return RUR._UR.carries_object_(this.body);
     };
-
     RobotUsage.prototype.couleur_ici = function() {
         return RUR._UR.color_here_(this.body);
     };
-
     RobotUsage.prototype.rien_devant = function () {
         return RUR._UR.front_is_clear_(this.body);
     };
-
     RobotUsage.prototype.est_face_au_nord = function () {
         return RUR._UR.is_facing_north_(this.body);
     };
-
     RobotUsage.prototype.avance = function () {
         RUR._UR.move_(this.body);
     };
-
     RobotUsage.prototype.objet_ici = function (obj) {
         return RUR._UR.object_here_(this.body, obj);
     };
-
     RobotUsage.prototype.position_ici = function () {
         return [this.body.x, this.body.y];
     };
-
     RobotUsage.prototype.position_ici = function () {
         pos = RUR.get_position_in_front(this.body);
         if (RUR.is_valid_position(pos["x"], pos["y"])) {
@@ -7935,51 +7611,39 @@ RUR.reset_definitions_fr = function () {
             return undefined;
         }
     };
-
     RobotUsage.prototype.colorie = function (color) {
         RUR._UR.paint_square_(color, this.body);
     };
-
     RobotUsage.prototype.depose = function () {
         RUR._UR.put_(this.body);
     };
-
     RobotUsage.prototype.lance = function () {
         RUR._UR.toss_(this.body);
     };
-
     RobotUsage.prototype.rien_a_droite = function () {
         return RUR._UR.right_is_clear_(this.body);
     };
-
     RobotUsage.prototype.modele = function(model) {
         RUR._UR.set_model_(this.body, model);
     };
-
     RobotUsage.prototype.couleur_de_trace = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
-
     RobotUsage.prototype.style_de_trace = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
-
     RobotUsage.prototype.prend = function () {
         RUR._UR.take_(this.body);
     };
-
     RobotUsage.prototype.tourne_a_gauche = function () {
         RUR._UR.turn_left_(this.body);
     };
-
     RobotUsage.prototype.mur_devant = function () {
         return RUR._UR.wall_in_front_(this.body);
     };
-
     RobotUsage.prototype.mur_a_droite = function () {
         return RUR._UR.wall_on_right_(this.body);
     };
-
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = RobotUsage;
 
@@ -8059,7 +7723,6 @@ RUR.reset_definitions_fr = function () {
     Object.assign(window, API);
     return API;
 };
-
 },{"./../rur.js":44,"./../world_api/robot.js":83,"./commands.js":26}],34:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
@@ -8090,7 +7753,6 @@ require("./../world_api/robot.js");
 **/
 
 RUR.reset_definitions_ko = function () {
-
     // The following are for OOP programming in Javascript
     var 사용_로봇 = window.사용_로봇 = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
@@ -8100,43 +7762,33 @@ RUR.reset_definitions_ko = function () {
     사용_로봇.prototype.목적지에_도착함 = function () {
         return RUR._UR.at_goal_(this.body);
     };
-
     사용_로봇.prototype.벽_만들기 = function () {
         RUR._UR.build_wall_(this.body);
     };
-
     사용_로봇.prototype.물건을_가지고_있음 = function () {
         return RUR._UR.carries_object_(this.body);
     };
-
     사용_로봇.prototype.바닥_색상 = function() {
         return RUR._UR.color_here_(this.body);
     };
-
     사용_로봇.prototype.앞이_비어_있음 = function () {
         return RUR._UR.front_is_clear_(this.body);
     };
-
     사용_로봇.prototype.북쪽을_향하고_있음 = function () {
         return RUR._UR.is_facing_north_(this.body);
     };
-
     사용_로봇.prototype.전진 = function () {
         RUR._UR.move_(this.body);
     };
-
     사용_로봇.prototype.바닥에_물건이_있음 = function (obj) {
         return RUR._UR.object_here_(this.body, obj);
     };
-
     사용_로봇.prototype.바닥_색칠 = function (color) {
         RUR._UR.paint_square_(color, this.body);
     };
-
     사용_로봇.prototype.현재_좌표 = function () {
         return [this.body.x, this.body.y];
     };
-
     사용_로봇.prototype.전면_좌표 = function () {
         pos = RUR.get_position_in_front(this.body);
         if (RUR.is_valid_position(pos["x"], pos["y"])) {
@@ -8146,47 +7798,36 @@ RUR.reset_definitions_ko = function () {
             return undefined;
         }
     };
-
     사용_로봇.prototype.놓기 = function () {
         RUR._UR.put_(this.body);
     };
-
     사용_로봇.prototype.던지기 = function () {
         RUR._UR.toss_(this.body);
     };
-
     사용_로봇.prototype.오른쪽이_비어_있음 = function () {
         return RUR._UR.right_is_clear_(this.body);
     };
-
     사용_로봇.prototype.모델_설정 = function(model) {
         RUR._UR.set_model_(this.body, model);
     };
-
     사용_로봇.prototype.경로_색상_설정 = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
-
     사용_로봇.prototype.경로_모양_설정 = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
-
     사용_로봇.prototype.줍기 = function () {
         RUR._UR.take_(this.body);
     };
-
     사용_로봇.prototype.좌회전 = function () {
         RUR._UR.turn_left_(this.body);
     };
-
     사용_로봇.prototype.앞에_벽이_있음 = function () {
         return RUR._UR.wall_in_front_(this.body);
     };
-
     사용_로봇.prototype.오른쪽에_벽이_있음 = function () {
         return RUR._UR.wall_on_right_(this.body);
     };
-
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = 사용_로봇;
 
@@ -8247,7 +7888,6 @@ RUR.reset_definitions_ko = function () {
     return API;
 
 };
-
 },{"./../rur.js":44,"./../world_api/robot.js":83,"./commands.js":26}],35:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
@@ -8279,7 +7919,6 @@ require("./../world_api/robot.js");
 
 
 RUR.reset_definitions_lt = function () {
-
     var NaudojamasRobotas = window.NaudojamasRobotas = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.add_robot(this.body);
@@ -8288,15 +7927,12 @@ RUR.reset_definitions_lt = function () {
     NaudojamasRobotas.prototype.prie_tikslo = function () {
         return RUR._UR.at_goal_(this.body);
     };
-
     NaudojamasRobotas.prototype.statyti_sieną = function () {
         RUR._UR.build_wall_(this.body);
     };
-
     NaudojamasRobotas.prototype.neša_objektą = function () {
         return RUR._UR.carries_object_(this.body);
     };
-
     NaudojamasRobotas.prototype.color_here = function() {
         return RUR._UR.color_here_(this.body);
     };
@@ -8305,27 +7941,21 @@ RUR.reset_definitions_lt = function () {
     NaudojamasRobotas.prototype.priekyje_laisva = function () {
         return RUR._UR.front_is_clear_(this.body);
     };
-
     NaudojamasRobotas.prototype.pasisukęs_šiaurėn = function () {
         return RUR._UR.is_facing_north_(this.body);
     };
-
     NaudojamasRobotas.prototype.pirmyn = function () {
         RUR._UR.move_(this.body);
     };
-
     NaudojamasRobotas.prototype.aptiktas_objektas = function (obj) {
         return RUR._UR.object_here_(this.body, obj);
     };
-
     NaudojamasRobotas.prototype.paint_square = function (color) {
         RUR._UR.paint_square_(color, this.body);
     };
-
     NaudojamasRobotas.prototype.position_here = function () {
         return [this.body.x, this.body.y];
     };
-
     NaudojamasRobotas.prototype.position_in_front = function () {
         pos = RUR.get_position_in_front(this.body);
         if (RUR.is_valid_position(pos["x"], pos["y"])) {
@@ -8335,47 +7965,36 @@ RUR.reset_definitions_lt = function () {
             return undefined;
         }
     };
-
     NaudojamasRobotas.prototype.padėti = function () {
         RUR._UR.put_(this.body);
     };
     NaudojamasRobotas.prototype.mesti = function () {
         RUR._UR.toss_(this.body);
     };
-
     NaudojamasRobotas.prototype.dešinėje_laisva = function () {
         return RUR._UR.right_is_clear_(this.body);
     };
-
     NaudojamasRobotas.prototype.set_model = function(model) {
         RUR._UR.set_model_(this.body, model);
     };
-
     NaudojamasRobotas.prototype.set_trace_color = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
-
     NaudojamasRobotas.prototype.set_trace_style = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
-
     NaudojamasRobotas.prototype.paimti = function () {
         RUR._UR.take_(this.body);
     };
-
-
     NaudojamasRobotas.prototype.suktis_kairėn = function () {
         RUR._UR.turn_left_(this.body);
     };
-
     NaudojamasRobotas.prototype.priekyje_siena = function () {
         return RUR._UR.wall_in_front_(this.body);
     };
-
     NaudojamasRobotas.prototype.dešinėje_siena = function () {
         return RUR._UR.wall_on_right_(this.body);
     };
-
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = NaudojamasRobotas;
 
@@ -8435,7 +8054,6 @@ RUR.reset_definitions_lt = function () {
     return API;
 
 };
-
 },{"./../rur.js":44,"./../world_api/robot.js":83,"./commands.js":26}],36:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
@@ -8467,7 +8085,6 @@ require("./../world_api/robot.js");
 
 
 RUR.reset_definitions_pl = function () {
-
     var RobotWUzyciu = window.RobotWUzyciu = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.add_robot(this.body);
@@ -8476,15 +8093,12 @@ RUR.reset_definitions_pl = function () {
     RobotWUzyciu.prototype.u_celu = function () {
         return RUR._UR.at_goal_(this.body);
     };
-
     RobotWUzyciu.prototype.wybuduj_mur = function () {
         RUR._UR.build_wall_(this.body);
     };
-
     RobotWUzyciu.prototype.obiekt_niesiony = function () {
         return RUR._UR.carries_object_(this.body);
     };
-
     RobotWUzyciu.prototype.color_here = function() {
         return RUR._UR.color_here_(this.body);
     };
@@ -8493,27 +8107,21 @@ RUR.reset_definitions_pl = function () {
     RobotWUzyciu.prototype.droga_wolna = function () {
         return RUR._UR.front_is_clear_(this.body);
     };
-
     RobotWUzyciu.prototype.skierowany_na_polnoc = function () {
         return RUR._UR.is_facing_north_(this.body);
     };
-
     RobotWUzyciu.prototype.ruch = function () {
         RUR._UR.move_(this.body);
     };
-
     RobotWUzyciu.prototype.wykryto_obiekt = function (obj) {
         return RUR._UR.object_here_(this.body, obj);
     };
-
     RobotWUzyciu.prototype.paint_square = function (color) {
         RUR._UR.paint_square_(color, this.body);
     };
-
     RobotWUzyciu.prototype.position_here = function () {
         return [this.body.x, this.body.y];
     };
-
     RobotWUzyciu.prototype.position_in_front = function () {
         pos = RUR.get_position_in_front(this.body);
         if (RUR.is_valid_position(pos["x"], pos["y"])) {
@@ -8523,47 +8131,36 @@ RUR.reset_definitions_pl = function () {
             return undefined;
         }
     };
-
     RobotWUzyciu.prototype.odloz = function () {
         RUR._UR.put_(this.body);
     };
     RobotWUzyciu.prototype.toss = function () {
         RUR._UR.toss_(this.body);
     };
-
     RobotWUzyciu.prototype.prawo_wolne = function () {
         return RUR._UR.right_is_clear_(this.body);
     };
-
     RobotWUzyciu.prototype.set_model = function(model) {
         RUR._UR.set_model_(this.body, model);
     };
-
     RobotWUzyciu.prototype.set_trace_color = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
-
     RobotWUzyciu.prototype.set_trace_style = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
-
     RobotWUzyciu.prototype.wez = function () {
         RUR._UR.take_(this.body);
     };
-
-
     RobotWUzyciu.prototype.obrot_w_lewo = function () {
         RUR._UR.turn_left_(this.body);
     };
-
     RobotWUzyciu.prototype.mur_z_przodu = function () {
         return RUR._UR.wall_in_front_(this.body);
     };
-
     RobotWUzyciu.prototype.mur_po_prawej = function () {
         return RUR._UR.wall_on_right_(this.body);
     };
-
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = RobotWUzyciu;
 
@@ -8622,7 +8219,6 @@ RUR.reset_definitions_pl = function () {
     Object.assign(window, API);
     return API;
 };
-
 },{"./../rur.js":44,"./../world_api/robot.js":83,"./commands.js":26}],37:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
@@ -8631,7 +8227,6 @@ require("./../world_api/robot.js");
 /* See reeborg_en.js for an explanation about the purpose of this file. */
 
 RUR.reset_definitions_pt = function () {
-
     var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.add_robot(this.body);
@@ -8640,41 +8235,32 @@ RUR.reset_definitions_pt = function () {
     UsedRobot.prototype.chegou = function () {
         return RUR._UR.at_goal_(this.body);
     };
-
     UsedRobot.prototype.construir_parede = function () {
         RUR._UR.build_wall_(this.body);
     };
-
     UsedRobot.prototype.carrega_objeto = function () {
         return RUR._UR.carries_object_(this.body);
     };
-
     UsedRobot.prototype.cor_aqui = UsedRobot.prototype.color_here;
 
     UsedRobot.prototype.frente_esta_livre = function () {
         return RUR._UR.front_is_clear_(this.body);
     };
-
     UsedRobot.prototype.virado_norte = function () {
         return RUR._UR.is_facing_north_(this.body);
     };
-
     UsedRobot.prototype.mover = function () {
         RUR._UR.move_(this.body);
     };
-
     UsedRobot.prototype.objeto_aqui = function (obj) {
         return RUR._UR.object_here_(this.body, obj);
     };
-
     UsedRobot.prototype.pintar_quadrado = function (color) {
         RUR._UR.paint_square_(color, this.body);
     };
-
     UsedRobot.prototype.coordenadas = function () {
         return [this.body.x, this.body.y];
     };
-
     UsedRobot.prototype.dar_coordenadas = function () {
         pos = RUR.get_position_in_front(this.body);
         if (RUR.is_valid_position(pos["x"], pos["y"])) {
@@ -8684,47 +8270,36 @@ RUR.reset_definitions_pt = function () {
             return undefined;
         }
     };
-
     UsedRobot.prototype.colocar = function () {
         RUR._UR.put_(this.body);
     };
     UsedRobot.prototype.gerar = function () {
         RUR._UR.toss_(this.body);
     };
-
     UsedRobot.prototype.direita_esta_livre = function () {
         return RUR._UR.right_is_clear_(this.body);
     };
-
     UsedRobot.prototype.definir_modelo = function(model) {
         RUR._UR.set_model_(this.body, model);
     };
-
     UsedRobot.prototype.definir_cor_linha = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
-
     UsedRobot.prototype.definir_estilo_linha = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
-
     UsedRobot.prototype.pegar = function () {
         RUR._UR.take_(this.body);
     };
-
-
     UsedRobot.prototype.virar_esquerda = function () {
         RUR._UR.turn_left_(this.body);
     };
-
     UsedRobot.prototype.parede_a_frente = function () {
         return RUR._UR.wall_in_front_(this.body);
     };
-
     UsedRobot.prototype.parede_a_direita = function () {
         return RUR._UR.wall_on_right_(this.body);
     };
-
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = UsedRobot;
 
@@ -8800,7 +8375,6 @@ function update_trace_history() {
         }
     }
 }
-
 update_robot_trace_history = function (robot) {
     var offset, prev_offset, trace_segment={}, prev_trace_segment;
     // if we keep track of the trace during world editing tests,
@@ -8856,8 +8430,6 @@ update_robot_trace_history = function (robot) {
 
     robot._trace_history.push(trace_segment);
 };
-
-
 RUR.record_frame = function (name, obj) {
     "use strict";
     var py_err, frame = {}, prev_frame;
@@ -8977,8 +8549,6 @@ will be ignored no matter what its content is.
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
-
-
 },{"./../playback/show_immediate.js":24,"./../programming_api/exceptions.js":28,"./../rur.js":44,"./../utils/identical.js":65,"./../utils/supplant.js":71}],39:[function(require,module,exports){
 
 require("./../rur.js");
@@ -9005,7 +8575,6 @@ RUR.set_lineno_highlight = function(lineno) {
     RUR.prev_line_no = RUR.current_line_no;
     return true;
 };
-
 function update_editor_highlight(frame_no) {
     "use strict";
     var i, frame;
@@ -9020,7 +8589,6 @@ function update_editor_highlight(frame_no) {
         }
     }
 }
-
 RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
@@ -9098,7 +8666,6 @@ RUR.rec.display_frame = function () {
     }
     RUR.vis_world.refresh();
 };
-
 RUR.rec.conclude = function () {
     var frame, goal_status;
 
@@ -9149,7 +8716,6 @@ RUR.rec.conclude = function () {
     RUR.stop();
     return "stopped";
 };
-
 RUR.rec.handle_error = function (frame) {
     "use strict";
     
@@ -9177,7 +8743,6 @@ RUR.rec.handle_error = function (frame) {
     RUR.stop();
     return "stopped";
 };
-
 RUR.rec.check_current_world_status = function() {
     // this function is to check goals from the Python console.
     "use strict";
@@ -9201,7 +8766,6 @@ RUR.rec.check_current_world_status = function() {
         }
     }
 };
-
 RUR.rec.check_goal = function (frame) {
     var g, world, goal_status = {"success": true}, result;
 
@@ -9286,7 +8850,6 @@ RUR.rec.check_goal = function (frame) {
     }
     return goal_status;
 };
-
 },{"./../drawing/visible_world.js":10,"./../editors/create.js":11,"./../playback/play_sound.js":23,"./../programming_api/exceptions.js":28,"./../recorder/record_frame.js":38,"./../rur.js":44,"./../translator.js":46,"./../ui/pause.js":54,"./../ui/stop.js":59,"./../ui/user_progress.js":62,"./../utils/identical.js":65,"./../world_get/world_get.js":86}],40:[function(require,module,exports){
 require("./../rur.js");
 require("./../editors/create.js"); // to ensure editor is defined
@@ -9323,7 +8886,6 @@ RUR.reset_world = function() {
     RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
     RUR.world_utils.process_onload();
 };
-
 },{"./../drawing/visible_robot.js":9,"./../editors/create.js":11,"./../rur.js":44,"./../world_utils/import_world.js":88}],41:[function(require,module,exports){
 
 require("./../rur.js");
@@ -9389,7 +8951,6 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
 
     return robot;
 };
-
 RUR.robot.set_private_defaults = function(robot) {
     robot._is_leaky = true;
     robot._prev_x = robot.x;
@@ -9401,7 +8962,6 @@ RUR.robot.set_private_defaults = function(robot) {
     robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
     robot.__id = assign_id();
 };
-
 /* Robot definitions in World files has changed as
    new features were added; we make sure that they are properly
    updated when needed. This should be called when a world is
@@ -9429,12 +8989,10 @@ RUR.robot.modernize = function (robot) {
 
     RUR.robot.set_private_defaults(robot);
 };
-
 assign_id = function () {
     RUR.robot.__ID += 1;
     return RUR.robot.__ID;
 };
-
 },{"./../programming_api/exceptions.js":28,"./../rur.js":44,"./../translator.js":46,"./../utils/validator.js":72}],42:[function(require,module,exports){
 
 require("./../rur.js");
@@ -9506,7 +9064,6 @@ RUR.runner.run = function (playback) {
     playback();
 
 };
-
 /* RUR.runner.eval returns true if a fatal error is found, false otherwise */
 RUR.runner.eval = function(src) {  // jshint ignore:line
     "use strict";
@@ -9613,7 +9170,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     RUR.state.code_evaluated = true;
     return false;
 };
-
 insert_world_code = function(src){
     var pre_code, post_code;
     pre_code = pre_code_editor.getValue();
@@ -9630,7 +9186,6 @@ insert_world_code = function(src){
     }
     return pre_code + src + post_code;
 }
-
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
     RUR.reset_definitions();
@@ -9646,7 +9201,6 @@ RUR.runner.eval_javascript = function (src) {
         throw e;// throw original message from Done if nothing else is raised
     } 
 };
-
 RUR.runner.eval_coffeescript = function (src) {
     // do not "use strict"
     RUR.reset_definitions();
@@ -9663,7 +9217,6 @@ RUR.runner.eval_coffeescript = function (src) {
     } 
 
 };
-
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
     var pre_code, post_code;
@@ -9672,8 +9225,7 @@ RUR.runner.eval_python = function (src) {
     post_code = "\n" + post_code_editor.getValue();
     translate_python(src, RUR.state.highlight, RUR.state.watch_vars, pre_code, post_code);
 };
-
-RUR.runner.eval_cpp = function (src) {    
+RUR.runner.eval_cpp = function (src) {
     // do not "use strict"
     const definitions = RUR.reset_definitions();
     var post_code = post_code_editor.getValue();
@@ -9840,8 +9392,6 @@ RUR.runner.find_line_number = function(bad_code) {
     }
     return '';
 };
-
-
 RUR.runner.check_colons = function(line_of_code) {
     "use strict";
     var tokens, nb_token;
@@ -9856,7 +9406,6 @@ RUR.runner.check_colons = function(line_of_code) {
     }
     return false;  // no missing colon
 };
-
 RUR.runner.check_func_parentheses = function(line_of_code) {
     if (line_of_code.indexOf('def') != -1){
         if (line_of_code.indexOf("(") == -1){
@@ -9865,7 +9414,6 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     }
     return false;  // no missing parentheses
 };
-
 },{"./../drawing/visible_world.js":10,"./../editors/create.js":11,"./../editors/update.js":12,"./../programming_api/blockly.js":25,"./../recorder/recorder.js":39,"./../rur.js":44,"./../translator.js":46,"./../utils/supplant.js":71,"./world_init.js":43}],43:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 require("./../rur.js");
@@ -9874,8 +9422,6 @@ require("./../rur.js");
 randint = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-
-
 /** @function world_init
  * @memberof RUR
  * @instance
@@ -9990,7 +9536,6 @@ RUR.world_init = function () {
     RUR.vis_world.draw_all(); // draw_all instead of refresh in case
                               // small_tiles was set in the meantime
 };
-
 },{"./../drawing/visible_world.js":10,"./../rur.js":44}],44:[function(require,module,exports){
 /** @namespace RUR
  * @desc The namespace reserved for all the Reeborg World methods.
@@ -10202,7 +9747,6 @@ RUR.reset_animated_images = function () {
     RUR.ROBOT_ANIMATION_TIME = 150;
     RUR.state.animated_robots = false; // set to true when we add animated robots
 };
-
 RUR.reeborg_default_model = "classic"; // global default; never reset
 
 RUR.reset_pre_run_defaults = function () {
@@ -10289,7 +9833,6 @@ RUR.onload_new_image = function  () {
     }
     redraw_all();
 };
-
 var initial_drawing_timer, last_drawing_time = Date.now();
 function redraw_all() {
     // redraws everything with intervals at least greater than 200 ms
@@ -10308,7 +9851,6 @@ function redraw_all() {
         initial_drawing_timer = setTimeout(redraw_all, 200);
     }
 }
-
 /*----------------------------------------------------------------
  We use multiple canvases to facilitate the drawing of objects
  without having to worry much about the order in which we draw
@@ -10332,7 +9874,6 @@ function set_canvases () {
         RUR.CANVASES.push(canvas);
         RUR.ALL_CTX.push(RUR[ctx]);
     }
-
     RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas"); //1
     create_ctx(RUR.BACKGROUND_CANVAS, "BACKGROUND_CTX");
     RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
@@ -10407,7 +9948,6 @@ function set_canvases () {
     RUR.ROBOT_ANIM_CANVAS = document.getElementById("robot-anim-canvas"); //20
     create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
-
 /*-------------------------------------------
  World-related functions;
  Most of these are left without JSdoc-type comments as they are intended
@@ -10416,7 +9956,6 @@ function set_canvases () {
 RUR.get_current_world = function () {
     return RUR.CURRENT_WORLD;
 };
-
 /** @function world_map
  * @memberof RUR
  * @instance
@@ -10447,8 +9986,6 @@ RUR.world_map = function () {
     }
     return world;
 };
-
-
 RUR.set_current_world = function (world, merge_editors) {
     "use strict";
     var editor_name, i;
@@ -10464,8 +10001,6 @@ RUR.set_current_world = function (world, merge_editors) {
     }
     RUR.CURRENT_WORLD = world;
 };
-
-
 RUR.export_world = function (world) {
     var content, editor_name, i, world_copy;
 
@@ -10482,8 +10017,6 @@ RUR.export_world = function (world) {
     }    
     return JSON.stringify(world_copy, null, 2);
 };
-
-
 RUR.clone_world = function (world) {
     if (world === undefined) {
         return JSON.parse(JSON.stringify(RUR.get_current_world()));
@@ -10491,8 +10024,6 @@ RUR.clone_world = function (world) {
         return JSON.parse(JSON.stringify(world));
     }
 };
-
-
 /** @function print_world_map
  * @memberof RUR
  * @instance
@@ -10505,13 +10036,10 @@ RUR.clone_world = function (world) {
 RUR.print_world_map = function () {
     RUR.output.write(JSON.stringify(RUR.world_map(), null, 2), "\n");
 };
-
-
 // Used by SatelliteInfo class in Python
 RUR._world_map = function () {
     return JSON.stringify(RUR.world_map(), null, 2);
 };
-
 /** @function print_maze
  * @memberof RUR
  * @instance
@@ -10527,7 +10055,6 @@ RUR.print_maze = function () {
         RUR.output.write(JSON.stringify(maze, null, 2), "\n");
     }
 };
-
 /** @function configure_red_green
  * @memberof RUR
  * @instance
@@ -10551,7 +10078,6 @@ RUR.configure_red_green = function (red, green) {
     localStorage.setItem("userchoice_red", red);
     localStorage.setItem("userchoice_green", green);
 };
-
 //--------------------------------------------------------
 // We communicate information to the user using various
 // styled dialog windows; this generic function specifies
@@ -10561,8 +10087,6 @@ RUR.configure_red_green = function (red, green) {
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
-
-
 /** @function randint
  * @memberof RUR
  * @instance
@@ -10574,8 +10098,6 @@ RUR.show_feedback = function (element, content) {
 RUR.randint = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-
-
 RUR.hide_end_dialogs = function () {
     $("#Reeborg-success").html("");
     $("#Reeborg-failure").html("");
@@ -10626,7 +10148,6 @@ RUR.storage._save_world = function (name){
         RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
     }
 };
-
 RUR.storage.save_world = function (name){
     "use strict";
     var url = "user_world:"+ name;
@@ -10637,7 +10158,6 @@ RUR.storage.save_world = function (name){
     }
     RUR.storage.append_world_name(name);
 };
-
 RUR.storage.append_world_name = function (name){
     "use strict";
     var url = "user_world:"+ name;
@@ -10652,7 +10172,6 @@ RUR.storage.append_world_name = function (name){
             "'"+ name + "'" + ');$(this).remove()"">' + RUR.translate('Delete ') + name + '</button>');
     $('#delete-world').show();
 };
-
 RUR.storage.delete_world = function (name){
     "use strict";
     var i, key;
@@ -10676,7 +10195,6 @@ RUR.storage.delete_world = function (name){
     }
     $('#delete-world').hide();
 };
-
 },{"./../rur.js":44,"./../translator.js":46,"./../ui/world_select.js":63}],46:[function(require,module,exports){
 require("./rur.js");
 var uien = require("./../lang/ui_en.js"),
@@ -10745,7 +10263,6 @@ function is_color(s) { // avoid giving warning about missing translation
     }
     return false;
 }
-
 RUR.translate = function (s) {
     if (s==undefined) {
         return "";
@@ -10762,7 +10279,6 @@ RUR.translate = function (s) {
         return s;
     }
 };
-
 RUR.translate_to_english = function (s) {
     if (RUR.untranslated[s] || is_color(s)) {
         return s;
@@ -10776,7 +10292,6 @@ RUR.translate_to_english = function (s) {
         return s;
     }
 };
-
 },{"./../lang/cn.js":89,"./../lang/de.js":90,"./../lang/en.js":91,"./../lang/fr.js":92,"./../lang/ko.js":93,"./../lang/lt.js":94,"./../lang/pl.js":96,"./../lang/pt.js":97,"./../lang/ui_cn.js":98,"./../lang/ui_de.js":99,"./../lang/ui_en.js":100,"./../lang/ui_fr.js":101,"./../lang/ui_ko.js":102,"./../lang/ui_lt.js":103,"./../lang/ui_pl.js":104,"./../lang/ui_pt.js":105,"./rur.js":44}],47:[function(require,module,exports){
 /* To ensure that all elements are found before listeners are added,
    we attempt to keep all of the relevant activation functions
@@ -10913,7 +10428,6 @@ RUR.custom_world_select.make = function (contents) {  // aka RUR._MakeCustomMenu
         RUR.world_selector.set_default();
     }
 };
-
 function load_user_worlds() {
     var key, name, i;
 
@@ -10926,7 +10440,6 @@ function load_user_worlds() {
         }
     }
 }
-
 RUR.make_default_menu = function(language) {
     if (RUR.state.session_initialized) {
         RUR.state.world_url = undefined;
@@ -10960,7 +10473,6 @@ RUR.make_default_menu = function(language) {
     }
 
 };
-
 },{"./../rur.js":44,"./../storage/storage.js":45,"./../translator.js":46,"./world_select.js":63}],49:[function(require,module,exports){
 
 require("./../rur.js");
@@ -10975,7 +10487,6 @@ exports.toggle = function () {
         $(".robot-present").hide();
     }
 };
-
 },{"./../rur.js":44}],50:[function(require,module,exports){
 require("../rur.js");
 require("./../editors/create.js");
@@ -11081,7 +10592,6 @@ RUR.set_extra_content = function (python_code, hidden) {
         }
     }
 };
-
 /**
  * @function get_editor_from_world
  * @memberof RUR
@@ -11105,7 +10615,6 @@ RUR.get_editor_from_world = function () {
     }
     return '';
 };
-
 /**
  * @function get_library_from_world
  * @memberof RUR
@@ -11129,7 +10638,6 @@ RUR.get_library_from_world = function () {
     }
     return '';
 };
-
 },{"../rur.js":44,"./../../lang/msg.js":95,"./../editors/create.js":11}],51:[function(require,module,exports){
 require("./../rur.js");
 require("./../runner/runner.js");
@@ -11160,7 +10668,6 @@ RUR.update_frame_nb_info = function() {
         }
     } catch (e) {}
 };
-
 RUR.listeners['frame-selector'] = function () {
     if (RUR.state.playback) {
         return;
@@ -11209,7 +10716,6 @@ function merge_dicts (base, other) {
         }
     }
 }
-
 function update_translations(lang) {
     $("#mixed-language-info").show();
     $("#mixed-language-info").fadeOut(5000);
@@ -11347,7 +10853,6 @@ function update_translations(lang) {
     }
     $("#mixed-language-info").html(RUR.translate(lang));
 }
-
 function update_commands (lang) {
     switch(lang) {
         case "de":
@@ -11407,7 +10912,6 @@ function update_commands (lang) {
     }
     RUR.reset_definitions();
 }
-
 function update_home_url (lang) {
     switch(lang) {
         case "fr":
@@ -11426,7 +10930,6 @@ function update_home_url (lang) {
             $("#logo").prop("href", "index_en.html");
     }
 }
-
 RUR.listeners['human-language'] = function() {
     var lang = $(this).val();
 
@@ -11521,8 +11024,6 @@ function saveSolution() {
     blob = new Blob([content], {type: filetype});
     saveAs(blob, filename + extension, true);
 }
-
-
 function loadSolution () {
     /* see saveSolution above */
     var fileInput;
@@ -11559,7 +11060,6 @@ function loadSolution () {
             target.setValue(parts[0]);
             fileInput.value = '';
         };
-
         file = fileInput.files[0];
         // We assume that the file name has been saved with the default
         //    world name.py
@@ -11579,8 +11079,6 @@ function loadSolution () {
         reader.readAsText(file);
     });
 }
-
-
 document.onkeydown = function (e) {
     if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
         e.preventDefault();
@@ -11592,7 +11090,6 @@ document.onkeydown = function (e) {
         loadSolution();
     }
 };
-
 $(document).ready(function() {
     $("#open-solution-btn").on("click", function (evt) {
     loadSolution();
@@ -11627,7 +11124,6 @@ RUR.pause = function (ms) {
         $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
     }
 };
-
 },{"./../../lang/msg.js":95,"./../playback/play.js":22,"./../rur.js":44}],55:[function(require,module,exports){
 require("./../rur.js");
 require("./reload.js");
@@ -11688,8 +11184,6 @@ RUR.onload_set_programming_language = function(language) {
         RUR.onload_set_programming_mode("python");
     }
 };
-
-
 /** @function onload_set_programming_mode
  * @memberof RUR
  * @instance
@@ -11733,7 +11227,6 @@ RUR.onload_set_programming_mode = function(mode) {
         $("#programming-mode").change();
     }, 100);
 };
-
 RUR.listeners['programming-mode'] = function () {
     "use strict";
     var choice = $('#programming-mode').val();
@@ -11866,7 +11359,6 @@ function hide_everything () {
     $("#mixed-language-info").hide();
 
 }
-
 function show_blockly () {
     var style_enable = {"pointer-events": "auto", "opacity": 1};
     $("#save-blockly-btn").removeAttr("disabled");
@@ -11881,7 +11373,6 @@ function show_blockly () {
     }
     window.dispatchEvent(new Event('resize')); // important to ensure that blockly is visible
 }
-
 function hide_blockly () {
     var style_disable = {"pointer-events": "none", "opacity": 0.01};
     $("#save-blockly-btn").attr("disabled", "true");
@@ -11891,7 +11382,6 @@ function hide_blockly () {
     window.dispatchEvent(new Event('resize'));
     $("#special-keyboard-button").show();
 }
-
 function show_editor(lang) {
     if (lang == "python") {
         show_python_editor();
@@ -11916,14 +11406,12 @@ function show_editor(lang) {
         $("#extra-tab").parent().hide();
     }
 }
-
 function show_javascript_editor () {
     editor.setOption("mode", "javascript");
     onload_editor.setOption("mode", "javascript"); // could be changed in import_world
     pre_code_editor.setOption("mode", "javascript");
     post_code_editor.setOption("mode", "javascript");
 }
-
 function show_cpp_editor() {
     editor.setOption("mode", "text/x-c++src");
     onload_editor.setOption("mode", "text/x-c++src"); // could be changed in import_world
@@ -11933,14 +11421,12 @@ function show_cpp_editor() {
     RUR.state.highlight = RUR.state.highlight || RUR.state._saved_highlight_value;
     $("#highlight").show();
 }
-
 function show_coffee_editor () {
     editor.setOption("mode", "coffeescript");
     onload_editor.setOption("mode", "coffeescript"); // could be changed in import_world
     pre_code_editor.setOption("mode", "coffeescript");
     post_code_editor.setOption("mode", "coffeescript");
 }
-
 function show_python_editor () {
     editor.setOption("mode", {name: "python", version: 3});
     onload_editor.setOption("mode", {name: "python", version: 3}); // could be changed in import_world
@@ -11956,8 +11442,6 @@ function show_python_editor () {
     $("#watch-variables-btn").show();
     $("#python-additional-menu p button").removeAttr("disabled");
 }
-
-
 function hide_editors() {
     $("#save-editor-btn").attr("disabled", "true");
     $("#save-library-btn").attr("disabled", "true");
@@ -11972,7 +11456,6 @@ function hide_editors() {
     $("#description-tab").parent().hide();
     $("#onload-editor-tab").parent().hide();
 }
-
 function show_console() {
     $("#editor-visible-label").show();
     $("#editor-visible-input").show();
@@ -11990,7 +11473,6 @@ function show_console() {
     $("#save-solution-btn").hide();
     _start_repl();
 }
-
 function _start_repl() {
     try {
         restart_repl();
@@ -11999,7 +11481,6 @@ function _start_repl() {
         window.setTimeout(_start_repl, 200);
     }
 }
-
 function hide_console() {
     $("#py-console").hide();
     $("#open-solution-btn").show();
@@ -12012,7 +11493,6 @@ function hide_console() {
     $("#reload").show();
     $("#reload2").hide();
 }
-
 },{"./../../lang/msg.js":95,"./../editors/create.js":11,"./../gui_tools/special_keyboard.js":14,"./../permalink/permalink.js":21,"./../rur.js":44,"./reload.js":56}],56:[function(require,module,exports){
 require("./../rur.js");
 require("./../recorder/reset.js");
@@ -12040,8 +11520,6 @@ function set_ui_ready_to_run () {
     $("#frame-selector").hide();
     $("#frame-id").hide();
 }
-
-
 $(document).ready(function () {
     set_ui_ready_to_run();
 });
@@ -12052,7 +11530,6 @@ RUR.reload = function() {
     RUR.reload2();
     $("#highlight-impossible").hide();
 };
-
 RUR.reload2 = function() {
     $("#stdout").html("");
     $(".view_source").remove();
@@ -12069,7 +11546,6 @@ RUR.reload2 = function() {
         }
     }
 };
-
 },{"./../../lang/msg.js":95,"./../recorder/reset.js":40,"./../rur.js":44}],57:[function(require,module,exports){
 
 require("./../rur.js");
@@ -12088,7 +11564,6 @@ RUR.listeners.run = function () {
         setTimeout(run, 15); //  enough time for thought bubble to appear
     }
 };
-
 function run() {
     $("#stop").removeAttr("disabled");
     $("#pause").removeAttr("disabled");
@@ -12111,7 +11586,6 @@ function run() {
     RUR.runner.run(RUR.play);
     $("#thought").hide();
 }
-
 },{"./../../lang/msg.js":95,"./../playback/play.js":22,"./../runner/runner.js":42,"./../rur.js":44,"./reload.js":56}],58:[function(require,module,exports){
 
 require("./../rur.js");
@@ -12131,7 +11605,6 @@ RUR.listeners.step = function () {
         setTimeout(step, 15); //  enough time for thought bubble to appear
     }
 };
-
 function step() {
     RUR.runner.run(RUR.rec.display_frame);
     $("#thought").hide();
@@ -12149,7 +11622,6 @@ function step() {
     $("#open-solution-btn").attr("disabled", "true");
     $("#save-solution-btn").attr("disabled", "true");
 }
-
 RUR.listeners.reverse_step = function () {
     RUR.current_frame_no -= 2;  // see below call to RUR.rec.display_frame
     if (RUR.current_frame_no < 0){
@@ -12160,8 +11632,6 @@ RUR.listeners.reverse_step = function () {
     $("#stop").removeAttr("disabled");
     clearTimeout(RUR._TIMER);
 };
-
-
 },{"./../../lang/msg.js":95,"./../recorder/recorder.js":39,"./../runner/runner.js":42,"./../rur.js":44}],59:[function(require,module,exports){
 
 require("./../rur.js");
@@ -12178,7 +11648,6 @@ RUR.stop = function () {
     $("#reverse-step").attr("disabled", "true");
     $("#reload").removeAttr("disabled");
 };
-
 },{"./../../lang/msg.js":95,"./../rur.js":44}],60:[function(require,module,exports){
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -12196,7 +11665,6 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
         $("#highlight").removeClass("blue-gradient");
     }
 };
-
 },{"./../../lang/msg.js":95,"./../rur.js":44}],61:[function(require,module,exports){
 
 require("./../rur.js");
@@ -12219,7 +11687,6 @@ toggle_watch_variables = function () {
         $("#Reeborg-watches").dialog("open");
     }
 };
-
 },{"./../../lang/msg.js":95,"./../rur.js":44}],62:[function(require,module,exports){
 /* Attempt at creating a way for users to follow their progress */
 
@@ -12246,7 +11713,6 @@ function update_name_in_world_selector (name, remove) {
         }
     }
 }
-
 /* This function is intended to be called when a programming language is
    changed, so as to update the "checkmarks" in the world selector.
  */
@@ -12275,12 +11741,9 @@ RUR.update_marks_in_world_selector = function() {
         }
     }
 };
-
-
 RUR.strip_checkmark = function (name) {
     return name.replace(RUR.CHECKMARK, '');
 };
-
 /* Add a checkmark only if the world has been solved.
 */
 RUR.add_checkmark = function (name) {
@@ -12301,7 +11764,6 @@ RUR.add_checkmark = function (name) {
     }
     return name;
 };
-
 RUR.update_progress = function(){
     var world_name, prog_method, world = RUR.get_current_world();
     if (!RUR.state.current_menu) {
@@ -12333,7 +11795,6 @@ RUR.update_progress = function(){
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
     save_user_solution();
 };
-
 function _get_programming_method() {
     var programming_method, input_method;
     input_method = localStorage.getItem("input_method");
@@ -12348,7 +11809,6 @@ function _get_programming_method() {
     }
     return programming_method;
 }
-
 /* The first implementation of user progress kept track of world collections (menu)
    and world names, regardless of the programming method used 
    (blockly, Python code, Javascript code).
@@ -12415,7 +11875,6 @@ function save_progress() {
     blob = new Blob([combined], {type: "text/javascript;charset=utf-8"});
     saveAs(blob, "progress.json", true);
 }
-
 // From https://stackoverflow.com/a/8764974/558799
 function mergeRecursive(obj1, obj2) {
   if (Array.isArray(obj2)) { return obj1.concat(obj2); }
@@ -12436,8 +11895,6 @@ function mergeRecursive(obj1, obj2) {
   }
   return obj1;
 }
-
-
 function import_progress () {
     var fileInput;
     remove_fileInput_listener();
@@ -12468,12 +11925,10 @@ function import_progress () {
             }
             fileInput.value = '';
         };
-
         file = fileInput.files[0];
         reader.readAsText(file);
     });
 }
-
 function refresh_world_selector() {
     "use strict";
     var badges, menu, prog_method, world_name, options = $("#select-world")[0].options;
@@ -12494,7 +11949,6 @@ function refresh_world_selector() {
         }
     }
 }
-
 /** @function unmark_task
  * @memberof RUR
  * @instance
@@ -12524,8 +11978,6 @@ RUR.unmark_task = function (name) {
     update_name_in_world_selector(name, remove);
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
 };
-
-
 record_id('save-progress-btn', "SAVE PROGRESS");
 record_id('import-progress-btn', "IMPORT PROGRESS");
 record_id('retrieve-solution-btn', "RETRIEVE SOLUTION")
@@ -12558,7 +12010,6 @@ RUR.library_separator = function () {  // also used in keyboard_shortcuts.js
     "\n# " + RUR.translate("Library Code is below.") +  
     "\n################################################################\n";
 }
-
 // save solution for a given world
 function save_user_solution () {
     var prog_method;
@@ -12591,7 +12042,6 @@ function save_user_solution () {
     }
 
 }
-
 // retrieves user solution if it is found
 retrieve_user_solution = function () {
     "use strict";
@@ -12628,7 +12078,6 @@ retrieve_user_solution = function () {
             return;  
     }
 }
-
 },{"../listeners/onclick.js":20,"../rur.js":44,"../utils/key_exist.js":66,"./../../lang/msg.js":95,"./../translator.js":46}],63:[function(require,module,exports){
 /*  Purpose of this file: abstract handling of menus so that all jQuery
     dependencies (and possibly obscure syntax in some cases) can be pulled
@@ -12666,21 +12115,17 @@ RUR.world_selector = {};
 RUR.world_selector.update = function () {
     $("#select-world").change();
 };
-
 RUR.world_selector.empty_menu = function () {
     $("#select-world").html('');
 };
-
 RUR.world_selector.set_default = function () {
     document.getElementById("select-world").selectedIndex = 0;
     $("#select-world").change();
 };
-
 RUR.world_selector.set_url = function (url) {
     $('#select-world').val(url);
     $("#select-world").change();
 };
-
 RUR.world_selector.get_selected = function () {
     "use strict";
     var select, index, url, shortname;
@@ -12695,7 +12140,6 @@ RUR.world_selector.get_selected = function () {
     }
     return {url:url, shortname:shortname};
 };
-
 RUR.world_selector.url_from_shortname = function (shortname) {
     // if exists, returns the corresponding url
     "use strict";
@@ -12715,7 +12159,6 @@ RUR.world_selector.url_from_shortname = function (shortname) {
     }
     return undefined;
 };
-
 RUR.world_selector.replace_shortname = function (url, shortname) {
     "use strict";
     var i, select;
@@ -12730,7 +12173,6 @@ RUR.world_selector.replace_shortname = function (url, shortname) {
     }
     return false;
 };
-
 RUR.world_selector.append_world = function (arg) {
     "use strict";
     var option_elt, url, shortname;
@@ -12761,7 +12203,6 @@ RUR.world_selector.append_world = function (arg) {
         $('#select-world').append( $(option_elt).val(url).html(shortname));
     }
 };
-
 },{"../permalink/permalink.js":21,"../rur.js":44,"./../../lang/msg.js":95,"./user_progress.js":62}],64:[function(require,module,exports){
 ;
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
@@ -12820,7 +12261,6 @@ exports.identical = identical = function (a, b) {
             };
         });
     }
-
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
 
@@ -12839,7 +12279,6 @@ RUR.utils.ensure_key_for_obj_exists = function(obj, key){
         throw Error("Expected an object in RUR.utils.ensure_key_for_obj_exists.");
     }
 };
-
 RUR.utils.ensure_key_for_array_exists = function(obj, key){
     "use strict";
     if (obj[key] === undefined){
@@ -12848,7 +12287,6 @@ RUR.utils.ensure_key_for_array_exists = function(obj, key){
         throw Error("Expected an array in RUR.utils.ensure_key_for_array_exists.");
     }
 };
-
 },{"./../rur.js":44}],67:[function(require,module,exports){
 require("./../rur.js");
 var random = require("./../utils/random.js");
@@ -12876,7 +12314,6 @@ function set_custom_palette(user_palette, maze){
         maze.palette[key] = user_palette[key];
     }
 }
-
 function color_tile(color, x, y) {
     // accept either background tile or color for flexibility
     var maze = RUR.get_current_world().maze;
@@ -12889,7 +12326,6 @@ function color_tile(color, x, y) {
         RUR.add_colored_tile(color, x, y);
     }
 }
-
 function update_color(x, y) {
     "use strict";
     // update color at location based on characteristics:
@@ -12938,7 +12374,6 @@ function update_color(x, y) {
     }
     color_tile(color, x, y);
 }
-
 /** @function in_room
  * @memberof RUR
  * @instance
@@ -12960,8 +12395,6 @@ RUR.in_room = function (x, y, rooms) {
     }
     return false;
 };
-
-
 /** @function delete_maze_info
  * @memberof RUR
  * @instance
@@ -12980,8 +12413,6 @@ RUR.delete_maze_info = function() {
         delete world.maze[arguments[i]];
     }
 };
-
-
 function open_single_door(x, y, room, direction) {
     "use strict";
     if (direction == "west") {
@@ -13001,8 +12432,6 @@ function open_single_door(x, y, room, direction) {
     }
 
 }
-
-
 function open_doors(room, nb_doors_goal) {
     "use strict";
     var directions, i, x, y, open = 0, door;
@@ -13021,7 +12450,6 @@ function open_doors(room, nb_doors_goal) {
         }
     }
 }
-
 function fit_non_overlapping_rooms(world_width, world_height) {
     /* Given a goal of N rooms, makes 5*N^2 attempt to randomly find spaces
        for putting rooms that are entirely contained with the world and
@@ -13072,14 +12500,12 @@ function fit_non_overlapping_rooms(world_width, world_height) {
         }
     }
 }
-
 function init_maze(world) {
     world.maze = {};
     world.maze.rooms = [];
     world.maze.start = {};
     world.maze.palette = {};
 }
-
 /** @function create_maze
  * @memberof RUR
  * @instance
@@ -13192,7 +12618,6 @@ RUR.create_maze = function (max_x, max_y, options) {
     RUR._recording_(true);
     RUR.record_frame("create_maze", "completed");
 };
-
 function fill_walls(max_x, max_y) {
     "use strict";
     var x, y;
@@ -13207,7 +12632,6 @@ function fill_walls(max_x, max_y) {
         RUR.add_wall("north", max_x, y);
     }
 }
-
 /**@function fill_walls
  * @memberof RUR
  * @instance
@@ -13224,7 +12648,6 @@ RUR.fill_walls = function() {
     RUR._recording_(recording_state);
     RUR.record_frame("fill_walls");
 };
-
 function make_room(room, vis) {
     "use strict";
     var i, j, in_room_color, recording_state, x, y, x_max, y_max, world;
@@ -13263,8 +12686,6 @@ function make_room(room, vis) {
     vis[x_max-2][y_max-2] = true;
     RUR._recording_(recording_state);
 }
-
-
 /* Depth-first search wall removal
 
     See https://en.wikipedia.org/wiki/Maze_generation_algorithm
@@ -13313,8 +12734,6 @@ function remove_walls_dfs(w, h, maze){
     maze.start.y = y_init+1;
     walk(x_init, y_init, vis);
 }
-
-
 function walk(x, y, vis){
     var i, d, dd, xx, yy, recording_state;
     vis[x][y] = true; // 4. add start cell to visited
@@ -13347,7 +12766,6 @@ function walk(x, y, vis){
         walk(xx, yy, vis); // recursive call; push ahead
     }
 } // end recursive call, effectively backtrack
-
 },{"./../rur.js":44,"./../utils/random.js":69}],68:[function(require,module,exports){
 /* Path utilities useful for world creators */
 
@@ -13389,7 +12807,6 @@ RUR.print_path = function () {
     path = compute_path(x_init, y_init, history);
     RUR._write_ln(path);
 };
-
 function compute_path(x_init, y_init, history) {
     var i, x, y, prev_x, prev_y, path;
 
@@ -13408,7 +12825,6 @@ function compute_path(x_init, y_init, history) {
     }
     return path;
 }
-
 /** @function check_path
  * @memberof RUR
  * @instance
@@ -13513,8 +12929,6 @@ RUR.check_path = function (desired_path, options) {
     }
     return false;
 };
-
-
 /** @function show_path
  * @memberof RUR
  * @instance
@@ -13542,7 +12956,6 @@ RUR.show_path = function (path, color) {
     }
     RUR.record_frame("show_path");
 };
-
 },{"./../drawing/visible_world.js":10,"./../rur.js":44,"./../ui/user_progress.js":62}],69:[function(require,module,exports){
 function randint(max) {
     // returns integer between 0 and max-1
@@ -13588,7 +13001,6 @@ function set_custom_palette(user_palette, container){
         container.palette[key] = user_palette[key];
     }
 }
-
 /** @constructor Deque
  * @memberof RUR
  *
@@ -13612,11 +13024,9 @@ RUR.Deque = function (no_colors) {
             this.set_color(this.palette["on_frontier"], item);
         }
     };
-
     this.set_palette = function (palette) {
         set_custom_palette(palette, this);
     };
-
     this.get_last = function() {
         var item = this.array.pop();
         if (this.use_colors) {
@@ -13625,7 +13035,6 @@ RUR.Deque = function (no_colors) {
         this.previous_item = item;
         return item;
     };
-
     this.get_first = function() {
         var item = this.array.shift();
         if (this.use_colors) {
@@ -13634,17 +13043,14 @@ RUR.Deque = function (no_colors) {
         this.previous_item = item;
         return item;
     };
-
     this.is_empty = function () {
         return this.array.length === 0;
     };
-
     this.mark_done = function (item) {
         if (this.use_colors) {
             this.set_color(this.palette["done"], item);
         }
     };
-
     this.set_color = function(color, item) {
         var x=item[0], y=item[1], recording_state;
         recording_state = RUR._recording_(false);
@@ -13662,13 +13068,10 @@ RUR.Deque = function (no_colors) {
         RUR.record_frame();
     };
 };
-
 // To be called from Python
 RUR.create_deque = function(no_colors) {
     return new RUR.Deque(no_colors);
 };
-
-
 /**---------------------------- */
 
 /** @constructor PriorityQueue
@@ -13706,11 +13109,9 @@ RUR.PriorityQueue = function (no_colors) {
             this.set_color(this.palette["on_frontier"], node);
         }
     };
-
     this.set_palette = function (palette) {
         set_custom_palette(palette, this);
     };
-
     this.get_best = function() {
         var item = this.array.pop();
         if (this.use_colors) {
@@ -13718,17 +13119,14 @@ RUR.PriorityQueue = function (no_colors) {
         }
         return item[0];
     };
-
     this.is_empty = function () {
         return this.array.length === 0;
     };
-
     this.mark_done = function (node) {
         if (this.use_colors) {
             this.set_color(this.palette["done"], node);
         }
     };
-
     this.set_color = function(color, node) {
         var x=node[0], y=node[1], recording_state;
         recording_state = RUR._recording_(false);
@@ -13746,13 +13144,10 @@ RUR.PriorityQueue = function (no_colors) {
         RUR.record_frame();
     };
 };
-
 // To be called from Python
 RUR.create_priority_queue = function(no_colors) {
     return new RUR.PriorityQueue(no_colors);
 };
-
-
 // get neighbours when direction is unimportant
 
 function get_neighbours_around (current, ignore_walls, ordered, robot_body) {
@@ -13790,7 +13185,6 @@ function get_neighbours_around (current, ignore_walls, ordered, robot_body) {
     }
     return neighbours;
 }
-
 /* for get_neighbours_turn_left, we define a neighbour as either the node
    immediately in front **or** the same node but turning left.
 */
@@ -13850,8 +13244,6 @@ function get_neighbours_turn_left (current, ignore_walls, ordered, robot_body) {
 
     return neighbours;
 }
-
-
 /** @constructor Graph
  * @memberof RUR
  *
@@ -13890,7 +13282,6 @@ RUR.Graph = function (options) {
             return get_neighbours_around(current, this.ignore_walls, this.ordered, this.robot_body);
         }
     };
-
     this.cost = function(current, neighbour) {
         var action, x, y, to_x, to_y;
         x = current[0];
@@ -13915,9 +13306,7 @@ RUR.Graph = function (options) {
             throw new RUR.ReeborgError("Unknown action in RUR.Graph.cost");
         }
     };
-
 };
-
 function get_turn (current, neighbour) {
     "use strict";
     var direction, to_direction;
@@ -13964,13 +13353,10 @@ function get_turn (current, neighbour) {
             throw new RUR.ReeborgError("Unknown direction in get_turn() [search.js]");
     }
 }
-
-
 // To be called from Python
 RUR.create_graph = function(options) {
     return new RUR.Graph(options);
 };
-
 },{"./../programming_api/commands.js":26,"./../rur.js":44,"./../utils/random.js":69,"./../world_api/is_fatal.js":79,"./../world_api/walls.js":85}],71:[function(require,module,exports){
 // adapted from http://javascript.crockford.com/remedial.html
 
@@ -13985,7 +13371,6 @@ String.prototype.supplant = function (o) {
         }
     );
 };
-
 },{}],72:[function(require,module,exports){
 
 require("./../rur.js");
@@ -13993,15 +13378,12 @@ require("./../rur.js");
 _is_integer = function(n) {
     return typeof n==='number' && (n%1)===0;
 };
-
 _is_non_negative_integer = function (n) {
     return typeof n==='number' && (n%1)===0 && n>=0;
 };
-
 _is_positive_integer = function (n) {
     return typeof n==='number' && (n%1)===0 && n>=1;
 };
-
 RUR.is_integer = _is_integer;
 RUR.is_non_negative_integer = _is_non_negative_integer;
 RUR.is_positive_integer = _is_positive_integer;
@@ -14025,8 +13407,6 @@ RUR.is_valid_position = function(x, y) {
     return (_is_positive_integer(x) && _is_positive_integer(y) &&
            x <= world.cols && y <= world.rows);
 };
-
-
 /* filterInt taken from
 https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 
@@ -14046,7 +13426,6 @@ RUR.utils.filterInt = function (value) {
   }
   return undefined;
 };
-
 },{"./../rur.js":44}],73:[function(require,module,exports){
 /* This file contains methods used to create animated images by creating
    the appropriate selection sequence from a list of images.
@@ -14083,14 +13462,11 @@ RUR.animate_images = function (obj) {
         };
     }
 };
-
-
 function _random (obj, nb) {
     // each animated image is given a random value at all iteration
     var choice = Math.floor(Math.random() * nb);
     return obj["image" + choice];
 }
-
 function _ordered (obj, nb, id) {
     // each animated image is given a random initial value but then goes in order
     if (RUR._ORDERED[obj.name] === undefined) {
@@ -14104,7 +13480,6 @@ function _ordered (obj, nb, id) {
     }
     return obj["image" + RUR._ORDERED[obj.name][id]];
 }
-
 function _cycle_stay (obj, nb, id) {
     // each animated image starts with its first image,
     // cycles through all the values once, displaying the last
@@ -14120,7 +13495,6 @@ function _cycle_stay (obj, nb, id) {
     }
     return obj["image" + RUR._CYCLE_STAY[obj.name][id]];
 }
-
 function _cycle_remove (obj, nb, id) {
     // each animated image starts with its first image,
     // cycles through all the values once, and, after displaying the last
@@ -14139,7 +13513,6 @@ function _cycle_remove (obj, nb, id) {
     }
     return obj["image" + RUR._CYCLE_REMOVE[obj.name][id]];
 }
-
 function _sync (obj, nb, id) {
     // every animated image of this type is kept in sync
     if (RUR._SYNC[obj.name] === undefined) {
@@ -14154,7 +13527,6 @@ function _sync (obj, nb, id) {
     RUR._SYNC[obj.name].push(id);
     return obj["image" + RUR._SYNC_VALUE[obj.name]];
 }
-
 },{"./../rur.js":44}],74:[function(require,module,exports){
 /*  This file contains generic methods called by more specialized methods
     used to create worlds.
@@ -14185,7 +13557,6 @@ function ensure_valid_position(args) {
             RUR.translate("Invalid position.").supplant({pos:position}));
     }
 }
-
 function ensure_common_required_args_present(args) {
     "use strict";
     ensure_valid_position(args);
@@ -14201,7 +13572,6 @@ function ensure_common_required_args_present(args) {
         }
      }
 }
-
 RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
 
 
@@ -14296,8 +13666,6 @@ RUR._add_artefact = function (args) {
         }
     }
 };
-
-
 /* @function _get_artefacts
  * @memberof RUR
  * @instance
@@ -14363,8 +13731,6 @@ RUR._get_artefacts = function(args) {
     // return a copy so that we cannot accidently modify the original object.
     return JSON.parse(JSON.stringify(container));
 };
-
-
 /* @function _get_nb_artefact
  * @memberof RUR
  * @instance
@@ -14439,7 +13805,6 @@ RUR._get_nb_artefact = function(args) {
         throw new RUR.ReeborgError("Unknown container type; need Object or Array");
     }
 };
-
 /* @function _remove_artefact
  * @memberof RUR
  * @instance
@@ -14553,7 +13918,6 @@ RUR._remove_artefact = function (args) {
         }
     }
 };
-
 /* @function _set_nb_artefact
  * @memberof RUR
  * @instance
@@ -14630,7 +13994,6 @@ RUR._set_nb_artefact = function (args) {
         }
     }
 };
-
 },{"./../programming_api/exceptions.js":28,"./../rur.js":44,"./../translator.js":46,"./../utils/key_exist.js":66,"./../utils/supplant.js":71,"./../utils/validator.js":72}],75:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
@@ -14657,7 +14020,6 @@ RUR.set_background = function (url) {
     RUR.record_frame("RUR.set_background", url);
 
 };
-
 /** @function clear_background
  * @memberof RUR
  * @instance
@@ -14670,8 +14032,6 @@ RUR.clear_background = function() {
     world.tiles = {};
     RUR.record_frame("RUR.clear_background");
 };
-
-
 /** @function fill_background
  * @memberof RUR
  * @instance
@@ -14699,8 +14059,6 @@ RUR.fill_background = function(name) {
     RUR._recording_(recording_state);
     RUR.record_frame("RUR.fill_background", name);
 };
-
-
 /** @function add_background_tile
  * @memberof RUR
  * @instance
@@ -14724,7 +14082,6 @@ RUR.add_background_tile = function (name, x, y) {
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_background_tile", args);
 };
-
 /** @function add_colored_tile
  * @memberof RUR
  * @instance
@@ -14758,8 +14115,6 @@ RUR.add_colored_tile = function (color, x, y) {
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_colored_tile", args);
 };
-
-
 /** @function add_background_path
  * @memberof RUR
  * @instance
@@ -14790,8 +14145,6 @@ RUR.add_background_path = function(name, path) {
     RUR._recording_(recording_state);
     RUR.record_frame("RUR.add_background_path", {name:name, path: path});
 };
-
-
 /** @function remove_background_tile
  * @memberof RUR
  * @instance
@@ -14821,8 +14174,6 @@ RUR.remove_background_tile = function (name, x, y) {
     }
     RUR.record_frame("RUR.remove_background_tile", args);
 };
-
-
 /** @function get_background_tile
  * @memberof RUR
  * @instance
@@ -14851,8 +14202,6 @@ RUR.get_background_tile = function (x, y) {
         return RUR.translate(tiles[0]);
     }
 };
-
-
 /** @function is_background_tile
  * @memberof RUR
  * @instance
@@ -14891,9 +14240,6 @@ RUR.is_background_tile = function (name, x, y) {
         return false;
     }
 };
-
-
-
 },{"./../recorder/record_frame.js":38,"./../rur.js":44,"./../translator.js":46,"./../utils/key_exist.js":66,"./../utils/validator.js":72,"./artefact.js":74}],76:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
@@ -14935,7 +14281,6 @@ RUR.add_bridge = function (name, x, y) {
     RUR._add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
-
 /** @function remove_bridge
  * @memberof RUR
  * @instance
@@ -14961,8 +14306,6 @@ RUR.remove_bridge = function (name, x, y) {
     }
     RUR.record_frame("RUR.remove_bridge", args);
 };
-
-
 /** @function get_bridge
  * @memberof RUR
  * @instance
@@ -14987,7 +14330,6 @@ RUR.get_bridge = function (x, y) {
         return RUR.translate(tile[0]);
     }
 };
-
 /** @function is_bridge
  * @memberof RUR
  * @instance
@@ -15005,8 +14347,6 @@ RUR.get_bridge = function (x, y) {
 RUR.is_bridge = function (name, x, y) {
     return RUR.get_bridge(x, y) == name;
 };
-
-
 /** @function get_bridge_protections
  * @memberof RUR
  * @instance
@@ -15038,7 +14378,6 @@ RUR.get_bridge_protections = function (x, y) {
         return [];
     }
 };
-
 },{"./../recorder/record_frame.js":38,"./../rur.js":44,"./../translator.js":46,"./../utils/key_exist.js":66,"./../utils/validator.js":72,"./artefact.js":74}],77:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
@@ -15070,7 +14409,6 @@ RUR.transform_tile = function (name, x, y) {
         }
     }
 };
-
 function conditions_satisfied (conditions, x, y) {
     "use strict";
     var c, cond, fn, name;
@@ -15099,7 +14437,6 @@ function conditions_satisfied (conditions, x, y) {
     throw new RUR.ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
 }
-
 function do_transformations (actions, x, y) {
     "use strict";
     var a, act, fn, name;
@@ -15121,7 +14458,6 @@ function do_transformations (actions, x, y) {
         throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
 }
-
 },{"./../recorder/record_frame.js":38,"./../rur.js":44,"./../utils/key_exist.js":66,"./../utils/validator.js":72,"./artefact.js":74,"./background_tile.js":75,"./obstacles.js":81}],78:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
@@ -15161,8 +14497,6 @@ RUR.add_decorative_object = function (name, x, y) {
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_decorative_object", args);
 };
-
-
 /** @function remove_decorative_object
  * @memberof RUR
  * @instance
@@ -15192,8 +14526,6 @@ RUR.remove_decorative_object = function (name, x, y) {
     }
     RUR.record_frame("RUR.remove_decorative_object", args);
 };
-
-
 /** @function get_decorative_objects
  * @memberof RUR
  * @instance
@@ -15222,7 +14554,6 @@ RUR.get_decorative_objects = function (x, y) {
     }
     return result;
 };
-
 /** @function is_decorative_object
  * @memberof RUR
  * @instance
@@ -15244,8 +14575,6 @@ RUR.is_decorative_object = function (name, x, y) {
     args = {name: name, x:x, y:y, type:"decorative_objects"};
     return RUR._get_nb_artefact(args) == 1;
 };
-
-
 },{"./../recorder/record_frame.js":38,"./../rur.js":44,"./../translator.js":46,"./../utils/key_exist.js":66,"./../utils/validator.js":72,"./artefact.js":74}],79:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
@@ -15283,7 +14612,6 @@ RUR.get_protections = function (robot) {
 
     return protections;
 };
-
 /** @function is_fatal_position
  * @memberof RUR
  * @instance
@@ -15338,8 +14666,6 @@ RUR.is_fatal_position = function (x, y, robot){
     // nothing fatal was found
     return false;
 };
-
-
 /** @function is_detectable_position
  * @memberof RUR
  * @instance
@@ -15377,7 +14703,6 @@ RUR.is_detectable_position = function (x, y){
     }
     return false;
 };
-
 },{"./../rur.js":44,"./../translator.js":46,"./background_tile.js":75,"./bridges.js":76,"./obstacles.js":81}],80:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
@@ -15450,8 +14775,6 @@ RUR.add_object = function (name, x, y, options) {
     }
     RUR.record_frame("RUR.add_object", args);
 };
-
-
 /** @function remove_object
  * @memberof RUR
  * @instance
@@ -15499,8 +14822,6 @@ RUR.remove_object = function (name, x, y, options) {
     RUR.utils.ensure_key_for_obj_exists(world, "objects");
     RUR.record_frame("RUR.remove_object", args);
 };
-
-
 /** @function get_objects
  * @memberof RUR
  * @instance
@@ -15546,8 +14867,6 @@ RUR.get_objects = function (x, y, options) {
     }
     return obj;
 };
-
-
 /** @function is_object
  * @memberof RUR
  * @instance
@@ -15582,14 +14901,11 @@ RUR.is_object = function (name, x, y, options) {
         return true;
     }
 };
-
-
 /* The following is deprecated. Some worlds may have been created
   using it (e.g. in Vincent Maille's book) */
 RUR.add_object_at_position = function(name, x, y, number) { // Vincent Maille's book
     RUR.add_object(name, x, y, {number:number});
 };
-
 },{"./../recorder/record_frame.js":38,"./../rur.js":44,"./../utils/key_exist.js":66,"./../utils/validator.js":72,"./artefact.js":74}],81:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
@@ -15631,8 +14947,6 @@ RUR.add_obstacle = function (name, x, y) {
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
-
-
 /** @function remove_obstacle
  * @memberof RUR
  * @instance
@@ -15660,8 +14974,6 @@ RUR.remove_obstacle = function (name, x, y) {
     RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
-
-
 /** @function is_obstacle
  * @memberof RUR
  * @instance
@@ -15685,8 +14997,6 @@ RUR.is_obstacle = function (name, x, y) {
         return false;
     }
 };
-
-
 /** @function get_obstacles
  * @memberof RUR
  * @instance
@@ -15714,7 +15024,6 @@ RUR.get_obstacles = function (x, y) {
     }
     return result;
 };
-
 /** @function is_solid_obstacle
  * @memberof RUR
  * @instance
@@ -15741,7 +15050,6 @@ RUR.is_solid_obstacle = function (x, y) {
     }
     return false;
 };
-
 },{"./../recorder/record_frame.js":38,"./../rur.js":44,"./../translator.js":46,"./../utils/key_exist.js":66,"./../utils/validator.js":72,"./artefact.js":74}],82:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
@@ -15787,8 +15095,6 @@ RUR.add_pushable = function (name, x, y, options) {
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
 };
-
-
 /** @function remove_pushable
  * @memberof RUR
  * @instance
@@ -15819,8 +15125,6 @@ RUR.remove_pushable = function (name, x, y, options) {
     }
     RUR.record_frame("RUR.remove_pushable", args);
 };
-
-
 /** @function get_pushable
  * @memberof RUR
  * @instance
@@ -15849,8 +15153,6 @@ RUR.get_pushable = function (x, y, options) {
         return RUR.translate(tiles[0]);
     }
 };
-
-
 /** @function is_pushable
  * @memberof RUR
  * @instance
@@ -15874,8 +15176,6 @@ RUR.is_pushable = function (name, x, y, options) {
     }
     return name == RUR.get_pushable(x, y, options);
 };
-
-
 // This function is kept private as it should not need to be used when
 // creating worlds.
 RUR._push_pushable = function (name, from_x, from_y, to_x, to_y) {
@@ -15901,8 +15201,6 @@ RUR.add_robot = function (robot) {
     world.robots.push(robot);
     RUR.record_frame("RUR.add_robot", robot.__id);
 };
-
-
 /** @function is_robot
  * @memberof RUR
  * @instance
@@ -15938,7 +15236,6 @@ RUR.add_robot = function (robot) {
     }
     return false;
  };
-
  /** @function get_robot_body_by_id
  *
  * @memberof RUR
@@ -15986,7 +15283,6 @@ RUR.get_robot_body_by_id = function (id) {
     }
     return null;
  };
-
  /** @function get_robot_by_id
  *
  * @memberof RUR
@@ -16024,7 +15320,6 @@ RUR.get_robot_by_id = function (id) {
         return robot;
     }
  };
-
  /** @function get_robot_location
  *
  * @memberof RUR
@@ -16078,8 +15373,6 @@ RUR.get_robot_location = function (robot_body) {
     }
     return {x:robot_body.x, y:robot_body.y, orientation:orientation};
 };
-
-
  /** @function get_position_in_front
  *
  * @memberof RUR
@@ -16138,7 +15431,6 @@ RUR.get_position_in_front = function (robot_body) {
     }
 
 };
-
  /** @function add_final_position
  *
  * @memberof RUR
@@ -16190,7 +15482,6 @@ RUR.add_final_position = function (name, x, y) {
     goal.possible_final_positions.push([x, y]);
     RUR.record_frame("add_final_position", {name:name, x:x, y:y});
 };
-
  /** @function add_initial_position
  *
  * @memberof RUR
@@ -16240,8 +15531,6 @@ RUR.add_initial_position = function (x, y) {
     robot.possible_initial_positions.push([x, y]);
     RUR.record_frame("add_initial_position", {x:x, y:y});
 };
-
-
  /** @function remove_initial_position
  *
  * @memberof RUR
@@ -16293,9 +15582,6 @@ RUR.remove_initial_position = function (x, y) {
     robot.possible_initial_positions = new_positions;
     RUR.record_frame("remove_initial_position", {x:x, y:y});
 };
-
-
-
 // TODO: try to set it in the middle of a program to have Reeborg being "dizzy".
  /** @function set_random_orientation
  *
@@ -16448,7 +15734,6 @@ RUR.add_new_thing = function (thing) {
         create_images(thing.goal);
     }
 };
-
 function create_images(obj) {
     if (obj.url) {
         obj.image = new Image();
@@ -16460,7 +15745,6 @@ function create_images(obj) {
         throw new RUR.ReeborgError("Fatal error: need either thing.url or a list [thing.images]");
     }
 }
-
 /** @function show_all_things
  * @memberof RUR
  * @instance
@@ -16541,7 +15825,6 @@ RUR.show_all_things = function (property) {
     RUR._print_html_(info, true); // true will replace existing content
     return null; // for the python repl
 };
-
 /** @function has_property
  * @memberof RUR
  * @instance
@@ -16572,7 +15855,6 @@ RUR.has_property = function (name, property) {
         return true;
     }
 };
-
 /** @function get_property
  * @memberof RUR
  * @instance
@@ -16611,15 +15893,12 @@ RUR.get_property = function (name, property) {
         return property;
     }
 };
-
 // Internal function used with name already translated into English;
 // we undo the translation to avoid having a warning for a missing
 // translation logged in the browser console.
 RUR._get_property = function (name, property) {
     return RUR.get_property(RUR.translate(name), property);
 };
-
-
 /*=============================
 /
 /   Deprecated methods below; likely used in Vincent Maille's book
@@ -16694,8 +15973,6 @@ RUR.add_wall = function(orientation, x, y, options) {
     RUR._add_artefact(args);
     RUR.record_frame("add_wall", args);
 };
-
-
 /** @function get_walls
  * @memberof RUR
  * @instance
@@ -16727,8 +16004,6 @@ RUR.get_walls = function(x, y, options) {
     }
     return walls;
 };
-
-
 /** @function is_wall
  * @memberof RUR
  * @instance
@@ -16753,7 +16028,6 @@ RUR.is_wall = function(orientation, x, y, options) {
     }
     return RUR._is_wall(RUR.translate_to_english(orientation), x, y, options);
 };
-
 /* private version; works with English arguments */
 RUR._is_wall = function(orientation, x, y, options) {
     var args;
@@ -16775,9 +16049,6 @@ RUR._is_wall = function(orientation, x, y, options) {
         return true;
     }
 };
-
-
-
 // private helper function
 // perform argument checks and returns
 // true if a wall of a specified orientation is found at a given
@@ -16791,8 +16062,6 @@ function is_boundary_wall(orientation, x, y) {
     }
     return false;
 }
-
-
 /** @function remove_wall
  * @memberof RUR
  * @instance
@@ -16831,7 +16100,6 @@ RUR.remove_wall = function(orientation, x, y, options) {
     RUR.utils.ensure_key_for_obj_exists(world, "walls");
     RUR.record_frame("remove_wall", args);
 };
-
 function convert_position (orientation, x, y) {
     var _x, _y, _orientation;
     switch (orientation){
@@ -16860,7 +16128,6 @@ function convert_position (orientation, x, y) {
     }
     return {name:_orientation, x:_x, y:_y};
 }
-
 },{"./../programming_api/exceptions.js":28,"./../recorder/record_frame.js":38,"./../rur.js":44,"./../translator.js":46,"./../utils/key_exist.js":66,"./../utils/supplant.js":71,"./../utils/validator.js":72,"./artefact.js":74}],86:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
@@ -16881,13 +16148,9 @@ RUR.world_get = {};
 RUR.world_get.object_at_robot_position = function (robot, obj) { // TODO: still needed or move elsewhere?
     return object_of_type_here(robot, obj, RUR.get_current_world().objects);
 };
-
-
 function goal_to_achieve() {
     return "<h3>" + RUR.translate("Goal to achieve:") + "</h3>";
 }
-
-
 function difficulty(level) {
     var image_src, begin, i, robots;
     image_src = '<img src = "' + RUR.BASE_URL + '/src/images/transparent_robot.png"';
@@ -16908,8 +16171,6 @@ function difficulty(level) {
 
     return begin + robots + '</div>';
 }
-
-
 function object_of_type_here (robot, obj, object_type) {
     // object_type == RUR.get_current_world().objects or RUR.get_current_world().decorative_objects
     var obj_here, obj_type, all_objects;
@@ -16940,7 +16201,6 @@ function object_of_type_here (robot, obj, object_type) {
         return all_objects;
     }
 }
-
 /** @function show_editors_content
  * @memberof RUR
  * @instance
@@ -16956,8 +16216,6 @@ RUR.show_editors_content = function (show) {
     RUR.SHOW_EDITORS_CONTENTS = show;
     RUR.world_get.world_info();
 };
-
-
 RUR.world_get.world_info = function (show_info_at_location) {
     "use strict";
     // Shows the world information, as included in the description editor.
@@ -17172,8 +16430,6 @@ RUR.world_get.world_info = function (show_info_at_location) {
     });
 
 };
-
-
 function get_info_about_location() {
     /* finds all the relevant information about a location where the
        user has clicked. */
@@ -17321,7 +16577,6 @@ function get_info_about_location() {
 
     return grid_info + '</div>';
 }
-
 $(document).ready(function () {
  RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:600, width:800}, RUR.world_get.world_info);
@@ -17343,7 +16598,6 @@ RUR.show_description = function () {
         $("#world-info-button").click();
     }
 };
-
 },{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":28,"./../rur.js":44,"./../translator.js":46,"./../utils/supplant.js":71,"./../world_api/background_tile.js":75,"./../world_api/things.js":84}],87:[function(require,module,exports){
 require("./../rur.js");
 
@@ -17437,7 +16691,6 @@ RUR.world_utils.import_world = function (json_string) {
     process_onload();
     RUR.world_get.world_info();
 };
-
 function show_onload_feedback (e, lang) {
     var lang_info;
     if (lang == "python") {
@@ -17452,7 +16705,6 @@ function show_onload_feedback (e, lang) {
         RUR.translate("Problem with onload code.") + "<pre>" +
         RUR.CURRENT_WORLD.onload + "</pre>");
 }
-
 process_onload = function () {
     var src, ignore;
 
@@ -17595,7 +16847,6 @@ function convert_old_worlds () {
     }
 
 }
-
 },{"./../drawing/visible_world.js":10,"./../editors/create.js":11,"./../programming_api/exceptions.js":28,"./../robot/robot.js":41,"./../rur.js":44,"./../translator.js":46,"./../ui/edit_robot_menu.js":49,"./../world_api/animated_images.js":73,"./create_empty_world.js":87}],89:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
@@ -17846,14 +17097,12 @@ __record_id = function(id){
         _recorded_ids.push(id);
     }
 };
-
 record_id = function (id, text) {
     __record_id(id);
     if (text !== undefined) {
         _text_elements.push([id, text]);
     }
 };
-
 record_value = function (id, text) {
     __record_id(id);
     _value_names.push([id, text]);
@@ -17870,8 +17119,6 @@ record_title = function (id, text) {
     __record_id(id);
     _elements_titles.push([id, text]);
 };
-
-
 update_ui = function (lang) {
     "use strict";
     var i, id, msg;
@@ -17899,7 +17146,6 @@ update_ui = function (lang) {
     }
     update_titles();
 };
-
 update_titles = function () {
     "use strict";
     var i, id, msg;
@@ -17909,7 +17155,6 @@ update_titles = function () {
         $(id).text(RUR.translate(msg));
     }
 };
-
 exports.update_ui = update_ui;
 exports.record_id = record_id;
 exports.update_titles = update_titles;
@@ -18849,7 +18094,6 @@ function inverse(obj){
   }
   return retobj;
 }
-
 de_to_en = inverse(en_to_de)
 
 },{}],100:[function(require,module,exports){
@@ -21257,6 +20501,5 @@ function inverse(obj){
   }
   return retobj;
 }
-
 pt_to_en = inverse(en_to_pt)
 },{}]},{},[16]);
