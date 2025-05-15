@@ -6080,9 +6080,8 @@ function set_initial_state() {
     if (RUR.file_io_status == "no link") {
         RUR.make_default_menu(RUR.state.human_language);
     }
-
+    
     RUR.state.creating_menu = false;
-
 }
 </t>
 <t tx="leo.20250424210323.131">function restore_blockly () {

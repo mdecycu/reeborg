@@ -3751,9 +3751,8 @@ function set_initial_menu(url_query) {
     if (RUR.file_io_status == "no link") {
         RUR.make_default_menu(RUR.state.human_language);
     }
-
+    
     RUR.state.creating_menu = false;
-
 }
 function restore_blockly () {
     try {
