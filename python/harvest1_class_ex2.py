@@ -1,0 +1,84 @@
+class Harvest:
+    def __init__(self, x1, y1, x2, y2, direction="horizontal"):
+        # 計算座標範圍
+        self.x_min = min(x1, x2)
+        self.x_max = max(x1, x2)
+        self.y_min = min(y1, y2)
+        self.y_max = max(y1, y2)
+        self.direction = direction
+
+    def turn_left_n(self, n):
+        for _ in range(n):
+            turn_left()
+    
+    def move_n(self, n):
+        for _ in range(n):
+            move()
+    
+    def harvest_one_cell(self):
+        while object_here():
+            take()
+    
+    def harvest_one_row(self, cells):
+        for i in range(cells):
+            self.harvest_one_cell()
+            if i < cells - 1:
+                move()
+
+    def move_to_field_horizontal(self):
+        # 水平採收: 到 (x_min, y_min)，面東
+        self.move_n(self.x_min - 1)
+        self.turn_left_n(1)
+        self.move_n(self.y_min - 1)
+        self.turn_left_n(3)  # 面東
+
+    def move_to_field_vertical(self):
+        # 垂直採收: 到 (x_min, y_min)，面北
+        self.move_n(self.x_min - 1)
+        self.turn_left_n(1)
+        self.move_n(self.y_min - 1)
+        # 此時面北，不轉向
+
+    def harvest_field(self):
+        if self.direction == "horizontal":
+            self.move_to_field_horizontal()
+            rows = self.y_max - self.y_min + 1
+            cols = self.x_max - self.x_min + 1
+            for r in range(rows):
+                self.harvest_one_row(cols)
+                if r < rows - 1:
+                    if r % 2 == 0:
+                        self.turn_left_n(1)
+                        move()
+                        self.turn_left_n(1)
+                    else:
+                        self.turn_left_n(3)
+                        move()
+                        self.turn_left_n(3)
+        elif self.direction == "vertical":
+            self.move_to_field_vertical()
+            cols = self.x_max - self.x_min + 1
+            rows = self.y_max - self.y_min + 1
+            for c in range(cols):
+                for i in range(rows):
+                    self.harvest_one_cell()
+                    if i < rows - 1:
+                        move()
+                if c < cols - 1:
+                    if c % 2 == 0:
+                        self.turn_left_n(3)
+                        move()
+                        self.turn_left_n(3)
+                    else:
+                        self.turn_left_n(1)
+                        move()
+                        self.turn_left_n(1)
+
+# 使用範例
+# 水平蛇形採收 (預設)
+#h1 = Harvest(3, 3, 8, 8)
+#h1.harvest_field()
+
+# 垂直蛇形採收
+h2 = Harvest(3, 3, 8, 8, direction="vertical")
+h2.harvest_field()
